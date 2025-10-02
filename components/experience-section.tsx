@@ -35,7 +35,7 @@ export default function ExperienceSection() {
     {
       title: "Junior Software Engineer (Intern)",
       company: "Gracify Technology Cameroun",
-      period: "July 2024 – Jan 2025",
+      period: "July 2024 – Nov 2024",
       description:
         "Assisted in building and maintaining web applications. Contributed to frontend development using modern frameworks and supported integration of AI-driven features.",
     },
