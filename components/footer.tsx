@@ -41,11 +41,13 @@ export function Footer() {
 
         {/* Badges */}
         <div className="flex flex-wrap justify-center gap-6 mb-8 pb-8 border-b border-border">
-          <div className="text-xs font-medium px-4 py-2 bg-white border border-border">AKC Registered</div>
-          <div className="text-xs font-medium px-4 py-2 bg-white border border-border">USDA Licensed</div>
-          <div className="text-xs font-medium px-4 py-2 bg-white border border-border">PayPal Verified</div>
-          <div className="text-xs font-medium px-4 py-2 bg-white border border-border">BBB Accredited</div>
+          <img src="partners/american-kennel.png" alt="AKC Registered" className="h-26" />
+          <img src="partners/trupanion.avif" alt="Trupanion Partners" className="h-26" />
+          <img src="partners/nuvetlab.png" alt="Nuvetlab Partners" className="h-26" />
+          <img src="partners/frenchies.webp" alt="Frenchies" className="h-26" />
         </div>
+
+
 
         {/* Legal Links */}
         <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
