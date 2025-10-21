@@ -35,7 +35,7 @@ export function Footer() {
 
           <div>
             <h3 className="font-bold text-lg mb-4">Location</h3>
-            <p className="text-sm">Portland, Oregon</p>
+            <p className="text-sm">Dallas, Texas</p>
           </div>
         </div>
 

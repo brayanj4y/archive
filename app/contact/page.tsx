@@ -106,7 +106,7 @@ export default function ContactPage() {
                   <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1">Location</h3>
-                    <p className="text-sm">Portland, Oregon</p>
+                    <p className="text-sm">Dallas, Texas</p>
                     <p className="text-xs text-muted-foreground mt-1">Visits by appointment only</p>
                   </div>
                 </div>
@@ -166,12 +166,12 @@ export default function ContactPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground mb-4">
-              We're based in Portland, Oregon. Visits are welcome by appointment. We also offer travel nanny services to
+              We're based in Dallas, Texas. Visits are welcome by appointment. We also offer travel nanny services to
               most U.S. cities.
             </p>
             <div className="h-[400px] border border-border">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d178939.97738289!2d-122.7997!3d45.5152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54950b0b7da97427%3A0x1c36b9e6f6d18591!2sPortland%2C%20OR!5e0!3m2!1sen!2sus!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d134243.6242823796!2d-96.889963!3d32.776664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864e9911c5f9d6e1%3A0x3a6c7f6b7e6e1c0!2sDallas%2C%20TX!5e0!3m2!1sen!2sus!4v1234567890"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

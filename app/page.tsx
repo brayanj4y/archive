@@ -153,7 +153,7 @@ export default function HomePage() {
             <AccordionItem value="item-6">
               <AccordionTrigger>French bulldog pups for sale near me?</AccordionTrigger>
               <AccordionContent>
-                We're located in Portland, Oregon, and offer travel nanny services to most U.S. cities. You can also
+                We're located in Dallas, Texas, and offer travel nanny services to most U.S. cities. You can also
                 pick up your puppy locally if you're in the area.
               </AccordionContent>
             </AccordionItem>
@@ -207,7 +207,7 @@ export default function HomePage() {
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground mb-2">February 3, 2023</p>
                 <p className="mb-4 text-pretty">
-                  "We purchased our 2nd puppy from WB on Sunday!! Easy transaction and beautiful puppies!!"
+                  "We purchased our 2nd puppy from CH on Sunday!! Easy transaction and beautiful puppies!!"
                 </p>
                 <p className="font-bold">— Jason Rowe</p>
               </CardContent>
@@ -216,8 +216,8 @@ export default function HomePage() {
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground mb-2">November 3, 2022</p>
                 <p className="mb-4 text-pretty">
-                  "I have three of the WB French bulldogs and couldn't be happier. They are all very healthy and have
-                  great temperaments. WB has been great at answering questions both before and after getting the puppies
+                  "I have three of the CH French bulldogs and couldn't be happier. They are all very healthy and have
+                  great temperaments. CH has been great at answering questions both before and after getting the puppies
                   on different occasions. If you are going to get a Frenchie definitely use these guys, my vet is very
                   impressed as well."
                 </p>
@@ -230,7 +230,7 @@ export default function HomePage() {
                 <p className="mb-4 text-pretty">
                   "Have to give a huge thank you to Nina for all her help and transparency through this entire process!
                   I received my beautiful little princess and couldn't be happier with her. She is super playful and
-                  energetic and we couldn't be happier. I would recommend WB French bulldogs to anyone!"
+                  energetic and we couldn't be happier. I would recommend CH French bulldogs to anyone!"
                 </p>
                 <p className="font-bold">— Jenny Ramirez</p>
               </CardContent>
@@ -244,9 +244,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-4">Located in Portland, OR</h2>
+              <h2 className="text-3xl font-bold mb-4">Located in Dallas, OR</h2>
               <p className="text-lg mb-6 text-pretty">
-                As a French Bulldog breeder based in Portland, Oregon, we offer travel nanny services to most U.S.
+                As a French Bulldog breeder based in Dallas, Texas, we offer travel nanny services to most U.S.
                 cities for a flat fee of $500 — or you're welcome to pick up locally if you're nearby or prefer a more
                 personal adoption experience.
               </p>
@@ -256,7 +256,7 @@ export default function HomePage() {
             </div>
             <div className="h-[400px] border border-border">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d178939.97738289!2d-122.7997!3d45.5152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54950b0b7da97427%3A0x1c36b9e6f6d18591!2sPortland%2C%20OR!5e0!3m2!1sen!2sus!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d134243.6242823796!2d-96.889963!3d32.776664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864e9911c5f9d6e1%3A0x3a6c7f6b7e6e1c0!2sDallas%2C%20TX!5e0!3m2!1sen!2sus!4v1234567890"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

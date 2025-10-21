@@ -44,7 +44,7 @@ export default function ShippingPage() {
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                Prefer a personal touch? Pick up your puppy directly from our location in Portland, OR.
+                Prefer a personal touch? Pick up your puppy directly from our location in Dallas, OR.
               </p>
               <ul className="space-y-2 text-sm">
                 <li>• No additional fees</li>
@@ -153,10 +153,10 @@ export default function ShippingPage() {
 
         <div className="bg-muted p-6 border border-border mb-8">
           <h3 className="font-bold mb-2">Location</h3>
-          <p className="text-sm mb-4">Portland, Oregon</p>
+          <p className="text-sm mb-4">Dallas, Texas</p>
           <div className="h-[300px] border border-border">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d178939.97738289!2d-122.7997!3d45.5152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54950b0b7da97427%3A0x1c36b9e6f6d18591!2sPortland%2C%20OR!5e0!3m2!1sen!2sus!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d134243.6242823796!2d-96.889963!3d32.776664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864e9911c5f9d6e1%3A0x3a6c7f6b7e6e1c0!2sDallas%2C%20TX!5e0!3m2!1sen!2sus!4v1234567890"
               width="100%"
               height="100%"
               style={{ border: 0 }}

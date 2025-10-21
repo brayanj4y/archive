@@ -33,12 +33,6 @@ export default function FraudulentBreedersPage() {
             <p className="mb-4">Be cautious if a breeder exhibits any of these warning signs:</p>
             <ul className="space-y-3">
               <li>
-                <h3 className="font-bold mb-1 text-red-600">Refuses Video Calls or In-Person Visits</h3>
-                <p className="text-sm text-muted-foreground">
-                  Legitimate breeders are proud to show their facilities and puppies via video or in person.
-                </p>
-              </li>
-              <li>
                 <h3 className="font-bold mb-1 text-red-600">Prices Too Good to Be True</h3>
                 <p className="text-sm text-muted-foreground">
                   French Bulldogs are expensive to breed. Extremely low prices often indicate scams or puppy mills.
@@ -48,12 +42,6 @@ export default function FraudulentBreedersPage() {
                 <h3 className="font-bold mb-1 text-red-600">Pressure to Pay Immediately</h3>
                 <p className="text-sm text-muted-foreground">
                   Scammers create urgency. Legitimate breeders give you time to make informed decisions.
-                </p>
-              </li>
-              <li>
-                <h3 className="font-bold mb-1 text-red-600">Only Accepts Wire Transfers or Cryptocurrency</h3>
-                <p className="text-sm text-muted-foreground">
-                  These payment methods offer no buyer protection. Reputable breeders accept secure payment options.
                 </p>
               </li>
               <li>
@@ -94,12 +82,6 @@ export default function FraudulentBreedersPage() {
           <CardContent>
             <p className="mb-4">Look for these positive indicators when choosing a breeder:</p>
             <ul className="space-y-3">
-              <li>
-                <h3 className="font-bold mb-1 text-green-600">Welcomes Visits and Questions</h3>
-                <p className="text-sm text-muted-foreground">
-                  Happy to show you their facilities, introduce parent dogs, and answer all questions.
-                </p>
-              </li>
               <li>
                 <h3 className="font-bold mb-1 text-green-600">Provides Complete Documentation</h3>
                 <p className="text-sm text-muted-foreground">
@@ -149,17 +131,6 @@ export default function FraudulentBreedersPage() {
                   1
                 </span>
                 <div>
-                  <h3 className="font-bold mb-1">Request a Video Call</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Ask for a live video tour of the facilities and to see the puppy in real-time.
-                  </p>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                  2
-                </span>
-                <div>
                   <h3 className="font-bold mb-1">Check Online Reviews</h3>
                   <p className="text-sm text-muted-foreground">
                     Search for reviews on Google, Facebook, and breed-specific forums.
@@ -168,7 +139,7 @@ export default function FraudulentBreedersPage() {
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                  3
+                  2
                 </span>
                 <div>
                   <h3 className="font-bold mb-1">Verify Business Registration</h3>
@@ -179,34 +150,12 @@ export default function FraudulentBreedersPage() {
               </li>
               <li className="flex gap-3">
                 <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                  4
+                  3
                 </span>
                 <div>
                   <h3 className="font-bold mb-1">Ask for References</h3>
                   <p className="text-sm text-muted-foreground">
                     Contact previous buyers and their veterinarians for feedback.
-                  </p>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                  5
-                </span>
-                <div>
-                  <h3 className="font-bold mb-1">Use Reverse Image Search</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Check if puppy photos appear elsewhere online (sign of stolen images).
-                  </p>
-                </div>
-              </li>
-              <li className="flex gap-3">
-                <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                  6
-                </span>
-                <div>
-                  <h3 className="font-bold mb-1">Meet in Person When Possible</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Visit the breeder's location before making final payment.
                   </p>
                 </div>
               </li>
@@ -222,8 +171,7 @@ export default function FraudulentBreedersPage() {
             <p className="mb-4">We're committed to transparency and ethical breeding practices:</p>
             <ul className="space-y-2 text-sm">
               <li>• Over 15 years of breeding experience since 2008</li>
-              <li>• Verifiable location in Portland, Oregon</li>
-              <li>• Welcome video calls and in-person visits</li>
+              <li>• Verifiable location in Dallas, Texas</li>
               <li>• Comprehensive health guarantees and documentation</li>
               <li>• Positive reviews from satisfied customers</li>
               <li>• Ongoing support after purchase</li>
