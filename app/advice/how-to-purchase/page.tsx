@@ -60,9 +60,9 @@ export default function HowToPurchasePage() {
                   3
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-2">Schedule a Video Call or Visit</h3>
+                  <h3 className="font-bold text-lg mb-2">Schedule a Visit</h3>
                   <p className="text-sm text-muted-foreground">
-                    We encourage you to see your puppy via video call or visit us in person in Dallas, Texas. This helps
+                    We encourage you to see your puppy, visit us in person in Dallas, Texas. This helps
                     you get to know your puppy and ensures you're comfortable with your decision.
                   </p>
                 </div>

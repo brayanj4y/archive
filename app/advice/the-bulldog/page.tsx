@@ -13,7 +13,7 @@ export default function TheBulldogPage() {
 
         <div className="mb-12">
           <img
-            src="/placeholder.svg?height=400&width=800"
+            src="/the-bulldog.JPG?height=400&width=800"
             alt="French Bulldog"
             className="w-full h-64 object-cover border border-border mb-6"
           />

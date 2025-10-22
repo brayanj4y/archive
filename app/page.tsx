@@ -10,7 +10,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center justify-center bg-muted">
         <img
-          src="/placeholder.svg?height=600&width=1920"
+          src="/hero.JPG?height=600&width=1920"
           alt="French Bulldog Puppy"
           className="absolute inset-0 w-full h-full object-cover"
         />
