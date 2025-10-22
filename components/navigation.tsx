@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Menu, X, ChevronDown, ShoppingCart, Phone, Mail, Facebook, MessageCircle } from "lucide-react"
+import { Menu, X, ChevronDown, ShoppingCart } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
@@ -71,12 +71,11 @@ export function Navigation() {
         </div>
       </div>
 
-      {/* Fullscreen Mobile Menu */}
+      {/* Fullscreen Mobile Menu (fixed, not pushing content) */}
       <div
         className={`fixed inset-0 bg-white z-40 transition-transform duration-500 ease-in-out ${menuOpen ? "translate-y-0" : "-translate-y-full"
           } md:hidden flex flex-col`}
       >
-        {/* Header */}
         <div className="flex justify-between items-center px-6 py-4 border-b">
           <img src="/logo-hori.png" alt="Logo" className="h-12" />
           <button onClick={() => setMenuOpen(false)}>
@@ -84,44 +83,45 @@ export function Navigation() {
           </button>
         </div>
 
-        {/* Menu Links */}
         <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-4 text-lg font-medium">
           <MobileButton onClick={() => handleNavigate("/")}>Home</MobileButton>
           <MobileButton onClick={() => handleNavigate("/puppies")}>Puppies</MobileButton>
           <MobileButton onClick={() => handleNavigate("/financing")}>Financing</MobileButton>
 
           {/* Mobile Dropdowns */}
-          <MobileDropdown
-            title="Our Policies"
-            isOpen={openDropdown === "policies"}
-            onToggle={() => toggleDropdown("policies")}
-          >
-            <MobileSubLink onClick={() => handleNavigate("/policies/warranty")}>
-              Warranty Policy
-            </MobileSubLink>
-            <MobileSubLink onClick={() => handleNavigate("/policies/shipping")}>
-              Shipping Policy
-            </MobileSubLink>
-            <MobileSubLink onClick={() => handleNavigate("/policies/sales")}>
-              Sales Policy
-            </MobileSubLink>
-          </MobileDropdown>
+          <div>
+            <MobileDropdown
+              title="Our Policies"
+              isOpen={openDropdown === "policies"}
+              onToggle={() => toggleDropdown("policies")}
+            >
+              <MobileSubLink onClick={() => handleNavigate("/policies/warranty")}>
+                Warranty Policy
+              </MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/policies/shipping")}>
+                Shipping Policy
+              </MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/policies/sales")}>
+                Sales Policy
+              </MobileSubLink>
+            </MobileDropdown>
 
-          <MobileDropdown
-            title="Advice"
-            isOpen={openDropdown === "advice"}
-            onToggle={() => toggleDropdown("advice")}
-          >
-            <MobileSubLink onClick={() => handleNavigate("/advice/the-bulldog")}>
-              The Bulldog
-            </MobileSubLink>
-            <MobileSubLink onClick={() => handleNavigate("/advice/fraudulent-breeders")}>
-              Fraudulent Breeders
-            </MobileSubLink>
-            <MobileSubLink onClick={() => handleNavigate("/advice/how-to-purchase")}>
-              How to Purchase
-            </MobileSubLink>
-          </MobileDropdown>
+            <MobileDropdown
+              title="Advice"
+              isOpen={openDropdown === "advice"}
+              onToggle={() => toggleDropdown("advice")}
+            >
+              <MobileSubLink onClick={() => handleNavigate("/advice/the-bulldog")}>
+                The Bulldog
+              </MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/advice/fraudulent-breeders")}>
+                Fraudulent Breeders
+              </MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/advice/how-to-purchase")}>
+                How to Purchase
+              </MobileSubLink>
+            </MobileDropdown>
+          </div>
 
           <a
             href="https://www.nuvetlabs.com/order_new2/products.asp"
@@ -134,41 +134,12 @@ export function Navigation() {
           </a>
           <MobileButton onClick={() => handleNavigate("/contact")}>Contact Us</MobileButton>
         </div>
-
-        {/* Contact Section */}
-        <div className="border-t px-6 py-6 bg-gray-50">
-          <p className="text-sm text-gray-600 mb-3 font-semibold">Contact Us</p>
-          <div className="flex flex-col gap-3 text-gray-700">
-            <a href="tel:+1234567890" className="flex items-center gap-3 hover:text-primary">
-              <Phone className="h-5 w-5" /> +1 (234) 567-890
-            </a>
-            <a
-              href="https://wa.me/1234567890"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 hover:text-primary"
-            >
-              <MessageCircle className="h-5 w-5" /> WhatsApp
-            </a>
-            <a href="mailto:info@example.com" className="flex items-center gap-3 hover:text-primary">
-              <Mail className="h-5 w-5" /> info@example.com
-            </a>
-            <a
-              href="https://facebook.com/yourpage"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 hover:text-primary"
-            >
-              <Facebook className="h-5 w-5" /> Facebook
-            </a>
-          </div>
-        </div>
       </div>
     </nav>
   )
 }
 
-/* Reusable Components */
+/* Components */
 const NavLink = ({ href, children }: any) => (
   <Link href={href} className="text-sm font-medium hover:text-primary transition-colors">
     {children}
