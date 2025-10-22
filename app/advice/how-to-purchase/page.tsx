@@ -62,7 +62,7 @@ export default function HowToPurchasePage() {
                 <div>
                   <h3 className="font-bold text-lg mb-2">Schedule a Video Call or Visit</h3>
                   <p className="text-sm text-muted-foreground">
-                    We encourage you to see your puppy via video call or visit us in person in Dallas, OR. This helps
+                    We encourage you to see your puppy via video call or visit us in person in Dallas, Texas. This helps
                     you get to know your puppy and ensures you're comfortable with your decision.
                   </p>
                 </div>
@@ -139,7 +139,7 @@ export default function HowToPurchasePage() {
                 <div>
                   <h3 className="font-bold text-lg mb-2">Choose Delivery or Pickup</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Decide whether you'd like to pick up your puppy in Dallas, OR, or use our travel nanny service
+                    Decide whether you'd like to pick up your puppy in Dallas, Texas, or use our travel nanny service
                     ($500 flat fee to most U.S. cities). We'll coordinate all logistics.
                   </p>
                   <Button asChild variant="outline" size="sm">

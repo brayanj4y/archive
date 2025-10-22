@@ -44,7 +44,7 @@ export default function ShippingPage() {
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                Prefer a personal touch? Pick up your puppy directly from our location in Dallas, OR.
+                Prefer a personal touch? Pick up your puppy directly from our location in Dallas, Texas.
               </p>
               <ul className="space-y-2 text-sm">
                 <li>• No additional fees</li>

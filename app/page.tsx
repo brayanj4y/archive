@@ -244,7 +244,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-4">Located in Dallas, OR</h2>
+              <h2 className="text-3xl font-bold mb-4">Located in Dallas, Texas</h2>
               <p className="text-lg mb-6 text-pretty">
                 As a French Bulldog breeder based in Dallas, Texas, we offer travel nanny services to most U.S.
                 cities for a flat fee of $500 — or you're welcome to pick up locally if you're nearby or prefer a more
