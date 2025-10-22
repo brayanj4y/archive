@@ -14,8 +14,8 @@ export default function HomePage() {
           alt="French Bulldog Puppy"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="relative z-10 text-center px-4 bg-white/90 py-12 max-w-2xl mx-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
+        <div className="relative z-10 text-center px-4 py-12 max-w-2xl mx-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white text-balance">
             Find Your Perfect Frenchie Companion Today!
           </h1>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
@@ -26,13 +26,16 @@ export default function HomePage() {
               <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-base md:text-lg font-semibold text-white drop-shadow-xl">
             Pay in full or place a $500 deposit*
             <br />
-            <span className="text-xs">*Remaining balance due upon delivery or pick-up</span>
+            <span className="text-sm md:text-base font-medium text-white drop-shadow-xl">
+              *Remaining balance due upon delivery or pick-up
+            </span>
           </p>
         </div>
       </section>
+
 
       {/* About Our Puppies */}
       <section className="py-16 px-4">
@@ -228,7 +231,7 @@ export default function HomePage() {
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground mb-2">November 3, 2022</p>
                 <p className="mb-4 text-pretty">
-                  "Have to give a huge thank you to Nina for all her help and transparency through this entire process!
+                  "Have to give a huge thank you to Idella for all her help and transparency through this entire process!
                   I received my beautiful little princess and couldn't be happier with her. She is super playful and
                   energetic and we couldn't be happier. I would recommend CH French bulldogs to anyone!"
                 </p>
