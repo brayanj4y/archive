@@ -134,7 +134,7 @@ export default function CheckoutPage() {
         router.push(`/order-success?orderId=${orderId}`)
       }, 2000)
     } catch (error) {
-      console.error("[v0] Email checkout error:", error)
+      console.error(" Email checkout error:", error)
       alert(error instanceof Error ? error.message : "There was an error processing your order. Please try again.")
     } finally {
       setLoading(false)

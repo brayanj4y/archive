@@ -1,6 +1,6 @@
-"use server"
+"use client"
 
-import emailjs from "@emailjs/nodejs"
+import emailjs from "@emailjs/browser"
 
 interface ContactFormData {
   name: string
@@ -10,45 +10,37 @@ interface ContactFormData {
 }
 
 export async function sendContactEmail(formData: ContactFormData) {
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-  const privateKey = process.env.EMAILJS_PRIVATE_KEY
-  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-  const contactTemplateId = process.env.EMAILJS_CONTACT_TEMPLATE_ID
-  const businessEmail = process.env.BUSINESS_EMAIL || "info@chfrenchbulldogs.com"
+  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!
+  const templateId = process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID!
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
 
-  if (!publicKey || !privateKey || !serviceId || !contactTemplateId) {
-    console.error("[v0] Missing EmailJS configuration")
+  if (!serviceId || !templateId || !publicKey) {
+    console.error("EmailJS is not configured")
     throw new Error("Email service is not configured. Please contact us directly.")
   }
 
+  const templateParams = {
+    email_subject: `New Contact Form Inquiry from ${formData.name}`,
+    from_name: formData.name,
+    from_email: formData.email,
+    from_phone: formData.phone || "Not provided",
+    message: formData.message,
+    inquiry_date: new Date().toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+  }
+
   try {
-    const templateParams = {
-      to_email: businessEmail,
-      to_name: "CH French Bulldogs",
-      from_name: formData.name,
-      from_email: formData.email,
-      from_phone: formData.phone || "Not provided",
-      message: formData.message,
-      email_subject: `New Contact Form Inquiry from ${formData.name}`,
-      inquiry_date: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    }
-
-    console.log("[v0] Sending contact form email...")
-    await emailjs.send(serviceId, contactTemplateId, templateParams, {
-      publicKey,
-      privateKey,
-    })
-
-    console.log("[v0] Contact email sent successfully")
+    console.log("Sending contact form email...")
+    await emailjs.send(serviceId, templateId, templateParams, publicKey)
+    console.log("Contact email sent successfully")
     return { success: true }
   } catch (error) {
-    console.error("[v0] EmailJS Error:", error)
+    console.error("EmailJS Error:", error)
     throw new Error("Failed to send message. Please try contacting us via phone or WhatsApp.")
   }
 }
