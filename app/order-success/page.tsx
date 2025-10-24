@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, Mail, Phone, MessageCircle } from "lucide-react"
+import { Mail, Phone, MessageCircle } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
 

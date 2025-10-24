@@ -145,14 +145,11 @@ export default function CheckoutPage() {
     return (
       <main className="py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="mb-8 flex justify-center">
-            <div className="rounded-full bg-green-100 p-6">
-              <CheckCircle className="h-16 w-16 text-green-600" />
-            </div>
+          <div className="mb-6 flex justify-center">
+            <img src="/thanks.png" alt="Thank You" className="h-70 w-60" />
           </div>
-          <h1 className="text-4xl font-bold mb-4 text-green-600">Order Placed Successfully!</h1>
           <p className="text-lg text-muted-foreground mb-8">
-            Thank you for your order. We've sent confirmation emails to both you and our team. We'll be in touch soon!
+            We've sent confirmation emails to both you and our team. We'll be in touch soon!
           </p>
           <div className="animate-pulse text-sm text-muted-foreground">Redirecting to confirmation page...</div>
         </div>
