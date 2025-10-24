@@ -49,18 +49,19 @@ export async function sendOrderEmail(orderData: OrderData) {
 
     const orderItemsHTML = orderData.cart
         .map((item, i) => {
-            const itemTotal = item.puppy.price + (item.addMicrochip ? orderData.microchipPrice : 0)
+            const itemTotal = item.puppy.price + (item.addMicrochip ? orderData.microchipPrice : 0);
             return `
-      <div style="margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid #eee;">
-        <strong>${i + 1}. ${item.puppy.name}</strong><br>
-        Age: ${item.puppy.age}<br>
-        Gender: ${item.puppy.gender}<br>
-        Color: ${item.puppy.color}${item.addMicrochip ? `<br>Microchip: +$${orderData.microchipPrice.toFixed(2)}` : ""}<br>
-        Price: <strong>$${itemTotal.toFixed(2)}</strong>
+      <div style="padding:8px 0; border-bottom:1px solid #eee;">
+        <div><strong>${i + 1}. ${item.puppy.name}</strong></div>
+        <div>Age: ${item.puppy.age}</div>
+        <div>Gender: ${item.puppy.gender}</div>
+        <div>Color: ${item.puppy.color}${item.addMicrochip ? `<div>Microchip: +$${orderData.microchipPrice.toFixed(2)}</div>` : ""}</div>
+        <div>Price: <strong>$${itemTotal.toFixed(2)}</strong></div>
       </div>
-    `
+    `;
         })
-        .join("")
+        .join("");
+
 
 
     const customerAddress = orderData.customerInfo.address
