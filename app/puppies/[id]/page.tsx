@@ -108,7 +108,7 @@ const puppies: Puppy[] = [
 
 export default function PuppyDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter()
-  const { addToCart } = useCart()
+  const { addToCart, toggleMicrochip } = useCart()
   const [addMicrochip, setAddMicrochip] = useState(false)
   const [added, setAdded] = useState(false)
 
@@ -131,7 +131,10 @@ export default function PuppyDetailPage({ params }: { params: { id: string } }) 
   const totalPrice = puppy.price + (addMicrochip ? microchipPrice : 0)
 
   const handleAddToCart = () => {
-    addToCart(puppy, addMicrochip)
+    addToCart(puppy)
+    if (addMicrochip) {
+      toggleMicrochip(puppy.id)
+    }
     setAdded(true)
     setTimeout(() => {
       router.push("/cart")
@@ -203,7 +206,7 @@ export default function PuppyDetailPage({ params }: { params: { id: string } }) 
             <div>
               <h2 className="text-xl font-bold mb-2">Health & Vaccinations</h2>
               <ul className="space-y-2">
-                {puppy.vaccinations.map((vaccination, index) => (
+                {puppy.vaccinations?.map((vaccination, index) => (
                   <li key={index} className="flex items-center gap-2">
                     <Check className="h-4 w-4 text-primary" />
                     <span className="text-sm">{vaccination}</span>
