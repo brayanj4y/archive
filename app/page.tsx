@@ -43,15 +43,42 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-center mb-12">About Our Puppies</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: "Up To Date on Vaccines", description: "All puppies receive age-appropriate vaccinations" },
-              { title: "Warranty Commitment", description: "Comprehensive health guarantee included" },
-              { title: "Quality Bloodlines", description: "Champion bloodlines with excellent temperaments" },
-              { title: "Breeders since 2008", description: "Over 15 years of breeding experience" },
-              { title: "Microchip ID (Optional)", description: "Permanent identification for your peace of mind" },
-              { title: "Travel Nanny (Optional)", description: "Safe delivery to most U.S. cities" },
+              {
+                title: "Up To Date on Vaccines",
+                description: "All puppies receive age-appropriate vaccinations",
+                img: "/vacine.png"
+              },
+              {
+                title: "Warranty Commitment",
+                description: "Comprehensive health guarantee included",
+                img: "/waranty.png"
+              },
+              {
+                title: "Quality Bloodlines",
+                description: "Champion bloodlines with excellent temperaments",
+                img: "/champion.png"
+              },
+              {
+                title: "Breeders since 2008",
+                description: "Over 15 years of breeding experience",
+                img: "/2008.png"
+              },
+              {
+                title: "Microchip ID (Optional)",
+                description: "Permanent identification for your peace of mind",
+                img: "/chip.png"
+              },
+              {
+                title: "Travel Nanny (Optional)",
+                description: "Safe delivery to most U.S. cities",
+                img: "/nanny.png"
+              },
             ].map((feature, index) => (
               <Card key={index}>
                 <CardContent className="pt-6">
+                  {feature.img && (
+                    <img src={feature.img} alt={feature.title} className="h-75 w-60 mb-4 mx-auto" />
+                  )}
                   <div className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                     <div>
@@ -65,6 +92,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
 
       {/* Got Any Questions */}
       <section className="py-16 px-4 bg-muted">

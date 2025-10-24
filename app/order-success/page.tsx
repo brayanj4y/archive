@@ -16,15 +16,14 @@ function OrderSuccessContent() {
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-8">
                     <div className="mb-6 flex justify-center">
-                        <div className="rounded-full bg-green-100 p-8">
-                            <CheckCircle className="h-20 w-20 text-green-600" />
-                        </div>
+                        <img src="/thanks.png" alt="Thank You" className="h-70 w-60" />
                     </div>
-                    <h1 className="text-4xl font-bold mb-4">Thank You for Your Order!</h1>
                     <p className="text-lg text-muted-foreground">
                         Your order has been successfully placed and confirmation emails have been sent.
                     </p>
                 </div>
+
+
 
                 <Card className="mb-8">
                     <CardHeader>
