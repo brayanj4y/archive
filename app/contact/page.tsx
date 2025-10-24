@@ -1,10 +1,64 @@
+"use client"
+
+import type React from "react"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Phone, Mail, MessageCircle, MapPin, Facebook, Instagram } from "lucide-react"
+import { Phone, Mail, MessageCircle, MapPin, Facebook, Instagram, CheckCircle } from "lucide-react"
+import { useState } from "react"
+import { sendContactEmail } from "@/app/actions/send-contact-email"
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  })
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState("")
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+    setError("")
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!formData.name || !formData.email || !formData.message) {
+      setError("Please fill in all required fields")
+      return
+    }
+
+    if (!formData.email.includes("@")) {
+      setError("Please enter a valid email address")
+      return
+    }
+
+    setLoading(true)
+    setError("")
+
+    try {
+      await sendContactEmail(formData)
+      setSuccess(true)
+      setFormData({ name: "", email: "", phone: "", message: "" })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => setSuccess(false), 5000)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <main className="py-16 px-4">
       <div className="max-w-6xl mx-auto">
@@ -23,24 +77,60 @@ export default function ContactPage() {
               <CardTitle>Send Us a Message</CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4">
+              {success && (
+                <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2 text-green-800">
+                  <CheckCircle className="h-5 w-5" />
+                  <p className="text-sm font-medium">Message sent successfully! We'll get back to you soon.</p>
+                </div>
+              )}
+              {error && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                  <p className="text-sm font-medium">{error}</p>
+                </div>
+              )}
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
                     Name *
                   </label>
-                  <Input id="name" placeholder="Your full name" required />
+                  <Input
+                    id="name"
+                    name="name"
+                    placeholder="Your full name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
                     Email *
                   </label>
-                  <Input id="email" type="email" placeholder="your@email.com" required />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium mb-2">
                     Phone
                   </label>
-                  <Input id="phone" type="tel" placeholder="(555) 123-4567" />
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="(555) 123-4567"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
@@ -48,13 +138,21 @@ export default function ContactPage() {
                   </label>
                   <Textarea
                     id="message"
+                    name="message"
                     placeholder="Tell us about yourself and what you're looking for in a French Bulldog..."
                     rows={6}
+                    value={formData.message}
+                    onChange={handleInputChange}
                     required
+                    disabled={loading}
                   />
                 </div>
-                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                  Send Message
+                <Button
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary/90 transition-colors"
+                  disabled={loading}
+                >
+                  {loading ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </CardContent>

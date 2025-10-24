@@ -9,13 +9,14 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Mail, MessageCircle } from "lucide-react"
+import { Mail, MessageCircle, CheckCircle } from "lucide-react"
 import { sendOrderEmail } from "@/app/actions/send-order-email"
 
 export default function CheckoutPage() {
   const { cart, getCartTotal, clearCart } = useCart()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -34,7 +35,7 @@ export default function CheckoutPage() {
   const tax = subtotal * 0.08
   const total = subtotal + shipping + tax
 
-  if (cart.length === 0) {
+  if (cart.length === 0 && !success) {
     router.push("/cart")
     return null
   }
@@ -125,15 +126,38 @@ export default function CheckoutPage() {
         microchipPrice,
       })
 
-      alert("Order placed successfully! Check your email for confirmation.")
+      setSuccess(true)
       clearCart()
-      router.push("/puppies")
+
+      // Redirect to thank you page after 2 seconds
+      setTimeout(() => {
+        router.push(`/order-success?orderId=${orderId}`)
+      }, 2000)
     } catch (error) {
       console.error(" Email checkout error:", error)
-      alert("There was an error processing your order via email. Please try WhatsApp checkout or contact us directly.")
+      alert(error instanceof Error ? error.message : "There was an error processing your order. Please try again.")
     } finally {
       setLoading(false)
     }
+  }
+
+  if (success) {
+    return (
+      <main className="py-16 px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="mb-8 flex justify-center">
+            <div className="rounded-full bg-green-100 p-6">
+              <CheckCircle className="h-16 w-16 text-green-600" />
+            </div>
+          </div>
+          <h1 className="text-4xl font-bold mb-4 text-green-600">Order Placed Successfully!</h1>
+          <p className="text-lg text-muted-foreground mb-8">
+            Thank you for your order. We've sent confirmation emails to both you and our team. We'll be in touch soon!
+          </p>
+          <div className="animate-pulse text-sm text-muted-foreground">Redirecting to confirmation page...</div>
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -157,6 +181,7 @@ export default function CheckoutPage() {
                       value={formData.firstName}
                       onChange={handleInputChange}
                       required
+                      disabled={loading}
                     />
                   </div>
                   <div>
@@ -167,6 +192,7 @@ export default function CheckoutPage() {
                       value={formData.lastName}
                       onChange={handleInputChange}
                       required
+                      disabled={loading}
                     />
                   </div>
                 </div>
@@ -179,6 +205,7 @@ export default function CheckoutPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -190,24 +217,49 @@ export default function CheckoutPage() {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
+                    disabled={loading}
                   />
                 </div>
                 <div>
                   <Label htmlFor="address">Address</Label>
-                  <Input id="address" name="address" value={formData.address} onChange={handleInputChange} />
+                  <Input
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    disabled={loading}
+                  />
                 </div>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
                     <Label htmlFor="city">City</Label>
-                    <Input id="city" name="city" value={formData.city} onChange={handleInputChange} />
+                    <Input
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      disabled={loading}
+                    />
                   </div>
                   <div>
                     <Label htmlFor="state">State</Label>
-                    <Input id="state" name="state" value={formData.state} onChange={handleInputChange} />
+                    <Input
+                      id="state"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleInputChange}
+                      disabled={loading}
+                    />
                   </div>
                   <div>
                     <Label htmlFor="zipCode">Zip Code</Label>
-                    <Input id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleInputChange} />
+                    <Input
+                      id="zipCode"
+                      name="zipCode"
+                      value={formData.zipCode}
+                      onChange={handleInputChange}
+                      disabled={loading}
+                    />
                   </div>
                 </div>
               </CardContent>
@@ -224,6 +276,7 @@ export default function CheckoutPage() {
                   onChange={handleInputChange}
                   placeholder="Any special requests or instructions for your order..."
                   rows={4}
+                  disabled={loading}
                 />
               </CardContent>
             </Card>
@@ -287,6 +340,7 @@ export default function CheckoutPage() {
                   onClick={handleWhatsAppCheckout}
                   className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white"
                   size="lg"
+                  disabled={loading}
                 >
                   <MessageCircle className="mr-2 h-5 w-5" />
                   Order via WhatsApp
@@ -294,11 +348,21 @@ export default function CheckoutPage() {
                 <Button
                   onClick={handleEmailCheckout}
                   disabled={loading}
-                  className="w-full bg-primary hover:bg-primary/90"
+                  className={`w-full transition-all duration-300 ${success ? "bg-green-600 hover:bg-green-600" : "bg-primary hover:bg-primary/90"
+                    }`}
                   size="lg"
                 >
-                  <Mail className="mr-2 h-5 w-5" />
-                  {loading ? "Sending..." : "Order via Email"}
+                  {success ? (
+                    <>
+                      <CheckCircle className="mr-2 h-5 w-5" />
+                      Order Placed!
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="mr-2 h-5 w-5" />
+                      {loading ? "Processing..." : "Order via Email"}
+                    </>
+                  )}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
                   Choose your preferred method to complete your order
