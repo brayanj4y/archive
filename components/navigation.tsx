@@ -23,14 +23,13 @@ export function Navigation() {
   }
 
   return (
-    <nav className="bg-white border-b border-border relative z-50">
+    <nav className="bg-white border-b border-border fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center">
             <img src="/logo-hori.png" alt="Logo" className="h-14" />
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
             <NavLink href="/puppies">Puppies</NavLink>
             <NavLink href="/financing">Financing</NavLink>
@@ -63,7 +62,6 @@ export function Navigation() {
             <CartIcon count={cart.length} />
           </div>
 
-          {/* Mobile Controls */}
           <div className="md:hidden flex items-center gap-4">
             <CartIcon count={cart.length} />
             <button onClick={() => setMenuOpen(!menuOpen)} className="text-foreground">
@@ -81,7 +79,6 @@ export function Navigation() {
           <MobileButton onClick={() => handleNavigate("/puppies")}>Puppies</MobileButton>
           <MobileButton onClick={() => handleNavigate("/financing")}>Financing</MobileButton>
 
-          {/* Mobile Dropdowns */}
           <div>
             <MobileDropdown
               title="Our Policies"
@@ -121,7 +118,6 @@ export function Navigation() {
   )
 }
 
-/* Components */
 const NavLink = ({ href, children }: any) => (
   <Link href={href} className="text-sm font-medium hover:text-primary transition-colors">
     {children}
