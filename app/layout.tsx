@@ -45,6 +45,7 @@ export default function RootLayout({
       <body className={`${libreBaskerville.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
         <CartProvider>
           <Navigation />
+          <div className="h-16"></div>
           {children}
           <Footer />
         </CartProvider>
