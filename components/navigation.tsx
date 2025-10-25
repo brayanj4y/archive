@@ -32,14 +32,16 @@ export function Navigation() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
-            <NavLink href="/">Home</NavLink>
             <NavLink href="/puppies">Puppies</NavLink>
             <NavLink href="/financing">Financing</NavLink>
 
             <Dropdown title="Our Policies">
-              <DropdownLink href="/policies/warranty">Warranty Policy</DropdownLink>
-              <DropdownLink href="/policies/shipping">Shipping Policy</DropdownLink>
               <DropdownLink href="/policies/sales">Sales Policy</DropdownLink>
+              <DropdownLink href="/policies/shipping">Shipping Policy</DropdownLink>
+              <DropdownLink href="/policies/warranty">Warranty Policy</DropdownLink>
+              <DropdownLink href="/privacy">Privacy Policy</DropdownLink>
+              <DropdownLink href="/terms">Terms of Service</DropdownLink>
+              <DropdownLink href="/refund">Refund Policy</DropdownLink>
             </Dropdown>
 
             <Dropdown title="Advice">
@@ -71,20 +73,11 @@ export function Navigation() {
         </div>
       </div>
 
-      {/* Fullscreen Mobile Menu (fixed, not pushing content) */}
       <div
-        className={`fixed inset-0 bg-white z-40 transition-transform duration-500 ease-in-out ${menuOpen ? "translate-y-0" : "-translate-y-full"
-          } md:hidden flex flex-col`}
+        className={`md:hidden bg-white border-t border-border overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+          }`}
       >
-        <div className="flex justify-between items-center px-6 py-4 border-b">
-          <img src="/logo-hori.png" alt="Logo" className="h-12" />
-          <button onClick={() => setMenuOpen(false)}>
-            <X className="h-7 w-7" />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-4 text-lg font-medium">
-          <MobileButton onClick={() => handleNavigate("/")}>Home</MobileButton>
+        <div className="px-6 py-4 flex flex-col gap-3 text-base font-medium">
           <MobileButton onClick={() => handleNavigate("/puppies")}>Puppies</MobileButton>
           <MobileButton onClick={() => handleNavigate("/financing")}>Financing</MobileButton>
 
@@ -95,31 +88,20 @@ export function Navigation() {
               isOpen={openDropdown === "policies"}
               onToggle={() => toggleDropdown("policies")}
             >
-              <MobileSubLink onClick={() => handleNavigate("/policies/warranty")}>
-                Warranty Policy
-              </MobileSubLink>
-              <MobileSubLink onClick={() => handleNavigate("/policies/shipping")}>
-                Shipping Policy
-              </MobileSubLink>
-              <MobileSubLink onClick={() => handleNavigate("/policies/sales")}>
-                Sales Policy
-              </MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/policies/sales")}>Sales Policy</MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/policies/shipping")}>Shipping Policy</MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/policies/warranty")}>Warranty Policy</MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/privacy")}>Privacy Policy</MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/terms")}>Terms of Service</MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/refund")}>Refund Policy</MobileSubLink>
             </MobileDropdown>
 
-            <MobileDropdown
-              title="Advice"
-              isOpen={openDropdown === "advice"}
-              onToggle={() => toggleDropdown("advice")}
-            >
-              <MobileSubLink onClick={() => handleNavigate("/advice/the-bulldog")}>
-                The Bulldog
-              </MobileSubLink>
+            <MobileDropdown title="Advice" isOpen={openDropdown === "advice"} onToggle={() => toggleDropdown("advice")}>
+              <MobileSubLink onClick={() => handleNavigate("/advice/the-bulldog")}>The Bulldog</MobileSubLink>
               <MobileSubLink onClick={() => handleNavigate("/advice/fraudulent-breeders")}>
                 Fraudulent Breeders
               </MobileSubLink>
-              <MobileSubLink onClick={() => handleNavigate("/advice/how-to-purchase")}>
-                How to Purchase
-              </MobileSubLink>
+              <MobileSubLink onClick={() => handleNavigate("/advice/how-to-purchase")}>How to Purchase</MobileSubLink>
             </MobileDropdown>
           </div>
 
@@ -127,7 +109,7 @@ export function Navigation() {
             href="https://www.nuvetlabs.com/order_new2/products.asp"
             target="_blank"
             rel="noopener noreferrer"
-            className="py-3 hover:text-primary"
+            className="py-2 hover:text-primary"
             onClick={() => setMenuOpen(false)}
           >
             NuVet
@@ -165,10 +147,7 @@ const DropdownLink = ({ href, children }: any) => (
 
 const MobileDropdown = ({ title, isOpen, onToggle, children }: any) => (
   <div>
-    <button
-      onClick={onToggle}
-      className="w-full flex justify-between items-center py-3 text-lg hover:text-primary"
-    >
+    <button onClick={onToggle} className="w-full flex justify-between items-center py-2 text-base hover:text-primary">
       {title} <ChevronDown className={`h-5 w-5 transition-transform ${isOpen ? "rotate-180" : ""}`} />
     </button>
     <div
@@ -181,16 +160,13 @@ const MobileDropdown = ({ title, isOpen, onToggle, children }: any) => (
 )
 
 const MobileButton = ({ onClick, children }: any) => (
-  <button
-    onClick={onClick}
-    className="w-full text-left py-3 text-lg hover:text-primary transition-colors"
-  >
+  <button onClick={onClick} className="w-full text-left py-2 text-base hover:text-primary transition-colors">
     {children}
   </button>
 )
 
 const MobileSubLink = ({ onClick, children }: any) => (
-  <button onClick={onClick} className="w-full text-left py-2 text-base text-gray-600 hover:text-primary">
+  <button onClick={onClick} className="w-full text-left py-2 text-sm text-gray-600 hover:text-primary">
     {children}
   </button>
 )

@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Phone, Mail, MessageCircle, MapPin, Facebook, Instagram, CheckCircle } from "lucide-react"
+import { Phone, Mail, MapPin, Facebook, Instagram, CheckCircle } from "lucide-react"
+import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { useState } from "react"
 import { sendContactEmail } from "@/app/actions/send-contact-email"
 
@@ -176,7 +177,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <MessageCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                  <WhatsAppIcon className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1">WhatsApp</h3>
                     <a

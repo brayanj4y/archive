@@ -9,14 +9,14 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { Mail, MessageCircle, CheckCircle } from "lucide-react"
+import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { sendOrderEmail } from "@/app/actions/send-order-email"
 
 export default function CheckoutPage() {
   const { cart, getCartTotal, clearCart } = useCart()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [checkoutComplete, setCheckoutComplete] = useState(false)
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -35,7 +35,7 @@ export default function CheckoutPage() {
   const tax = subtotal * 0.08
   const total = subtotal + shipping + tax
 
-  if (cart.length === 0 && !success) {
+  if (cart.length === 0 && !checkoutComplete) {
     router.push("/cart")
     return null
   }
@@ -100,6 +100,7 @@ export default function CheckoutPage() {
     const whatsappUrl = `https://wa.me/237695950610?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
 
+    setCheckoutComplete(true)
     clearCart()
     router.push("/puppies")
   }
@@ -126,35 +127,15 @@ export default function CheckoutPage() {
         microchipPrice,
       })
 
-      setSuccess(true)
+      setCheckoutComplete(true)
       clearCart()
-
-      // Redirect to thank you page after 2 seconds
-      setTimeout(() => {
-        router.push(`/order-success?orderId=${orderId}`)
-      }, 2000)
+      router.push(`/order-success?orderId=${orderId}`)
     } catch (error) {
-      console.error(" Email checkout error:", error)
+      console.error("Email checkout error:", error)
       alert(error instanceof Error ? error.message : "There was an error processing your order. Please try again.")
     } finally {
       setLoading(false)
     }
-  }
-
-  if (success) {
-    return (
-      <main className="py-16 px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="mb-6 flex justify-center">
-            <img src="/thanks.png" alt="Thank You" className="h-70 w-60" />
-          </div>
-          <p className="text-lg text-muted-foreground mb-8">
-            We've sent confirmation emails to both you and our team. We'll be in touch soon!
-          </p>
-          <div className="animate-pulse text-sm text-muted-foreground">Redirecting to confirmation page...</div>
-        </div>
-      </main>
-    )
   }
 
   return (
@@ -339,27 +320,16 @@ export default function CheckoutPage() {
                   size="lg"
                   disabled={loading}
                 >
-                  <MessageCircle className="mr-2 h-5 w-5" />
+                  <WhatsAppIcon className="mr-2 h-5 w-5" />
                   Order via WhatsApp
                 </Button>
                 <Button
                   onClick={handleEmailCheckout}
                   disabled={loading}
-                  className={`w-full transition-all duration-300 ${success ? "bg-green-600 hover:bg-green-600" : "bg-primary hover:bg-primary/90"
-                    }`}
+                  className={`w-full transition-all duration-300 bg-primary hover:bg-primary/90`}
                   size="lg"
                 >
-                  {success ? (
-                    <>
-                      <CheckCircle className="mr-2 h-5 w-5" />
-                      Order Placed!
-                    </>
-                  ) : (
-                    <>
-                      <Mail className="mr-2 h-5 w-5" />
-                      {loading ? "Processing..." : "Order via Email"}
-                    </>
-                  )}
+                  {loading ? "Processing..." : "Order via Email"}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
                   Choose your preferred method to complete your order

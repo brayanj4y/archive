@@ -1,8 +1,32 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Check, Phone, MessageCircle } from "lucide-react"
+import { Check, Phone } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { WhatsAppIcon } from "@/components/whatsapp-icon"
+
+const featuredPuppies = [
+  {
+    id: 1,
+    name: "Bella",
+    age: "10 weeks",
+    gender: "Female",
+    color: "Fawn",
+    priceDisplay: "$4,500",
+    status: "Available",
+    image: "/placeholder.svg?height=400&width=400",
+  },
+  {
+    id: 2,
+    name: "Max",
+    age: "12 weeks",
+    gender: "Male",
+    color: "Blue",
+    priceDisplay: "$5,500",
+    status: "Available",
+    image: "/placeholder.svg?height=400&width=400",
+  },
+]
 
 export default function HomePage() {
   return (
@@ -36,6 +60,50 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Featured Puppies Section */}
+      <section className="py-16 px-4 bg-muted">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Featured Puppies</h2>
+          <p className="text-center text-muted-foreground mb-8">
+            Meet some of our adorable French Bulldog puppies available now
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {featuredPuppies.map((puppy) => (
+              <Card key={puppy.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="relative">
+                  <img src={puppy.image || "/placeholder.svg"} alt={puppy.name} className="w-full h-64 object-cover" />
+                  <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                    {puppy.status}
+                  </div>
+                </div>
+                <CardContent className="pt-6">
+                  <h3 className="text-2xl font-bold mb-3">{puppy.name}</h3>
+                  <div className="space-y-1 text-sm mb-4">
+                    <p>
+                      <span className="font-medium">Age:</span> {puppy.age}
+                    </p>
+                    <p>
+                      <span className="font-medium">Gender:</span> {puppy.gender}
+                    </p>
+                    <p>
+                      <span className="font-medium">Color:</span> {puppy.color}
+                    </p>
+                    <p className="text-xl font-bold text-primary mt-2">{puppy.priceDisplay}</p>
+                  </div>
+                  <Button asChild className="w-full bg-primary hover:bg-primary/90">
+                    <Link href={`/puppies/${puppy.id}`}>View Details</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/puppies">View All Available Puppies</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* About Our Puppies */}
       <section className="py-16 px-4">
@@ -55,7 +123,6 @@ export default function HomePage() {
                 className="relative flex border border-gray-200 rounded-[5px] overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 bg-gradient-to-br from-white to-gray-50"
               >
                 <div className="absolute left-0 top-0 h-full w-1 bg-primary"></div> {/* colored side bar */}
-
                 <CardContent className="p-6 pl-8">
                   <div className="flex items-start gap-4">
                     <Check className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
@@ -66,8 +133,6 @@ export default function HomePage() {
                   </div>
                 </CardContent>
               </Card>
-
-
             ))}
           </div>
         </div>
@@ -90,7 +155,7 @@ export default function HomePage() {
             </Button>
             <Button asChild size="lg" variant="outline">
               <a href="https://wa.me/15035551234" target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 h-5 w-5" />
+                <WhatsAppIcon className="mr-2 h-5 w-5" />
                 Message on WhatsApp
               </a>
             </Button>
@@ -163,8 +228,8 @@ export default function HomePage() {
             <AccordionItem value="item-6">
               <AccordionTrigger>French bulldog pups for sale near me?</AccordionTrigger>
               <AccordionContent>
-                We're located in Dallas, Texas, and offer travel nanny services to most U.S. cities. You can also
-                pick up your puppy locally if you're in the area.
+                We're located in Dallas, Texas, and offer travel nanny services to most U.S. cities. You can also pick
+                up your puppy locally if you're in the area.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-7">
@@ -238,9 +303,9 @@ export default function HomePage() {
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground mb-2">November 3, 2022</p>
                 <p className="mb-4 text-pretty">
-                  "Have to give a huge thank you to Idella for all her help and transparency through this entire process!
-                  I received my beautiful little princess and couldn't be happier with her. She is super playful and
-                  energetic and we couldn't be happier. I would recommend CH French bulldogs to anyone!"
+                  "Have to give a huge thank you to Idella for all her help and transparency through this entire
+                  process! I received my beautiful little princess and couldn't be happier with her. She is super
+                  playful and energetic and we couldn't be happier. I would recommend CH French bulldogs to anyone!"
                 </p>
                 <p className="font-bold">— Jenny Ramirez</p>
               </CardContent>
@@ -256,9 +321,9 @@ export default function HomePage() {
             <div>
               <h2 className="text-3xl font-bold mb-4">Located in Dallas, Texas</h2>
               <p className="text-lg mb-6 text-pretty">
-                As a French Bulldog breeder based in Dallas, Texas, we offer travel nanny services to most U.S.
-                cities for a flat fee of $500 — or you're welcome to pick up locally if you're nearby or prefer a more
-                personal adoption experience.
+                As a French Bulldog breeder based in Dallas, Texas, we offer travel nanny services to most U.S. cities
+                for a flat fee of $500 — or you're welcome to pick up locally if you're nearby or prefer a more personal
+                adoption experience.
               </p>
               <Button asChild variant="outline">
                 <Link href="/policies/shipping">Check our shipping policy</Link>
