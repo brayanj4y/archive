@@ -17,7 +17,7 @@ function OrderSuccessContent() {
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-6 md:mb-8">
                     <div className="mb-4 md:mb-6 flex justify-center">
-                        <img src="/thanks.png" alt="Thank You" className="h-48 w-40 md:h-70 md:w-60" />
+                        <img src="/thanks.png" alt="Thank You" className="h-48 w-40 md:h-55 md:w-100" />
                     </div>
                     <p className="text-base md:text-lg text-muted-foreground px-4">
                         Your order has been successfully placed and confirmation emails have been sent.
