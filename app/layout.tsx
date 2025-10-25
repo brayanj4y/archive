@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   title: "CH French Bulldogs - Premium French Bulldog Puppies",
   description:
     "Find your perfect French Bulldog companion. Quality bloodlines, health guarantees, and trusted breeders since 2008.",
+  icons: {
+    icon: "/favicon.png",
+  }
 }
 
 export default function RootLayout({

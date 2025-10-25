@@ -5,69 +5,55 @@ export function Footer() {
   return (
     <footer className="bg-muted border-t border-border mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Contact Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+
+        {/* Top Section: Contact + Partner Badges */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+          {/* Contact Info */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Contact Us</h3>
-            <div className="flex flex-col gap-2">
-              <a href="tel:+15035551234" className="flex items-center gap-2 text-sm hover:text-primary">
-                <Phone className="h-4 w-4" />
+            <h3 className="font-bold text-xl mb-4">Contact Us</h3>
+            <div className="flex flex-col gap-2 text-sm">
+              <a href="tel:+15035551234" className="hover:text-primary">
                 (503) 555-1234
               </a>
-              <a href="mailto:info@chfrenchbulldogs.com" className="flex items-center gap-2 text-sm hover:text-primary">
-                <Mail className="h-4 w-4" />
+              <a href="mailto:info@chfrenchbulldogs.com" className="hover:text-primary">
                 info@chfrenchbulldogs.com
               </a>
             </div>
           </div>
 
-          <div>
-            <h3 className="font-bold text-lg mb-4">Follow Us</h3>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-primary">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="hover:text-primary">
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-lg mb-4">Location</h3>
-            <p className="text-sm">Dallas, Texas</p>
+          {/* Partner Badges */}
+          <div className="lg:col-span-3 flex flex-wrap justify-center lg:justify-end items-center gap-6">
+            <img src="partners/american-kennel.png" alt="AKC Registered" className="h-20 w-20 object-contain" />
+            <img src="partners/nuvetlab.png" alt="Nuvetlab Partners" className="h-20 w-20 object-contain" />
+            <img src="partners/frenchies.png" alt="Frenchies" className="h-20 w-20 object-contain" />
           </div>
         </div>
 
-        {/* Badges */}
-        <div className="flex flex-wrap justify-center gap-6 mb-8 pb-8 border-b border-border">
-          <img src="partners/american-kennel.png" alt="AKC Registered" className="h-26" />
-          <img src="partners/trupanion.avif" alt="Trupanion Partners" className="h-26" />
-          <img src="partners/nuvetlab.png" alt="Nuvetlab Partners" className="h-26" />
-          <img src="partners/frenchies.webp" alt="Frenchies" className="h-26" />
+        {/* Social Icons */}
+        <div className="flex justify-center gap-6 mb-8 pb-8 border-b border-border">
+          <a href="#" className="hover:text-primary transition-colors" aria-label="Facebook">
+            <Facebook className="h-6 w-6" />
+          </a>
+          <a href="#" className="hover:text-primary transition-colors" aria-label="Instagram">
+            <Instagram className="h-6 w-6" />
+          </a>
         </div>
-
-
 
         {/* Legal Links */}
-        <div className="flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
+        <div className="flex flex-wrap justify-center items-center gap-2 text-xs text-muted-foreground">
           <span>© 2025 CH French Bulldogs</span>
-          <Link href="/privacy" className="hover:text-primary">
-            Privacy Policy
-          </Link>
-          <Link href="/refund" className="hover:text-primary">
-            Refund Policy
-          </Link>
-          <Link href="/policies/shipping" className="hover:text-primary">
-            Shipping Policy
-          </Link>
-          <Link href="/terms" className="hover:text-primary">
-            Terms of Service
-          </Link>
-          <Link href="/contact" className="hover:text-primary">
-            Contact Information
-          </Link>
+          <span className="hidden sm:inline">•</span>
+          <Link href="/privacy" className="hover:text-primary">Privacy Policy</Link>
+          <span className="hidden sm:inline">•</span>
+          <Link href="/refund" className="hover:text-primary">Refund Policy</Link>
+          <span className="hidden sm:inline">•</span>
+          <Link href="/policies/shipping" className="hover:text-primary">Shipping Policy</Link>
+          <span className="hidden sm:inline">•</span>
+          <Link href="/terms" className="hover:text-primary">Terms of Service</Link>
+          <span className="hidden sm:inline">•</span>
+          <Link href="/contact" className="hover:text-primary">Contact Information</Link>
         </div>
+
       </div>
     </footer>
   )
