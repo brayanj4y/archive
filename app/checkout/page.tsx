@@ -11,6 +11,8 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { sendOrderEmail } from "@/app/actions/send-order-email"
+import { Metadata } from "next"
+import Image from "next/image"
 
 export default function CheckoutPage() {
   const { cart, getCartTotal, clearCart } = useCart()
@@ -265,10 +267,12 @@ export default function CheckoutPage() {
               <CardContent className="space-y-4">
                 {cart.map((item) => (
                   <div key={item.puppy.id} className="flex gap-3 pb-3 border-b">
-                    <img
+                    <Image
                       src={item.puppy.image || "/placeholder.svg"}
                       alt={item.puppy.name}
                       className="w-16 h-16 object-cover rounded-sm"
+                      width={64}
+                      height={64}
                     />
                     <div className="flex-1">
                       <p className="font-medium text-sm">{item.puppy.name}</p>

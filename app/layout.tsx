@@ -27,11 +27,14 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "CH French Bulldogs - Premium French Bulldog Puppies",
+  title: {
+    default: "CH French Bulldogs - Premium French Bulldog Puppies",
+    template: "%s | CH French Bulldogs",
+  },
   description:
     "Find your perfect French Bulldog companion. Quality bloodlines, health guarantees, and trusted breeders since 2008.",
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.ico",
   }
 }
 

@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Trash2 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 export default function CartPage() {
   const { cart, removeFromCart, toggleMicrochip, getCartTotal } = useCart()
@@ -42,10 +43,12 @@ export default function CartPage() {
               <Card key={item.puppy.id}>
                 <CardContent className="p-6">
                   <div className="flex gap-4">
-                    <img
+                    <Image
                       src={item.puppy.image || "/placeholder.svg"}
                       alt={item.puppy.name}
                       className="w-24 h-24 object-cover rounded-sm"
+                      width={96}
+                      height={96}
                     />
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">

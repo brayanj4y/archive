@@ -1,4 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "Refund Policy",
+}
 
 export default function RefundPolicyPage() {
     return (
