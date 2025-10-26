@@ -31,9 +31,8 @@ export default function CheckoutPage() {
 
   const microchipPrice = 50
   const subtotal = getCartTotal()
-  const shipping = 300
   const tax = subtotal * 0.08
-  const total = subtotal + shipping + tax
+  const total = subtotal + tax
 
   if (cart.length === 0 && !checkoutComplete) {
     router.push("/cart")
@@ -89,7 +88,6 @@ export default function CheckoutPage() {
 
     message += `\n*Order Summary:*\n`
     message += `Subtotal: $${subtotal.toFixed(2)}\n`
-    message += `Shipping: $${shipping.toFixed(2)}\n`
     message += `Tax: $${tax.toFixed(2)}\n`
     message += `*Total: $${total.toFixed(2)}*\n`
 
@@ -119,7 +117,6 @@ export default function CheckoutPage() {
         cart,
         totals: {
           subtotal,
-          shipping,
           tax,
           total,
         },
@@ -292,10 +289,6 @@ export default function CheckoutPage() {
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Shipping</span>
-                    <span>${shipping.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
                     <span>Tax (8%)</span>
                     <span>${tax.toFixed(2)}</span>
                   </div>
@@ -314,6 +307,17 @@ export default function CheckoutPage() {
                 <CardTitle>Complete Your Order</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+                  <div className="flex gap-2">
+                    <span className="text-amber-600 text-lg flex-shrink-0">💡</span>
+                    <p className="text-sm text-amber-900 leading-relaxed">
+                      <strong>Note:</strong> A $500 deposit is required to reserve your puppy. This amount is applied to
+                      your total balance. If you wish for nanny delivery, an additional $500 will be added for safe
+                      delivery to your location. We'll contact you after your order to confirm pickup or delivery
+                      details.
+                    </p>
+                  </div>
+                </div>
                 <Button
                   onClick={handleWhatsAppCheckout}
                   className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white"

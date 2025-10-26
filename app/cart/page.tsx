@@ -14,9 +14,8 @@ export default function CartPage() {
 
   const microchipPrice = 50
   const subtotal = getCartTotal()
-  const shipping = 300 // Fixed shipping cost
   const tax = subtotal * 0.08 // 8% tax
-  const total = subtotal + shipping + tax
+  const total = subtotal + tax
 
   if (cart.length === 0) {
     return (
@@ -91,10 +90,6 @@ export default function CartPage() {
                   <div className="flex justify-between">
                     <span>Subtotal</span>
                     <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Shipping</span>
-                    <span>${shipping.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tax (8%)</span>

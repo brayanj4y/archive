@@ -30,7 +30,6 @@ interface OrderData {
     cart: OrderItem[]
     totals: {
         subtotal: number
-        shipping: number
         tax: number
         total: number
     }
@@ -49,7 +48,7 @@ export async function sendOrderEmail(orderData: OrderData) {
 
     const orderItemsHTML = orderData.cart
         .map((item, i) => {
-            const itemTotal = item.puppy.price + (item.addMicrochip ? orderData.microchipPrice : 0);
+            const itemTotal = item.puppy.price + (item.addMicrochip ? orderData.microchipPrice : 0)
             return `
       <div style="padding:8px 0; border-bottom:1px solid #eee;">
         <div><strong>${i + 1}. ${item.puppy.name}</strong></div>
@@ -58,11 +57,9 @@ export async function sendOrderEmail(orderData: OrderData) {
         <div>Color: ${item.puppy.color}${item.addMicrochip ? `<div>Microchip: +$${orderData.microchipPrice.toFixed(2)}</div>` : ""}</div>
         <div>Price: <strong>$${itemTotal.toFixed(2)}</strong></div>
       </div>
-    `;
+    `
         })
-        .join("");
-
-
+        .join("")
 
     const customerAddress = orderData.customerInfo.address
         ? `${orderData.customerInfo.address}, ${orderData.customerInfo.city}, ${orderData.customerInfo.state} ${orderData.customerInfo.zipCode}`
@@ -77,7 +74,6 @@ export async function sendOrderEmail(orderData: OrderData) {
         customer_address: customerAddress,
         order_items: orderItemsHTML,
         subtotal: orderData.totals.subtotal.toFixed(2),
-        shipping: orderData.totals.shipping.toFixed(2),
         tax: orderData.totals.tax.toFixed(2),
         total: orderData.totals.total.toFixed(2),
         special_instructions: orderData.specialInstructions || "None",
