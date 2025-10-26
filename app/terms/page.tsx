@@ -20,11 +20,13 @@ export default function TermsOfServicePage() {
                         <section className="mb-8">
                             <h2 className="text-2xl font-semibold mb-4">Purchase Terms</h2>
                             <ul className="list-disc pl-6 space-y-2">
-                                <li>All puppies require a non-refundable deposit to reserve</li>
-                                <li>Full payment must be received before puppy delivery or pickup</li>
+                                <li>A non-refundable deposit of $500 is required to reserve a puppy</li>
+                                <li>Deposits may be transferred to another available puppy within 6 months</li>
+                                <li>Full payment must be received within 48 hours of scheduled pickup or delivery</li>
                                 <li>Prices are subject to change without notice</li>
                                 <li>Health guarantees are provided as specified in our health guarantee agreement</li>
-                                <li>Shipping costs and arrangements are the responsibility of the buyer</li>
+                                <li>Delivery via travel nanny service is available for a flat fee of $500 to most U.S. cities</li>
+                                <li>Pickup in Dallas, Texas is available at no additional charge</li>
                             </ul>
                         </section>
 
@@ -59,9 +61,7 @@ export default function TermsOfServicePage() {
 
                         <section className="mb-8">
                             <h2 className="text-2xl font-semibold mb-4">Dispute Resolution</h2>
-                            <p>
-                                Any disputes arising from these terms or our services shall be resolved through:
-                            </p>
+                            <p>Any disputes arising from these terms or our services shall be resolved through:</p>
                             <ul className="list-disc pl-6 space-y-2">
                                 <li>Direct negotiation between parties</li>
                                 <li>Mediation if necessary</li>

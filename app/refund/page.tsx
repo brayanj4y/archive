@@ -13,8 +13,12 @@ export default function RefundPolicyPage() {
                             <h2 className="text-2xl font-semibold mb-4">Deposit Policy</h2>
                             <p>
                                 To reserve a French Bulldog puppy, we require a non-refundable deposit of $500. This deposit is applied
-                                to the final purchase price of your puppy and indicates your serious commitment to providing a loving home
-                                for one of our puppies.
+                                to the final purchase price of your puppy and indicates your serious commitment to providing a loving
+                                home for one of our puppies.
+                            </p>
+                            <p className="mt-3">
+                                While deposits are non-refundable, they may be transferred to another available puppy within 6 months if
+                                your circumstances change or your preferred puppy becomes unavailable.
                             </p>
                         </section>
 
@@ -26,7 +30,7 @@ export default function RefundPolicyPage() {
                             </p>
                             <ul className="list-disc pl-6 space-y-2">
                                 <li>We will replace your puppy with another of equal value</li>
-                                <li>Or provide a refund of up to 50% of the purchase price for veterinary care</li>
+                                <li>Or provide a refund of up to 50% of the purchase price to cover veterinary care costs</li>
                                 <li>
                                     The health guarantee is valid only if you maintain regular veterinary care and follow our recommended
                                     care guidelines
@@ -38,9 +42,13 @@ export default function RefundPolicyPage() {
                             <h2 className="text-2xl font-semibold mb-4">Refund Conditions</h2>
                             <ul className="list-disc pl-6 space-y-2">
                                 <li>Deposits are non-refundable except in specific circumstances</li>
-                                <li>Full refunds are only provided if the puppy is found to have a serious health issue before delivery</li>
+                                <li>Deposits may be transferred to another available puppy within 6 months</li>
                                 <li>
-                                    No refunds will be given for color changes, size variations, or other normal developmental characteristics
+                                    Full refunds are only provided if the puppy is found to have a serious health issue before delivery
+                                </li>
+                                <li>
+                                    No refunds will be given for color changes, size variations, or other normal developmental
+                                    characteristics
                                 </li>
                                 <li>Behavioral issues are not covered under our refund policy</li>
                             </ul>

@@ -62,8 +62,8 @@ export default function HowToPurchasePage() {
                 <div>
                   <h3 className="font-bold text-lg mb-2">Schedule a Visit</h3>
                   <p className="text-sm text-muted-foreground">
-                    We encourage you to see your puppy, visit us in person in Dallas, Texas. This helps
-                    you get to know your puppy and ensures you're comfortable with your decision.
+                    We encourage you to see your puppy, visit us in person in Dallas, Texas. This helps you get to know
+                    your puppy and ensures you're comfortable with your decision.
                   </p>
                 </div>
               </div>
@@ -126,8 +126,8 @@ export default function HowToPurchasePage() {
                 <div>
                   <h3 className="font-bold text-lg mb-2">Complete Final Payment</h3>
                   <p className="text-sm text-muted-foreground">
-                    The remaining balance is due before or at the time of pickup/delivery. We'll coordinate with you on
-                    timing and payment method.
+                    The remaining balance must be paid in full within 48 hours of scheduled pickup/delivery. We'll
+                    coordinate with you on timing and payment method.
                   </p>
                 </div>
               </div>

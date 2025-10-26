@@ -136,7 +136,10 @@ export default function WarrantyPage() {
                   5
                 </span>
                 <div>
-                  <p className="text-sm">If approved, we will offer a replacement puppy or refund per our policy</p>
+                  <p className="text-sm">
+                    If approved, we will offer a replacement puppy of equal value or a refund of up to 50% of the
+                    purchase price to cover veterinary care costs
+                  </p>
                 </div>
               </li>
             </ol>
