@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Check, Phone } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
+import Image from "next/image"
 
 const featuredPuppies = [
   {
@@ -14,6 +15,7 @@ const featuredPuppies = [
     color: "Fawn",
     priceDisplay: "$4,500",
     status: "Available",
+    // NOTE: The image URL has dimensions 400x400
     image: "/placeholder.svg?height=400&width=400",
   },
   {
@@ -24,6 +26,7 @@ const featuredPuppies = [
     color: "Blue",
     priceDisplay: "$5,500",
     status: "Available",
+    // NOTE: The image URL has dimensions 400x400
     image: "/placeholder.svg?height=400&width=400",
   },
 ]
@@ -31,12 +34,15 @@ const featuredPuppies = [
 export default function HomePage() {
   return (
     <main>
-      {/* Hero Section */}
+      {/* Hero Section - ALREADY CORRECTED */}
       <section className="relative h-[600px] flex items-center justify-center bg-muted">
-        <img
-          src="/hero.JPG?height=600&width=1920"
+        <Image
+          src="/hero.JPG"
           alt="French Bulldog Puppy"
           className="absolute inset-0 w-full h-full object-cover"
+          width={1920} // FIXED: Explicit width
+          height={600} // FIXED: Explicit height
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div className="relative z-10 text-center px-4 py-12 max-w-2xl mx-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white text-balance">
@@ -71,7 +77,13 @@ export default function HomePage() {
             {featuredPuppies.map((puppy) => (
               <Card key={puppy.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative">
-                  <img src={puppy.image || "/placeholder.svg"} alt={puppy.name} className="w-full h-64 object-cover" />
+                  <Image
+                    src={puppy.image || "/placeholder.svg"}
+                    alt={puppy.name}
+                    className="w-full h-64 object-cover"
+                    width={400} // FIX APPLIED: Added width based on placeholder size
+                    height={400} // FIX APPLIED: Added height based on placeholder size
+                  />
                   <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
                     {puppy.status}
                   </div>
@@ -105,7 +117,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About Our Puppies */}
+      {/* About Our Puppies (No Image Tags) */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">About Our Puppies</h2>
@@ -138,7 +150,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Got Any Questions */}
+      {/* Got Any Questions (No Image Tags) */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Got Any Questions?</h2>
@@ -174,10 +186,12 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <div key={i} className="aspect-square">
-                <img
+                <Image
                   src={`/placeholder.svg?height=300&width=300&query=happy customer with french bulldog puppy ${i}`}
                   alt={`Customer with puppy ${i}`}
                   className="w-full h-full object-cover border border-border"
+                  width={300} // FIX APPLIED: Added width based on placeholder size
+                  height={300} // FIX APPLIED: Added height based on placeholder size
                 />
               </div>
             ))}
@@ -185,7 +199,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ (No Image Tags) */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
@@ -273,7 +287,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Reviews */}
+      {/* Reviews (No Image Tags) */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">What our Adopting Families say about us!</h2>
@@ -314,7 +328,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Location */}
+      {/* Location (No Image Tags) */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -344,7 +358,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Adoption Map */}
+      {/* Adoption Map (No Image Tags) */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Where Have Our Puppies Been Adopted?</h2>

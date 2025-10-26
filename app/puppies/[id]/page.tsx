@@ -9,6 +9,7 @@ import { useState } from "react"
 import { ArrowLeft, Check } from "lucide-react"
 import Link from "next/link"
 import type { Puppy } from "@/lib/cart-context"
+import Image from "next/image"
 
 const puppies: Puppy[] = [
   {
@@ -154,10 +155,12 @@ export default function PuppyDetailPage({ params }: { params: { id: string } }) 
         <div className="grid lg:grid-cols-2 gap-8">
           <div>
             <div className="relative">
-              <img
+              <Image
                 src={puppy.image || "/placeholder.svg"}
                 alt={puppy.name}
                 className="w-full h-auto rounded-sm object-cover"
+                width={800}
+                height={600}
               />
               <Badge className="absolute top-4 right-4" variant={puppy.status === "Reserved" ? "secondary" : "default"}>
                 {puppy.status}

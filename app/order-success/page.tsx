@@ -7,6 +7,7 @@ import { Mail, Phone } from "lucide-react"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import Link from "next/link"
 import { Suspense } from "react"
+import Image from "next/image"
 
 function OrderSuccessContent() {
     const searchParams = useSearchParams()
@@ -17,7 +18,13 @@ function OrderSuccessContent() {
             <div className="max-w-3xl mx-auto">
                 <div className="text-center mb-6 md:mb-8">
                     <div className="mb-4 md:mb-6 flex justify-center">
-                        <img src="/thanks.png" alt="Thank You" className="h-48 w-90 md:h-55 md:w-100" />
+                        <Image
+                            src="/thanks.png"
+                            alt="Thank You"
+                            className="h-48 w-90 md:h-55 md:w-100"
+                            width={900}
+                            height={400}
+                        />
                     </div>
                     <p className="text-base md:text-lg text-muted-foreground px-4">
                         Your order has been successfully placed and confirmation emails have been sent.

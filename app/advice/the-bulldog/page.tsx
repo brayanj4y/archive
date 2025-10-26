@@ -1,5 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Heart, Home, Activity, Stethoscope } from "lucide-react"
+import { Metadata } from "next"
+import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "The French Bulldog",
+}
 
 export default function TheBulldogPage() {
   return (
@@ -12,10 +18,12 @@ export default function TheBulldogPage() {
         </p>
 
         <div className="mb-12">
-          <img
+          <Image
             src="/the-bulldog.JPG?height=400&width=800"
             alt="French Bulldog"
             className="w-full h-64 object-cover border border-border mb-6"
+            width={800}
+            height={400}
           />
         </div>
 

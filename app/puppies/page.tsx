@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { Puppy } from "@/lib/cart-context"
 import Link from "next/link"
+import Image from "next/image"
 
 const puppies: Puppy[] = [
   {
@@ -118,7 +119,13 @@ export default function PuppiesPage() {
           {puppies.map((puppy) => (
             <Card key={puppy.id} className="overflow-hidden">
               <div className="relative">
-                <img src={puppy.image || "/placeholder.svg"} alt={puppy.name} className="w-full h-64 object-cover" />
+                <Image
+                  src={puppy.image || "/placeholder.svg"}
+                  alt={puppy.name}
+                  className="w-full h-64 object-cover"
+                  width={400}
+                  height={400}
+                />
                 <Badge
                   className="absolute top-2 right-2"
                   variant={puppy.status === "Reserved" ? "secondary" : "default"}

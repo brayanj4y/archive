@@ -1,5 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertTriangle, Shield, CheckCircle, XCircle } from "lucide-react"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Avoiding Fraudulent Breeders",
+}
 
 export default function FraudulentBreedersPage() {
   return (

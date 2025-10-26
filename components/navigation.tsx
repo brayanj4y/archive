@@ -6,6 +6,7 @@ import { Menu, X, ChevronDown, ShoppingCart } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -27,7 +28,13 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center">
-            <img src="/logo-hori.png" alt="Logo" className="h-14" />
+            <Image
+              src="/logo-hori.png"
+              alt="Logo"
+              className="h-14"
+              width={130}
+              height={40}
+            />
           </Link>
 
           <div className="hidden md:flex items-center gap-6">

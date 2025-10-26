@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Phone, Mail, Facebook, Instagram } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
@@ -23,9 +24,27 @@ export function Footer() {
 
           {/* Partner Badges */}
           <div className="lg:col-span-3 flex flex-wrap justify-center lg:justify-end items-center gap-6">
-            <img src="partners/american-kennel.png" alt="AKC Registered" className="h-20 w-20 object-contain" />
-            <img src="partners/nuvetlab.png" alt="Nuvetlab Partners" className="h-20 w-20 object-contain" />
-            <img src="partners/frenchies.png" alt="Frenchies" className="h-20 w-20 object-contain" />
+            <Image
+              src="partners/american-kennel.png"
+              alt="AKC Registered"
+              className="h-20 w-20 object-contain"
+              width={80}
+              height={80}
+            />
+            <Image
+              src="partners/nuvetlab.png"
+              alt="Nuvetlab Partners"
+              className="h-20 w-20 object-contain"
+              width={80}
+              height={80}
+            />
+            <Image
+              src="partners/frenchies.png"
+              alt="Frenchies"
+              className="h-20 w-20 object-contain"
+              width={80}
+              height={80}
+            />
           </div>
         </div>
 
