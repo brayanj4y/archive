@@ -5,43 +5,21 @@ import { Check, Phone } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import Image from "next/image"
-
-const featuredPuppies = [
-  {
-    id: 1,
-    name: "Bella",
-    age: "10 weeks",
-    gender: "Female",
-    color: "Fawn",
-    priceDisplay: "$4,500",
-    status: "Available",
-    // NOTE: The image URL has dimensions 400x400
-    image: "/placeholder.svg?height=400&width=400",
-  },
-  {
-    id: 2,
-    name: "Max",
-    age: "12 weeks",
-    gender: "Male",
-    color: "Blue",
-    priceDisplay: "$5,500",
-    status: "Available",
-    // NOTE: The image URL has dimensions 400x400
-    image: "/placeholder.svg?height=400&width=400",
-  },
-]
+import { getFeaturedPuppies } from "@/data/puppies"
 
 export default function HomePage() {
+  const featuredPuppies = getFeaturedPuppies()
+
   return (
     <main>
-      {/* Hero Section - ALREADY CORRECTED */}
+      {/* Hero Sectio */}
       <section className="relative h-[600px] flex items-center justify-center bg-muted">
         <Image
           src="/hero.JPG"
           alt="French Bulldog Puppy"
           className="absolute inset-0 w-full h-full object-cover"
-          width={1920} // FIXED: Explicit width
-          height={600} // FIXED: Explicit height
+          width={1920}
+          height={600}
           sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div className="relative z-10 text-center px-4 py-12 max-w-2xl mx-4">
@@ -81,8 +59,8 @@ export default function HomePage() {
                     src={puppy.image || "/placeholder.svg"}
                     alt={puppy.name}
                     className="w-full h-64 object-cover"
-                    width={400} // FIX APPLIED: Added width based on placeholder size
-                    height={400} // FIX APPLIED: Added height based on placeholder size
+                    width={400}
+                    height={400}
                   />
                   <div className="absolute top-2 right-2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
                     {puppy.status}
@@ -190,8 +168,8 @@ export default function HomePage() {
                   src={`/placeholder.svg?height=300&width=300&query=happy customer with french bulldog puppy ${i}`}
                   alt={`Customer with puppy ${i}`}
                   className="w-full h-full object-cover border border-border"
-                  width={300} // FIX APPLIED: Added width based on placeholder size
-                  height={300} // FIX APPLIED: Added height based on placeholder size
+                  width={300}
+                  height={300}
                 />
               </div>
             ))}
@@ -199,7 +177,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ (No Image Tags) */}
+      {/* FAQ */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
@@ -287,7 +265,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Reviews (No Image Tags) */}
+      {/* Reviews */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">What our Adopting Families say about us!</h2>
@@ -328,7 +306,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Location (No Image Tags) */}
+      {/* Location */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -358,7 +336,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Adoption Map (No Image Tags) */}
+      {/* Adoption Map */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Where Have Our Puppies Been Adopted?</h2>
