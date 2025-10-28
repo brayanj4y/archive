@@ -8,10 +8,28 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Customer Reviews - ShipTrack Pro",
+  title: "Customer Reviews & Testimonials - Real Shipping Experiences",
   description:
-    "Read what our customers say about ShipTrack Pro shipping services. Real reviews from satisfied customers.",
-  keywords: "reviews, testimonials, customer feedback, shipping reviews",
+    "Read authentic customer reviews and testimonials about ShipTrack Pro shipping services. 4.9/5 stars from 1000+ verified customers. See why businesses and individuals trust us with their shipments.",
+  keywords: [
+    "shipping reviews",
+    "customer testimonials",
+    "logistics feedback",
+    "shipping company reviews",
+    "package delivery reviews",
+    "verified customer reviews",
+  ],
+  openGraph: {
+    title: "Customer Reviews & Testimonials | ShipTrack Pro",
+    description: "4.9/5 stars from 1000+ verified customers. Read real experiences with our shipping services.",
+    url: "https://shiptrackpro.com/reviews",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Customer Reviews & Testimonials",
+    description: "4.9/5 stars from 1000+ verified customers. Read real experiences with our shipping services.",
+  },
 }
 
 const reviews = [
@@ -120,10 +138,9 @@ export default function ReviewsPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* New Header Component */}
       <Header currentPath="/reviews" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-yellow-100 text-yellow-700 border-yellow-200">Customer Stories</Badge>
@@ -184,7 +201,7 @@ export default function ReviewsPage() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-2">
-                    <div className="flex items-center">
+                    <div className="flex items-center" aria-label={`${review.rating} out of 5 stars`}>
                       {[...Array(review.rating)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                       ))}
@@ -202,13 +219,16 @@ export default function ReviewsPage() {
                 </div>
 
                 <div className="mb-4">
-                  <Quote className="w-6 h-6 text-slate-300 mb-2" />
+                  <Quote className="w-6 h-6 text-slate-300 mb-2" aria-hidden="true" />
                   <p className="text-slate-700 leading-relaxed text-sm">{review.comment}</p>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    <div
+                      className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+                      aria-hidden="true"
+                    >
                       {review.avatar}
                     </div>
                     <div>
@@ -216,13 +236,13 @@ export default function ReviewsPage() {
                       <div className="text-xs text-slate-500">{review.location}</div>
                     </div>
                   </div>
-                  <div className="text-xs text-slate-400">
+                  <time className="text-xs text-slate-400" dateTime={review.date}>
                     {new Date(review.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "short",
                       day: "numeric",
                     })}
-                  </div>
+                  </time>
                 </div>
               </CardContent>
             </Card>
@@ -246,9 +266,8 @@ export default function ReviewsPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </main>
 
-      {/* New Footer Component */}
       <Footer />
     </div>
   )

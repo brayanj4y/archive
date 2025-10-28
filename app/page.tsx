@@ -1,21 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import {
-  Package,
-  Truck,
-  Shield,
-  Clock,
-  Star,
-  CheckCircle,
-  Search,
-  Heart,
-  Globe,
-  Users,
-  TrendingUp,
-  Zap,
-  Award,
-} from "lucide-react"
+import { Package, Truck, Shield, Clock, Star, CheckCircle, Search, Heart, Globe, Zap, Award } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -33,13 +19,6 @@ export default function HomePage() {
       router.push(`/track/${trackingNumber.trim()}`)
     }
   }
-
-  const stats = [
-    { label: "Packages Delivered", value: "250,000+", icon: Package },
-    { label: "Happy Customers", value: "50,000+", icon: Users },
-    { label: "Success Rate", value: "99.9%", icon: TrendingUp },
-    { label: "Countries Served", value: "45+", icon: Globe },
-  ]
 
   const services = [
     {
@@ -114,11 +93,12 @@ export default function HomePage() {
     <div className="min-h-screen bg-slate-50">
       <Header currentPath="/" />
 
+      {/* Hero Section */}
       <section className="relative py-20 bg-white">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
           style={{
-            backgroundImage: "url('/images/logistics-hero-bg.jpg')",
+            backgroundImage: "url('/placeholder.svg?height=800&width=1600')",
           }}
         />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -138,21 +118,25 @@ export default function HomePage() {
             </p>
 
             <div className="bg-white border border-slate-200 rounded-lg p-6 max-w-2xl mx-auto">
-              <h3 className="text-lg font-semibold mb-4 text-slate-800">Track Your Package</h3>
+              <h2 className="text-lg font-semibold mb-4 text-slate-800">Track Your Package</h2>
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1">
                   <Input
                     type="text"
-                    placeholder="Enter tracking number (e.g., ST12345678ABCD)"
+                    placeholder="Enter tracking number"
                     value={trackingNumber}
                     onChange={(e) => setTrackingNumber(e.target.value)}
                     className="h-12 pl-10 border-slate-300"
                     onKeyPress={(e) => e.key === "Enter" && handleTrack()}
+                    aria-label="Tracking number input"
                   />
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
+                  <Search
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5"
+                    aria-hidden="true"
+                  />
                 </div>
                 <Button onClick={handleTrack} className="h-12 px-6 bg-blue-600 hover:bg-blue-700">
-                  <Search className="w-5 h-5 mr-2" />
+                  <Search className="w-5 h-5 mr-2" aria-hidden="true" />
                   Track Now
                 </Button>
               </div>
@@ -161,13 +145,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-slate-50">
+      {/* Features Section */}
+      <section className="py-16 bg-slate-50" aria-labelledby="features-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 id="features-heading" className="sr-only">
+            Our Features
+          </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center">
                 <div className="bg-blue-100 rounded-lg w-14 h-14 flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-7 h-7 text-blue-600" />
+                  <feature.icon className="w-7 h-7 text-blue-600" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2 text-slate-800">{feature.title}</h3>
                 <p className="text-slate-600 leading-relaxed">{feature.description}</p>
@@ -177,11 +165,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      {/* How It Works Section */}
+      <section className="py-16 bg-white" aria-labelledby="how-it-works-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">Simple Process</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">How It Works</h2>
+            <h2 id="how-it-works-heading" className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              How It Works
+            </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Our streamlined process ensures your packages are handled with care from pickup to delivery
             </p>
@@ -217,7 +208,7 @@ export default function HomePage() {
               <div key={index} className="text-center">
                 <div className="relative mb-6">
                   <div className="bg-blue-600 rounded-lg w-16 h-16 flex items-center justify-center mx-auto">
-                    <item.icon className="w-8 h-8 text-white" />
+                    <item.icon className="w-8 h-8 text-white" aria-hidden="true" />
                   </div>
                   <div className="absolute -top-1 -right-1 bg-white border-2 border-blue-600 rounded-full w-7 h-7 flex items-center justify-center">
                     <span className="text-xs font-bold text-blue-600">{item.step}</span>
@@ -231,11 +222,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-slate-50">
+      {/* Services Section */}
+      <section className="py-16 bg-slate-50" aria-labelledby="services-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <Badge className="mb-4 bg-green-100 text-green-700 border-green-200">Our Services</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Shipping Solutions</h2>
+            <h2 id="services-heading" className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Shipping Solutions
+            </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Comprehensive logistics services tailored to your specific needs
             </p>
@@ -246,7 +240,7 @@ export default function HomePage() {
               <Card key={index} className="border-slate-200">
                 <CardHeader>
                   <div className="bg-blue-100 rounded-lg w-12 h-12 flex items-center justify-center mb-3">
-                    <service.icon className="w-6 h-6 text-blue-600" />
+                    <service.icon className="w-6 h-6 text-blue-600" aria-hidden="true" />
                   </div>
                   <CardTitle className="text-lg">{service.title}</CardTitle>
                   <CardDescription>{service.description}</CardDescription>
@@ -255,7 +249,7 @@ export default function HomePage() {
                   <ul className="space-y-2">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center space-x-2 text-sm">
-                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" aria-hidden="true" />
                         <span className="text-slate-600">{feature}</span>
                       </li>
                     ))}
@@ -267,34 +261,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-blue-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Trusted Worldwide</h2>
-            <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-              Our commitment to excellence has earned the trust of customers across the globe
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center text-white">
-                <div className="bg-white/10 border border-white/20 rounded-lg p-6">
-                  <stat.icon className="w-10 h-10 mx-auto mb-3 text-white/80" />
-                  <div className="text-3xl md:text-4xl font-bold mb-1">{stat.value}</div>
-                  <div className="text-blue-100 text-sm">{stat.label}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-white">
+      {/* Reviews Section */}
+      <section className="py-16 bg-white" aria-labelledby="reviews-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <Badge className="mb-4 bg-yellow-100 text-yellow-700 border-yellow-200">Customer Stories</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">What Our Customers Say</h2>
+            <h2 id="reviews-heading" className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              What Our Customers Say
+            </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
               Real feedback from satisfied customers who trust us with their shipments
             </p>
@@ -304,15 +278,18 @@ export default function HomePage() {
             {reviews.map((review, index) => (
               <Card key={index} className="border-slate-200">
                 <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-center mb-4" aria-label={`${review.rating} out of 5 stars`}>
                     {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" aria-hidden="true" />
                     ))}
                   </div>
                   <p className="text-slate-700 mb-4 leading-relaxed italic">"{review.comment}"</p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                      <div
+                        className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+                        aria-hidden="true"
+                      >
                         {review.avatar}
                       </div>
                       <div>

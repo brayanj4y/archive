@@ -167,7 +167,7 @@ export default function FAQPage() {
     <div className="min-h-screen bg-slate-50">
       <Header currentPath="/faq" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-green-100 text-green-700 border-green-200">Help Center</Badge>
@@ -287,7 +287,7 @@ export default function FAQPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </main>
 
       <Footer />
     </div>

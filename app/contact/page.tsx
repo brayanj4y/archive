@@ -9,8 +9,28 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 
 export const metadata: Metadata = {
-  title: "Contact Us - ShipTrack Pro",
-  description: "Get in touch with ShipTrack Pro for shipping inquiries, support, and customer service.",
+  title: "Contact Us - Customer Support & Shipping Inquiries",
+  description:
+    "Contact ShipTrack Pro for shipping inquiries, customer support, and logistics assistance. Available 24/7 for emergency support. Call 1-800-SHIPTRACK or email support@shiptrackpro.com.",
+  keywords: [
+    "contact shipping company",
+    "customer support",
+    "shipping inquiries",
+    "logistics support",
+    "emergency shipping",
+    "track package support",
+  ],
+  openGraph: {
+    title: "Contact Us - Customer Support & Shipping Inquiries | ShipTrack Pro",
+    description: "Get in touch with our expert shipping team. Available 24/7 for emergency support.",
+    url: "https://shiptrackpro.com/contact",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contact Us - Customer Support & Shipping Inquiries",
+    description: "Get in touch with our expert shipping team. Available 24/7 for emergency support.",
+  },
 }
 
 export default function ContactPage() {
@@ -18,7 +38,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-slate-50">
       <Header currentPath="/contact" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
           <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">Get In Touch</Badge>
@@ -189,7 +209,7 @@ export default function ContactPage() {
             </Card>
           </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>
