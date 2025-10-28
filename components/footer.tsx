@@ -56,8 +56,12 @@ export default function Footer() {
                 <div className="border-t border-slate-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
                     <p className="text-slate-400">&copy; 2025 ShipTrack Pro. All rights reserved.</p>
                     <div className="flex space-x-6 mt-4 md:mt-0 text-slate-400">
-                        <span className="hover:text-white transition-colors cursor-pointer">Privacy Policy</span>
-                        <span className="hover:text-white transition-colors cursor-pointer">Terms of Service</span>
+                        <Link href="/privacy" className="hover:text-white transition-colors">
+                            Privacy Policy
+                        </Link>
+                        <Link href="/terms" className="hover:text-white transition-colors">
+                            Terms of Service
+                        </Link>
                     </div>
                 </div>
             </div>

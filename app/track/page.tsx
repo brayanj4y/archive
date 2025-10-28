@@ -75,9 +75,6 @@ export default function TrackPage() {
                 Track Package
               </Button>
             </div>
-            <div className="mt-3 text-sm text-slate-500">
-              Demo: <code className="bg-slate-100 px-2 py-1 rounded">ST12345678ABCD</code>
-            </div>
           </CardContent>
         </Card>
 

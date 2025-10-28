@@ -156,9 +156,6 @@ export default function HomePage() {
                   Track Now
                 </Button>
               </div>
-              <div className="mt-3 text-sm text-slate-500">
-                Try demo: <code className="bg-slate-100 px-2 py-1 rounded">ST12345678ABCD</code>
-              </div>
             </div>
           </div>
         </div>

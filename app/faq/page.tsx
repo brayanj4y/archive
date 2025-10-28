@@ -1,4 +1,6 @@
-import type { Metadata } from "next"
+"use client"
+
+import { useState, useMemo } from "react"
 import { Package, HelpCircle, Search, MessageCircle, Phone } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,12 +10,6 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-
-export const metadata: Metadata = {
-  title: "FAQ - ShipTrack Pro",
-  description: "Frequently asked questions about ShipTrack Pro shipping services, tracking, pricing, and policies.",
-  keywords: "FAQ, shipping questions, tracking help, shipping policies",
-}
 
 const faqCategories = [
   {
@@ -149,9 +145,26 @@ const faqCategories = [
 ]
 
 export default function FAQPage() {
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const filteredCategories = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return faqCategories
+    }
+
+    const query = searchQuery.toLowerCase()
+    return faqCategories
+      .map((category) => ({
+        ...category,
+        questions: category.questions.filter(
+          (faq) => faq.question.toLowerCase().includes(query) || faq.answer.toLowerCase().includes(query),
+        ),
+      }))
+      .filter((category) => category.questions.length > 0)
+  }, [searchQuery])
+
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* New Header Component */}
       <Header currentPath="/faq" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -164,53 +177,84 @@ export default function FAQPage() {
           </p>
         </div>
 
-        {/* Search Bar */}
         <Card className="mb-12 border-slate-200">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
-                <Input placeholder="Search for answers..." className="h-12 pl-10 border-slate-300" />
+                <Input
+                  placeholder="Search for answers..."
+                  className="h-12 pl-10 border-slate-300"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
               </div>
-              <Button className="h-12 px-6 bg-blue-600 hover:bg-blue-700">Search</Button>
+              {searchQuery && (
+                <Button
+                  variant="outline"
+                  className="h-12 px-6 border-slate-300 bg-transparent"
+                  onClick={() => setSearchQuery("")}
+                >
+                  Clear
+                </Button>
+              )}
             </div>
+            {searchQuery && (
+              <p className="mt-3 text-sm text-slate-600">
+                Found {filteredCategories.reduce((acc, cat) => acc + cat.questions.length, 0)} result(s)
+              </p>
+            )}
           </CardContent>
         </Card>
 
         {/* FAQ Categories */}
-        <div className="space-y-6 mb-12">
-          {faqCategories.map((category, categoryIndex) => (
-            <Card key={categoryIndex} className="border-slate-200">
-              <CardHeader className="bg-slate-50">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-blue-600 rounded-lg w-12 h-12 flex items-center justify-center">
-                    <HelpCircle className="w-6 h-6 text-white" />
+        {filteredCategories.length > 0 ? (
+          <div className="space-y-6 mb-12">
+            {filteredCategories.map((category, categoryIndex) => (
+              <Card key={categoryIndex} className="border-slate-200">
+                <CardHeader className="bg-slate-50">
+                  <div className="flex items-center space-x-3">
+                    <div className="bg-blue-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                      <HelpCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-xl">{category.title}</CardTitle>
+                      <CardDescription>
+                        {category.questions.length} question{category.questions.length !== 1 ? "s" : ""}
+                      </CardDescription>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle className="text-xl">{category.title}</CardTitle>
-                    <CardDescription>Common questions about {category.title.toLowerCase()}</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                <Accordion type="single" collapsible className="w-full">
-                  {category.questions.map((faq, questionIndex) => (
-                    <AccordionItem
-                      key={questionIndex}
-                      value={`${categoryIndex}-${questionIndex}`}
-                      className="border-slate-200"
-                    >
-                      <AccordionTrigger className="text-left font-medium text-slate-800 hover:text-blue-600">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-slate-600 leading-relaxed pt-2">{faq.answer}</AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <Accordion type="single" collapsible className="w-full">
+                    {category.questions.map((faq, questionIndex) => (
+                      <AccordionItem
+                        key={questionIndex}
+                        value={`${categoryIndex}-${questionIndex}`}
+                        className="border-slate-200"
+                      >
+                        <AccordionTrigger className="text-left font-medium text-slate-800 hover:text-blue-600">
+                          {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="text-slate-600 leading-relaxed pt-2">
+                          {faq.answer}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Card className="border-slate-200 mb-12">
+            <CardContent className="p-12 text-center">
+              <Search className="w-12 h-12 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-slate-800 mb-2">No results found</h3>
+              <p className="text-slate-600">Try searching with different keywords or browse all categories above</p>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Contact CTA */}
         <Card className="border-slate-200 bg-slate-50">
@@ -245,7 +289,6 @@ export default function FAQPage() {
         </Card>
       </div>
 
-      {/* New Footer Component */}
       <Footer />
     </div>
   )
