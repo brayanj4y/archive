@@ -70,8 +70,7 @@
   }
 }
 
-/* Removed all gradient, animation, and shadow classes for professional clean design */
-/* Smooth transitions */
+
 * {
   transition: all 0.2s ease-in-out;
 }

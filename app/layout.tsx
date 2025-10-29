@@ -3,16 +3,13 @@ import type { Metadata } from "next"
 
 import "./globals.css"
 
-import { Inter, Geist as V0_Font_Geist, Geist_Mono as V0_Font_Geist_Mono, Source_Serif_4 as V0_Font_Source_Serif_4 } from 'next/font/google'
-import { Geist as V0_Font_Geist, Geist_Mono as V0_Font_Geist_Mono, Source_Serif_4 as V0_Font_Source_Serif_4 } from 'next/font/google'
+import { Inter, Roboto_Mono, Source_Serif_4 } from "next/font/google"
 
 // Initialize fonts
-const _geist = V0_Font_Geist({ subsets: ['latin'], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], variable: '--v0-font-geist' })
-const _geistMono = V0_Font_Geist_Mono({ subsets: ['latin'], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], variable: '--v0-font-geist-mono' })
-const _sourceSerif_4 = V0_Font_Source_Serif_4({ subsets: ['latin'], weight: ["200", "300", "400", "500", "600", "700", "800", "900"], variable: '--v0-font-source-serif-4' })
-const _v0_fontVariables = `${_geist.variable} ${_geistMono.variable} ${_sourceSerif_4.variable}`
-
-const inter = Inter({ subsets: ["latin"] })
+const _inter = Inter({ subsets: ['latin'], weight: ["400", "500", "600", "700"], variable: '--inter-font' })
+const _mono = Roboto_Mono({ subsets: ['latin'], weight: ["400", "500", "700"], variable: '--mono-font' })
+const _serif = Source_Serif_4({ subsets: ['latin'], weight: ["400", "500", "600", "700"], variable: '--serif-font' })
+const _fontVariables = `${_inter.variable} ${_mono.variable} ${_serif.variable}`
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://shiptrackpro.com"),
@@ -37,59 +34,9 @@ export const metadata: Metadata = {
   authors: [{ name: "ShipTrack Pro" }],
   creator: "ShipTrack Pro",
   publisher: "ShipTrack Pro",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://shiptrackpro.com",
-    siteName: "ShipTrack Pro",
-    title: "ShipTrack Pro - Professional Package Tracking & Logistics Services",
-    description:
-      "Track your shipments with real-time GPS updates. Professional logistics services with 99.9% on-time delivery rate.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "ShipTrack Pro - Professional Package Tracking",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "ShipTrack Pro - Professional Package Tracking & Logistics Services",
-    description:
-      "Track your shipments with real-time GPS updates. Professional logistics services with 99.9% on-time delivery rate.",
-    images: ["/og-image.jpg"],
-    creator: "@shiptrackpro",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-  },
-  generator: "v0.dev",
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -99,37 +46,10 @@ export default function RootLayout({
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossOrigin=""
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "ShipTrack Pro",
-              url: "https://shiptrackpro.com",
-              logo: "https://shiptrackpro.com/logo.png",
-              description: "Professional package tracking and logistics services with real-time GPS updates",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "US",
-              },
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+1-800-SHIPTRACK",
-                contactType: "Customer Service",
-                areaServed: "Worldwide",
-                availableLanguage: ["English"],
-              },
-              sameAs: [
-                "https://facebook.com/shiptrackpro",
-                "https://twitter.com/shiptrackpro",
-                "https://linkedin.com/company/shiptrackpro",
-              ],
-            }),
-          }}
-        />
       </head>
-      <body className={inter.className + " " + _v0_fontVariables}>{children}</body>
+      <body className={`${_fontVariables}`}>
+        {children}
+      </body>
     </html>
   )
 }
