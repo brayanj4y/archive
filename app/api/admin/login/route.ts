@@ -12,8 +12,6 @@ export async function POST(request: NextRequest) {
 
     const supabase = createServerClient()
 
-    // For demo purposes, we'll use simple credentials
-    // In production, you should use proper password hashing
     if (email === "admin@shiptrack.com" && password === "admin123") {
       // Generate a simple token (in production, use JWT)
       const token = Buffer.from(`${email}:${Date.now()}`).toString("base64")

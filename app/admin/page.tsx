@@ -260,10 +260,6 @@ export default function AdminDashboard() {
             <CardTitle className="text-2xl text-center">Admin Login</CardTitle>
             <CardDescription className="text-center">
               Access the admin dashboard
-              <br />
-              <span className="text-xs text-slate-500 mt-2 block bg-slate-100 rounded px-2 py-1 inline-block">
-                Email: admin@shiptrack.com | Password: admin123
-              </span>
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
@@ -277,7 +273,7 @@ export default function AdminDashboard() {
                   type="email"
                   value={loginForm.email}
                   onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
-                  placeholder="admin@shiptrack.com"
+                  placeholder="you@gmail.com"
                   required
                   className="mt-1 border-slate-300 h-10"
                 />
@@ -291,7 +287,7 @@ export default function AdminDashboard() {
                   type="password"
                   value={loginForm.password}
                   onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                  placeholder="admin123"
+                  placeholder="hello3456789"
                   required
                   className="mt-1 border-slate-300 h-10"
                 />
