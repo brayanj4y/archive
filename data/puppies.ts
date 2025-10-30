@@ -20,7 +20,7 @@ export const PUPPIES: Puppy[] = [
             "/puppies/5/IMG_1741.JPG?height=600&width=600"
         ],
         description:
-            "Daisy is a gorgeous pied French Bulldog with unique markings. She's affectionate and loves attention.",
+            "Meet Daisy! This sweet fawn cutie loves cuddles and belly rubs. She's full of love and ready to steal your heart.",
         weight: "10 lbs",
         parents: "Champion bloodline",
         vaccinations: ["First round of shots", "Dewormed", "Vet checked"],
@@ -44,7 +44,8 @@ export const PUPPIES: Puppy[] = [
             "/puppies/3/IMG_1769.JPG?height=600&width=600",
             "/puppies/3/IMG_1771.JPG?height=600&width=600"
         ],
-        description: "Bruno is a handsome blue and tan French Bulldog with a calm and loving personality. Perfect for families.",
+        description:
+            "Say hi to Bruno! This charming blue and tan boy is all about snuggles and gentle playtime. Perfect little companion for your family adventures!",
         weight: "9 lbs",
         parents: "Champion bloodline",
         vaccinations: ["First round of shots", "Dewormed", "Vet checked"],
@@ -71,7 +72,7 @@ export const PUPPIES: Puppy[] = [
             "/puppies/4/IMG_1773.JPG?height=600&width=600"
         ],
         description:
-            "Bella is a beautiful brindle French Bulldog with a playful spirit. She's adventurous and loves exploring.",
+            "Bella is a little explorer with a heart full of love! This fawn cutie with a black mask loves playtime and adventures with her favorite humans.",
         weight: "13 lbs",
         parents: "Champion bloodline",
         vaccinations: ["First round of shots", "Dewormed", "Vet checked"],
@@ -94,7 +95,8 @@ export const PUPPIES: Puppy[] = [
             "/puppies/2/camo5.JPG?height=600&width=600",
             "/puppies/2/camo6.JPG?height=600&width=600"
         ],
-        description: "Max is an energetic white French Bulldog with black patches and a stunning coat. He's confident and loves to play.",
+        description:
+            "Max is a playful bundle of energy! This white and black patchy boy loves zoomies, cuddles, and making everyone smile.",
         weight: "8 lbs",
         parents: "Champion bloodline",
         vaccinations: ["First and second round of shots", "Dewormed", "Vet checked"],
@@ -120,7 +122,7 @@ export const PUPPIES: Puppy[] = [
             "/puppies/1/IMG_1782.JPG?height=600&width=600",
         ],
         description:
-            "Rocky is a sweet and playful black and tan French Bulldog with a gentle temperament. He loves cuddles and is great with children.",
+            "Rocky is the sweetest cuddle buddy! This black and tan boy loves gentle play, snuggles, and making everyone around him happy.",
         weight: "12 lbs",
         parents: "Champion bloodline",
         vaccinations: ["First round of shots", "Dewormed", "Vet checked"],
