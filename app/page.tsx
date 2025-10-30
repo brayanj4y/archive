@@ -95,7 +95,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About Our Puppies (No Image Tags) */}
+      {/* About Our Puppies */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">About Our Puppies</h2>
@@ -128,7 +128,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Got Any Questions (No Image Tags) */}
+      {/* Got Any Questions */}
       <section className="py-16 px-4 bg-muted">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">Got Any Questions?</h2>
@@ -162,12 +162,21 @@ export default function HomePage() {
             journey.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            {[
+              "/families/473698730_909778324570416_2401626529167920430_n.jpg",
+              "/families/482000327_747220897994141_6698476093348143559_n.jpg",
+              "/families/©Mandy-Whitley-Photography-family-photos-with-French-Bulldog-11.jpg",
+              "/families/476276130_636008365451512_3084319020238372187_n.jpg",
+              "/families/474556989_915538193994429_3768917080082251788_n.jpg",
+              "/families/481987675_752800307436200_6977597339047910537_n.jpg",
+              "/families/475142543_916409627240619_7185702206034761292_n.jpg",
+              "/families/474736207_915538617327720_36310219468107562_n.jpg",
+            ].map((imagePath, i) => (
               <div key={i} className="aspect-square">
                 <Image
-                  src={`/placeholder.svg?height=300&width=300&query=happy customer with french bulldog puppy ${i}`}
-                  alt={`Customer with puppy ${i}`}
-                  className="w-full h-full object-cover border border-border"
+                  src={imagePath}
+                  alt="Happy customer with their French Bulldog puppy"
+                  className="w-full h-full object-cover border border-border rounded-lg hover:opacity-90 transition-opacity"
                   width={300}
                   height={300}
                 />
