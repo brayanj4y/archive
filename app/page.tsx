@@ -165,7 +165,7 @@ export default function HomePage() {
             {[
               "/families/473698730_909778324570416_2401626529167920430_n.jpg",
               "/families/482000327_747220897994141_6698476093348143559_n.jpg",
-              "/families/©Mandy-Whitley-Photography-family-photos-with-French-Bulldog-11.jpg",
+              "/families/482000327_747220897994141_6698476093348143559_.jpg",
               "/families/476276130_636008365451512_3084319020238372187_n.jpg",
               "/families/474556989_915538193994429_3768917080082251788_n.jpg",
               "/families/481987675_752800307436200_6977597339047910537_n.jpg",
