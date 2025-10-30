@@ -24,7 +24,7 @@ export default function PuppiesPage() {
             <Card key={puppy.id} className="overflow-hidden">
               <div className="relative">
                 <Image
-                  src={puppy.image || "/placeholder.svg"}
+                  src={puppy.image}
                   alt={`${puppy.name} - ${puppy.color} French Bulldog puppy for sale`}
                   className="w-full h-64 object-cover"
                   width={400}

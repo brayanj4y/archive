@@ -268,7 +268,7 @@ export default function CheckoutPage() {
                 {cart.map((item) => (
                   <div key={item.puppy.id} className="flex gap-3 pb-3 border-b">
                     <Image
-                      src={item.puppy.image || "/placeholder.svg"}
+                      src={item.puppy.image}
                       alt={item.puppy.name}
                       className="w-16 h-16 object-cover rounded-sm"
                       width={64}

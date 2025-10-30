@@ -33,7 +33,7 @@ export function PuppyImageCarousel({ puppy }: PuppyImageCarouselProps) {
             {/* Main Image Display */}
             <div className="relative aspect-square w-full overflow-hidden rounded-sm bg-muted">
                 <Image
-                    src={images[currentImageIndex] || "/placeholder.svg"}
+                    src={images[currentImageIndex]}
                     alt={`${puppy.name} - ${puppy.color} French Bulldog puppy - Image ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
                     width={800}
@@ -92,7 +92,7 @@ export function PuppyImageCarousel({ puppy }: PuppyImageCarouselProps) {
                             aria-label={`View image ${index + 1}`}
                         >
                             <Image
-                                src={image || "/placeholder.svg"}
+                                src={image}
                                 alt={`${puppy.name} thumbnail ${index + 1}`}
                                 className="w-full h-full object-cover"
                                 width={200}

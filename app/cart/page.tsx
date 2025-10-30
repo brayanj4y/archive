@@ -44,7 +44,7 @@ export default function CartPage() {
                 <CardContent className="p-6">
                   <div className="flex gap-4">
                     <Image
-                      src={item.puppy.image || "/placeholder.svg"}
+                      src={item.puppy.image}
                       alt={item.puppy.name}
                       className="w-24 h-24 object-cover rounded-sm"
                       width={96}

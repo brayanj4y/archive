@@ -56,7 +56,7 @@ export default function HomePage() {
               <Card key={puppy.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative">
                   <Image
-                    src={puppy.image || "/placeholder.svg"}
+                    src={puppy.image}
                     alt={puppy.name}
                     className="w-full h-64 object-cover"
                     width={400}
