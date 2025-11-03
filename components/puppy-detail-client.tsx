@@ -60,7 +60,7 @@ export function PuppyDetailClient({ puppy }: PuppyDetailClientProps) {
                         className="w-full"
                         size="lg"
                     >
-                        {added ? "Added to Cart!" : puppy.status === "Reserved" ? "Reserved" : "Add to Cart"}
+                        {added ? "Added Me to Cart!" : puppy.status === "Reserved" ? "Reserved" : "Add Me to Cart ♥️"}
                     </Button>
                 </div>
             </CardContent>

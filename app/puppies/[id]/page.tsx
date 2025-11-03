@@ -17,7 +17,7 @@ export const revalidate = 3600
 
 export default function PuppyDetailPage({ params }: { params: { id: string } }) {
   const puppy = getPuppyById(Number.parseInt(params.id))
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://chfrenchbulldogs.com"
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://ch-french-bulldogs.vercel.app"
 
   if (!puppy) {
     return (

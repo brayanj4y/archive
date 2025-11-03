@@ -40,11 +40,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             title: `${puppy.name} - ${puppy.color} French Bulldog Puppy for Sale | CH French Bulldogs`,
             description: `${puppy.age} old ${puppy.color.toLowerCase()} French Bulldog ${puppy.gender.toLowerCase()} for sale. ${puppy.description} Champion bloodline, health guaranteed. ${puppy.priceDisplay}`,
             type: "website",
-            url: `https://chfrenchbulldogs.com/puppies/${puppy.id}`,
+            url: `https://ch-french-bulldogs.vercel.app/puppies/${puppy.id}`,
             siteName: "CH French Bulldogs",
             images: [
                 {
-                    url: puppy.image.startsWith("http") ? puppy.image : `https://chfrenchbulldogs.com${puppy.image}`,
+                    url: puppy.image.startsWith("http") ? puppy.image : `https://ch-french-bulldogs.vercel.app${puppy.image}`,
                     width: 1200,
                     height: 630,
                     alt: `${puppy.name} - ${puppy.color} French Bulldog Puppy`,
@@ -55,10 +55,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             card: "summary_large_image",
             title: `${puppy.name} - ${puppy.color} French Bulldog Puppy for Sale`,
             description: `Meet ${puppy.name}, a ${puppy.age} old ${puppy.color.toLowerCase()} French Bulldog. Champion bloodline, health guaranteed, vaccinated. ${puppy.priceDisplay}`,
-            images: [puppy.image.startsWith("http") ? puppy.image : `https://chfrenchbulldogs.com${puppy.image}`],
+            images: [puppy.image.startsWith("http") ? puppy.image : `https://ch-french-bulldogs.vercel.app${puppy.image}`],
         },
         alternates: {
-            canonical: `https://chfrenchbulldogs.com/puppies/${puppy.id}`,
+            canonical: `https://ch-french-bulldogs.vercel.app/puppies/${puppy.id}`,
         },
         robots: {
             index: true,

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         description:
             "Find your perfect French Bulldog companion from our trusted breeding program. Champion bloodlines, health guarantees, and family-raised puppies ready for their forever homes.",
         type: "website",
-        url: "https://chfrenchbulldogs.com/puppies",
+        url: "https://ch-french-bulldogs.vercel.app/puppies",
         siteName: "CH French Bulldogs",
         images: [
             {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
         images: ["/logo-hori.png"],
     },
     alternates: {
-        canonical: "https://chfrenchbulldogs.com/puppies",
+        canonical: "https://ch-french-bulldogs.vercel.app/puppies",
     },
 }
 

@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://chfrenchbulldogs.com",
+    url: "https://ch-french-bulldogs.vercel.app",
     siteName: "CH French Bulldogs",
     title: "CH French Bulldogs - Premium French Bulldog Puppies for Sale & Adoption",
     description:
@@ -86,10 +86,10 @@ export const metadata: Metadata = {
     title: "CH French Bulldogs - Premium French Bulldog Puppies",
     description:
       "Find your perfect French Bulldog companion. Quality bloodlines, health guarantees, and trusted breeders since 2008.",
-    images: ["/logo-hori.png"],
+    images: ["/opengraph-image.png"],
   },
   alternates: {
-    canonical: "https://chfrenchbulldogs.com",
+    canonical: "https://ch-french-bulldogs.vercel.app",
   },
   robots: {
     index: true,
@@ -109,7 +109,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://chfrenchbulldogs.com"
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://ch-french-bulldogs.vercel.app"
 
   return (
     <html lang="en">
