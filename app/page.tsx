@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import Image from "next/image"
 import { getFeaturedPuppies } from "@/data/puppies"
+import Script from "next/script"
 
 export default function HomePage() {
   const featuredPuppies = getFeaturedPuppies()
@@ -419,6 +420,27 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Customer Support */}
+      <Script
+        id="tawk-to-chat-floating"
+        strategy="lazyOnload" // Ideal for chat widgets
+        dangerouslySetInnerHTML={{
+          __html: `
+      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+      (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        // Your unique Tawk.to URL:
+        s1.src='https://embed.tawk.to/690a077532f1c5195f9e4928/1j97lvufi';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+      })();
+    `,
+        }}
+      />
+
     </main>
   )
 }

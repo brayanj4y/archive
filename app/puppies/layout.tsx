@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         siteName: "CH French Bulldogs",
         images: [
             {
-                url: "/logo-hori.png",
+                url: "/opengraph-image.png",
                 width: 1200,
                 height: 630,
                 alt: "CH French Bulldogs - Premium French Bulldog Puppies",
