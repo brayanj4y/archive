@@ -422,9 +422,10 @@ export default function HomePage() {
       </section>
 
       {/* Customer Support */}
+
       <Script
         id="tawk-to-chat-floating"
-        strategy="lazyOnload" // Ideal for chat widgets
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
       var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
