@@ -47,18 +47,13 @@ export default function TrackingResult({ shipment, statusUpdates }: Props) {
 
   if (!shipment) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center">
-        <Card className="max-w-md shadow-elegant border-0">
-          <CardContent className="p-6 sm:p-8 text-center">
-            <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4 sm:mb-6" />
-            <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-slate-800">Shipment Not Found</h3>
-            <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 leading-relaxed">
-              The tracking number you entered was not found in our system.
-            </p>
-            <Button
-              asChild
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg w-full sm:w-auto"
-            >
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <Card className="max-w-md border border-black rounded-sm">
+          <CardContent className="p-6 text-center">
+            <AlertCircle className="w-16 h-16 text-red-700 mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2 text-black">Shipment Not Found</h3>
+            <p className="text-sm text-black mb-4">The tracking number you entered was not found.</p>
+            <Button asChild className="w-full sm:w-auto border border-black">
               <Link href="/track">Try Another Number</Link>
             </Button>
           </CardContent>
@@ -68,6 +63,7 @@ export default function TrackingResult({ shipment, statusUpdates }: Props) {
   }
 
   const handlePrint = () => window.print()
+  const toggleMap = () => setShowMap(!showMap)
 
   const formatDate = (dateString: string) => {
     try {
@@ -97,8 +93,6 @@ export default function TrackingResult({ shipment, statusUpdates }: Props) {
         return 0
     }
   }
-
-  const toggleMap = () => setShowMap(!showMap)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-x-hidden">
@@ -130,238 +124,128 @@ export default function TrackingResult({ shipment, statusUpdates }: Props) {
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full overflow-x-hidden">
-        <Card className="mb-8 shadow-elegant border-0">
-          <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-xl border-b">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-              <div>
-                <CardTitle className="text-2xl sm:text-3xl mb-2 sm:mb-4 font-display text-slate-800">
-                  Tracking: {formatTrackingNumber(shipment.tracking_number)}
-                </CardTitle>
-                <div className="flex flex-wrap gap-2 items-center">
-                  <Badge className={`${getStatusColor(shipment.current_status)} text-sm px-2 py-1`}>
-                    {getStatusIcon(shipment.current_status)} {shipment.current_status.replace("_", " ").toUpperCase()}
-                  </Badge>
-                  <Badge variant="outline" className="text-sm flex items-center gap-1">
-                    <Package className="w-3 h-3" />
-                    {shipment.package_type}
-                  </Badge>
-                  <Badge variant="outline" className="text-sm flex items-center gap-1">
-                    <Shield className="w-3 h-3" />${shipment.insurance_amount} insured
-                  </Badge>
-                </div>
+      <div className="max-w-4xl mx-auto px-4 py-6 w-full">
+        <Card className="border border-black rounded-sm mb-6">
+          <CardHeader className="border-b border-dotted border-black p-4 flex flex-col sm:flex-row justify-between items-start gap-4">
+            <div>
+              <CardTitle className="text-lg font-bold mb-1">
+                Tracking: {formatTrackingNumber(shipment.tracking_number)}
+              </CardTitle>
+              <div className="flex flex-wrap gap-2 items-center text-sm">
+                <Badge className={`border border-black px-2 py-1`}>{shipment.current_status.replace("_", " ").toUpperCase()}</Badge>
+                <Badge className="border border-black px-2 py-1 flex items-center gap-1">
+                  <Package className="w-3 h-3" /> {shipment.package_type}
+                </Badge>
+                <Badge className="border border-black px-2 py-1 flex items-center gap-1">
+                  <Shield className="w-3 h-3" /> ${shipment.insurance_amount} insured
+                </Badge>
               </div>
-
-              <div ref={barcodeWrapperRef} className="w-full sm:w-auto mt-4 lg:mt-0 flex justify-center lg:justify-end">
-                <ProfessionalBarcode
-                  value={shipment.tracking_number}
-                  width={barcodeWidth}
-                  height={100}
-                  showText={true}
-                  format="CODE128"
-                />
-              </div>
+            </div>
+            <div ref={barcodeWrapperRef} className="w-full sm:w-auto flex justify-center sm:justify-end mt-2 sm:mt-0">
+              <ProfessionalBarcode value={shipment.tracking_number} width={barcodeWidth} height={80} showText={true} format="CODE128" />
             </div>
           </CardHeader>
 
-          <CardContent className="p-4 sm:p-6 lg:p-8">
-            <div className="mb-6">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-lg font-semibold font-display text-slate-800">Delivery Progress</span>
-                <span className="text-lg font-bold text-blue-600">{getProgressPercentage()}%</span>
+          <CardContent className="p-4">
+            <div className="mb-4">
+              <div className="flex justify-between mb-1 text-sm font-semibold">
+                <span>Delivery Progress</span>
+                <span>{getProgressPercentage()}%</span>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-4 shadow-inner">
+              <div className="w-full h-3 border border-black rounded-sm overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-4 rounded-full transition-all duration-500 shadow-lg"
+                  className="h-3 bg-black"
                   style={{ width: `${getProgressPercentage()}%` }}
                 ></div>
               </div>
-              <div className="flex justify-between text-xs text-slate-500 mt-1">
+              <div className="flex justify-between text-xs mt-1">
                 <span>Pending</span>
                 <span>In Transit</span>
                 <span>Delivered</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <Card className="shadow-soft border-0 bg-gradient-to-br from-green-50 to-emerald-50 w-full">
-                <CardContent className="p-4 sm:p-6">
-                  <h3 className="font-semibold font-display mb-3 flex items-center text-lg text-slate-800">
-                    <MapPin className="w-5 h-5 mr-2 text-green-600" />
-                    Sender Information
-                  </h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <User className="w-4 h-4 text-green-600" />
-                      <div>
-                        <div className="font-medium text-slate-800">{shipment.client_name}</div>
-                        <div className="text-sm text-slate-600">Sender</div>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Mail className="w-4 h-4 text-green-600" />
-                      <div className="text-slate-700 text-sm">{shipment.client_email}</div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Phone className="w-4 h-4 text-green-600" />
-                      <div className="text-slate-700 text-sm">{shipment.client_phone}</div>
-                    </div>
-                    <div className="mt-2 p-2 sm:p-3 bg-white rounded-lg border border-green-200">
-                      <div className="text-xs text-slate-600 mb-1">Pickup Address</div>
-                      <div className="text-sm text-slate-700">{shipment.pickup_address}</div>
-                    </div>
-                  </div>
-                </CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <Card className="border border-black rounded-sm p-2">
+                <h3 className="text-sm font-bold mb-1 flex items-center gap-1">
+                  <MapPin className="w-4 h-4" /> Sender Information
+                </h3>
+                <div className="text-xs">
+                  <div className="mb-1"><User className="w-3 h-3 inline mr-1" /> {shipment.client_name}</div>
+                  <div className="mb-1"><Mail className="w-3 h-3 inline mr-1" /> {shipment.client_email}</div>
+                  <div className="mb-1"><Phone className="w-3 h-3 inline mr-1" /> {shipment.client_phone}</div>
+                  <div className="border-t border-dotted border-black pt-1 text-xs">{shipment.pickup_address}</div>
+                </div>
               </Card>
 
-              <Card className="shadow-soft border-0 bg-gradient-to-br from-blue-50 to-purple-50 w-full">
-                <CardContent className="p-4 sm:p-6">
-                  <h3 className="font-semibold font-display mb-3 flex items-center text-lg text-slate-800">
-                    <MapPin className="w-5 h-5 mr-2 text-blue-600" />
-                    Receiver Information
-                  </h3>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <User className="w-4 h-4 text-blue-600" />
-                      <div className="font-medium text-slate-800">{shipment.receiver_name || "Not specified"}</div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Mail className="w-4 h-4 text-blue-600" />
-                      <div className="text-slate-700 text-sm">{shipment.receiver_email || "Not specified"}</div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Phone className="w-4 h-4 text-blue-600" />
-                      <div className="text-slate-700 text-sm">{shipment.receiver_phone || "Not specified"}</div>
-                    </div>
-                    <div className="mt-2 p-2 sm:p-3 bg-white rounded-lg border border-blue-200">
-                      <div className="text-xs text-slate-600 mb-1">Delivery Address</div>
-                      <div className="text-sm text-slate-700">{shipment.delivery_address}</div>
-                    </div>
-                    {shipment.receiver_address && shipment.receiver_address !== shipment.delivery_address && (
-                      <div className="mt-2 p-2 sm:p-3 bg-white rounded-lg border border-blue-200">
-                        <div className="text-xs text-slate-600 mb-1">Receiver Address</div>
-                        <div className="text-sm text-slate-700">{shipment.receiver_address}</div>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
+              <Card className="border border-black rounded-sm p-2">
+                <h3 className="text-sm font-bold mb-1 flex items-center gap-1">
+                  <MapPin className="w-4 h-4" /> Receiver Information
+                </h3>
+                <div className="text-xs">
+                  <div className="mb-1"><User className="w-3 h-3 inline mr-1" /> {shipment.receiver_name || "N/A"}</div>
+                  <div className="mb-1"><Mail className="w-3 h-3 inline mr-1" /> {shipment.receiver_email || "N/A"}</div>
+                  <div className="mb-1"><Phone className="w-3 h-3 inline mr-1" /> {shipment.receiver_phone || "N/A"}</div>
+                  <div className="border-t border-dotted border-black pt-1 text-xs">{shipment.delivery_address}</div>
+                  {shipment.receiver_address && shipment.receiver_address !== shipment.delivery_address && (
+                    <div className="border-t border-dotted border-black pt-1 text-xs">{shipment.receiver_address}</div>
+                  )}
+                </div>
               </Card>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <Card className="shadow-soft border-0 bg-gradient-to-br from-orange-50 to-red-50">
-                <CardContent className="p-4 text-center">
-                  <div className="text-xs text-slate-500 mb-1">Package Name</div>
-                  <div className="font-semibold text-base sm:text-lg text-slate-800">{shipment.package_name}</div>
-                </CardContent>
+            <div className="grid md:grid-cols-3 gap-2 mb-4">
+              <Card className="border border-black rounded-sm p-2 text-center text-xs">
+                <div className="font-semibold">{shipment.package_name}</div>
+                <div>Package Name</div>
               </Card>
-              <Card className="shadow-soft border-0 bg-gradient-to-br from-purple-50 to-pink-50">
-                <CardContent className="p-4 text-center">
-                  <div className="text-xs text-slate-500 mb-1">Weight</div>
-                  <div className="font-semibold text-base sm:text-lg text-slate-800">{shipment.package_weight} lbs</div>
-                </CardContent>
+              <Card className="border border-black rounded-sm p-2 text-center text-xs">
+                <div className="font-semibold">{shipment.package_weight} lbs</div>
+                <div>Weight</div>
               </Card>
-              <Card className="shadow-soft border-0 bg-gradient-to-br from-yellow-50 to-orange-50">
-                <CardContent className="p-4 text-center">
-                  <div className="text-xs text-slate-500 mb-1">Insurance</div>
-                  <div className="font-semibold text-base sm:text-lg text-slate-800">${shipment.insurance_amount}</div>
-                </CardContent>
+              <Card className="border border-black rounded-sm p-2 text-center text-xs">
+                <div className="font-semibold">${shipment.insurance_amount}</div>
+                <div>Insurance</div>
               </Card>
             </div>
 
-            <Card className="mb-6 shadow-soft border-0">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-t-xl border-b">
-                <CardTitle className="flex flex-col sm:flex-row items-center justify-between text-lg font-display text-slate-800 gap-2 sm:gap-0">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-blue-600" />
-                    Live Shipment Tracking
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={toggleMap}
-                    className="border-2 border-slate-200 hover:bg-slate-50"
-                  >
-                    {showMap ? "Hide Map" : "Show Map"}
-                  </Button>
-                </CardTitle>
+            <Card className="border border-black rounded-sm p-2 mb-4">
+              <CardHeader className="border-b border-dotted border-black p-1 text-xs flex justify-between items-center">
+                <div className="flex items-center gap-1"><MapPin className="w-3 h-3" /> Live Shipment Tracking</div>
+                <Button variant="outline" size="sm" onClick={toggleMap} className="border border-black text-xs px-2 py-1">{showMap ? "Hide Map" : "Show Map"}</Button>
               </CardHeader>
-              <CardContent className="p-4 sm:p-6">
-                <p className="text-slate-600 mb-2 sm:mb-4 text-sm sm:text-base">
-                  Watch your package move in real-time from pickup to delivery. The simulation uses actual geocoded addresses.
-                </p>
-                {showMap && <EnhancedRealTimeMap shipment={shipment} className="mt-2 sm:mt-4" />}
-              </CardContent>
+              {showMap && <CardContent className="p-1"><EnhancedRealTimeMap shipment={shipment} /></CardContent>}
             </Card>
 
             {shipment.special_instructions && (
-              <Card className="mb-6 shadow-soft border-0 bg-gradient-to-r from-yellow-50 to-orange-50">
-                <CardContent className="p-4 sm:p-6">
-                  <h3 className="font-semibold font-display mb-2 text-lg text-slate-800">Special Instructions</h3>
-                  <div className="bg-white border-2 border-yellow-200 p-2 sm:p-4 rounded-xl text-sm sm:text-base text-slate-700">
-                    {shipment.special_instructions}
-                  </div>
-                </CardContent>
+              <Card className="border border-black rounded-sm p-2 mb-4 text-xs">
+                <div className="font-bold mb-1">Special Instructions</div>
+                <div className="border-t border-dotted border-black pt-1">{shipment.special_instructions}</div>
               </Card>
             )}
           </CardContent>
         </Card>
 
-        <Card className="shadow-elegant border-0">
-          <CardHeader className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-t-xl">
-            <CardTitle className="flex items-center text-xl sm:text-2xl font-display text-slate-800 gap-2">
-              <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
-              Tracking Timeline
-            </CardTitle>
+        <Card className="border border-black rounded-sm mb-4">
+          <CardHeader className="border-b border-dotted border-black p-2 text-sm font-bold flex items-center gap-1">
+            <Clock className="w-4 h-4" /> Tracking Timeline
           </CardHeader>
-          <CardContent className="p-4 sm:p-8">
+          <CardContent className="p-2 text-xs">
             {statusUpdates && statusUpdates.length > 0 ? (
-              <div className="space-y-4 sm:space-y-6">
+              <div className="space-y-1">
                 {statusUpdates.map((update) => (
-                  <div key={update.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-                    <div className="flex-shrink-0">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
-                        <CheckCircle className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
-                      </div>
+                  <div key={update.id} className="flex flex-col gap-1 border-b border-dotted border-black pb-1">
+                    <div className="flex justify-between">
+                      <span>{update.status.replace("_", " ").toUpperCase()}</span>
+                      <span>{formatDate(update.created_at)}</span>
                     </div>
-                    <div className="flex-1 min-w-0 w-full">
-                      <Card className="shadow-soft border-0 bg-gradient-to-r from-slate-50 to-blue-50">
-                        <CardContent className="p-3 sm:p-6">
-                          <div className="flex flex-col sm:flex-row justify-between mb-2 sm:mb-3 gap-2 sm:gap-0">
-                            <div>
-                              <p className="font-semibold text-sm sm:text-lg text-slate-800 font-display">
-                                {update.status.replace("_", " ").toUpperCase()}
-                              </p>
-                              {update.location && (
-                                <p className="text-slate-600 flex items-center mt-1 text-xs sm:text-sm">
-                                  <MapPin className="w-3 h-3 mr-1" />
-                                  {update.location}
-                                </p>
-                              )}
-                            </div>
-                            <div className="text-xs sm:text-sm text-slate-500 text-right">{formatDate(update.created_at)}</div>
-                          </div>
-                          {update.description && (
-                            <p className="text-slate-600 leading-relaxed bg-white p-2 sm:p-3 rounded-lg border border-slate-200 text-sm sm:text-base">
-                              {update.description}
-                            </p>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </div>
+                    {update.location && <div>Location: {update.location}</div>}
+                    {update.description && <div>{update.description}</div>}
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 sm:py-12">
-                <Clock className="w-12 h-12 sm:w-16 sm:h-16 text-slate-400 mx-auto mb-4 sm:mb-6" />
-                <h3 className="text-lg sm:text-xl font-semibold font-display text-slate-600 mb-1 sm:mb-2">
-                  No tracking updates available yet
-                </h3>
-                <p className="text-sm sm:text-base text-slate-500">
-                  Updates will appear here as your package moves through our network.
-                </p>
-              </div>
+              <div className="text-center py-2">No tracking updates yet</div>
             )}
           </CardContent>
         </Card>
