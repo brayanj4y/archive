@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import AnimatedStat from "@/components/reviews-stats"
 
 export const metadata: Metadata = {
   title: "Customer Reviews & Testimonials - Real Shipping Experiences",
@@ -154,45 +155,48 @@ export default function ReviewsPage() {
         <div className="grid md:grid-cols-4 gap-6 mb-12">
           <Card className="text-center border-slate-200">
             <CardContent className="p-6">
-              <div className="text-4xl font-bold text-yellow-600 mb-2">{averageRating.toFixed(1)}</div>
-              <div className="flex items-center justify-center mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-5 h-5 ${i < Math.floor(averageRating) ? "text-yellow-400 fill-current" : "text-gray-300"}`}
-                  />
-                ))}
-              </div>
-              <div className="text-sm text-slate-600">Average Rating</div>
+              <AnimatedStat
+                value={averageRating.toFixed(1)}
+                label="Average Rating"
+                icon={<Star className="w-6 h-6 text-yellow-400 mx-auto" />}
+              />
             </CardContent>
           </Card>
 
           <Card className="text-center border-slate-200">
             <CardContent className="p-6">
-              <div className="text-4xl font-bold text-blue-600 mb-2">{totalReviews}</div>
-              <Users className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-              <div className="text-sm text-slate-600">Total Reviews</div>
+              <AnimatedStat
+                value={totalReviews}
+                label="Total Reviews"
+                icon={<Users className="w-6 h-6 text-blue-600 mx-auto" />}
+              />
             </CardContent>
           </Card>
 
           <Card className="text-center border-slate-200">
             <CardContent className="p-6">
-              <div className="text-4xl font-bold text-green-600 mb-2">
-                {Math.round((fiveStarCount / totalReviews) * 100)}%
-              </div>
-              <TrendingUp className="w-8 h-8 text-green-600 mx-auto mb-2" />
-              <div className="text-sm text-slate-600">5-Star Reviews</div>
+              <AnimatedStat
+                value={Math.round((fiveStarCount / totalReviews) * 100)}
+                suffix="%"
+                label="5-Star Reviews"
+                icon={<TrendingUp className="w-6 h-6 text-green-600 mx-auto" />}
+              />
             </CardContent>
           </Card>
 
           <Card className="text-center border-slate-200">
             <CardContent className="p-6">
-              <div className="text-4xl font-bold text-purple-600 mb-2">99.9%</div>
-              <Award className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-              <div className="text-sm text-slate-600">Satisfaction Rate</div>
+              <AnimatedStat
+                value={99.9}
+                suffix="%"
+                label="Satisfaction Rate"
+                icon={<Award className="w-6 h-6 text-purple-600 mx-auto" />}
+              />
             </CardContent>
           </Card>
         </div>
+
+
 
         {/* Reviews Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
