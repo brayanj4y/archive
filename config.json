@@ -1,0 +1,79 @@
+{
+  "ascii": [
+    "██████╗ ██████╗  █████╗ ██╗   ██╗ █████╗ ███╗   ██╗     ██╗██╗  ██╗██╗   ██╗",
+    "██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║     ██║██║  ██║╚██╗ ██╔╝",
+    "██████╔╝██████╔╝███████║ ╚████╔╝ ███████║██╔██╗ ██║     ██║███████║ ╚████╔╝ ",
+    "██╔══██╗██╔══██╗██╔══██║  ╚██╔╝  ██╔══██║██║╚██╗██║██   ██║╚════██║  ╚██╔╝  ",
+    "██████╔╝██║  ██║██║  ██║   ██║   ██║  ██║██║ ╚████║╚█████╔╝     ██║   ██║   ",
+    "╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚════╝      ╚═╝   ╚═╝   "
+  ],
+  "title": "brayanj4y",
+  "username": "visitor",
+  "hostname": "brayanj4y",
+  "password": "050823",
+  "repoLink": "https://github.com/brayanj4y/brayanj4y-terminal",
+  "social": {
+    "email": "souopsylvain@gmail.com",
+    "github": "brayanj4y",
+    "linkedin": "linkedin.com/in/brayan-j4y",
+    "x": "brayanj4y"
+  },
+  "aboutGreeting": "👋 HEY HEY HEY!\n\n[GOVT_NAME]: Silvain Brayan Souop\n[ALIAS]: Brayan Jay ✨\n\n📍 JFN-HITECH Douala\n☕ coffee >> sleep\n⚠️ deadlines = spiritual_warfare.exe\n\n🛠️ I build [web + mobile] apps\n→ sometimes they solve problems\n→ sometimes they just... exist 🤷\n\n💡 design && code = 🔥\n🤝 collabs.enabled = true\n if (project.includes('snacks' || 'memes')) { count_me_in(); }\n\n👨‍💻 Let's build something cool.",
+  "projects": [
+    [
+      "Rushed AI",
+      "Create web apps, websites and web components in minutes",
+      "https://rushed-ai.vercel.app/",
+      "Next.js, Claude, NeonDB, Inngest AgentKit",
+      "/rushed-ai.png",
+      "https://github.com/brayanj4y/rushed"
+    ],
+    [
+      "CodeAssist",
+      "a browser-based code editor that uses Gemini to assist you in real time!",
+      "https://code-assist-lilac.vercel.app/",
+      "Typescript, Next.js, Gemini API, Monaco",
+      "/codeassist.png",
+      "https://github.com/brayanj4y/code-assist"
+    ],
+    [
+      "Zenote",
+      "AI powered note taking app for both markdown and normal text with mind map",
+      "https://zenotes-two.vercel.app/",
+      "AI, Gemini API, Next.js, Note app",
+      "/zenote.jpeg",
+      "https://github.com/brayanj4y/zenotes"
+    ],
+    [
+      "Whispr",
+      "A NGL alternative but better Anonymous messaging • Self-destructing secrets",
+      "https://whispr-lime.vercel.app/",
+      "Self destruct message, Messaging, Secrets",
+      "/whispr.jpeg",
+      "https://github.com/brayanj4y/whispr"
+    ]
+  ],
+  "colors": {
+    "background": "#000000",
+    "foreground": "#00FF66",
+    "banner": "#00FF7F",
+    "border": {
+      "visible": true,
+      "color": "#00FF7F"
+    },
+    "prompt": {
+      "default": "#00FF7F",
+      "user": "#00FF7F",
+      "host": "#00FF7F",
+      "input": "#00FF66"
+    },
+    "link": {
+      "text": "#00FF66",
+      "highlightColor": "#00FF7F",
+      "highlightText": "#000000"
+    },
+    "commands": {
+      "textColor": "#00FF7F"
+    }
+  }
+}
