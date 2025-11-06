@@ -15,12 +15,8 @@ import {
   Clock,
   Shield,
   BarChart3,
-  Settings,
   Bell,
   User,
-  Mail,
-  Phone,
-  MapPin,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -91,7 +87,6 @@ export default function AdminDashboard() {
 
   const checkAuth = async () => {
     try {
-      // Check if user is already logged in (check localStorage)
       const adminToken = localStorage.getItem("admin_token")
       const adminEmail = localStorage.getItem("admin_email")
 
@@ -127,7 +122,6 @@ export default function AdminDashboard() {
       const data = await response.json()
 
       if (data.success) {
-        // Store admin session
         localStorage.setItem("admin_token", data.token)
         localStorage.setItem("admin_email", data.user.email)
         localStorage.setItem("admin_name", data.user.name)
@@ -147,7 +141,6 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     try {
-      // Clear admin session
       localStorage.removeItem("admin_token")
       localStorage.removeItem("admin_email")
       localStorage.removeItem("admin_name")
@@ -242,7 +235,6 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-slate-600 font-medium">Loading dashboard...</p>
         </div>
       </div>
@@ -251,21 +243,19 @@ export default function AdminDashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <Card className="w-full max-w-md border-slate-200">
-          <CardHeader className="bg-slate-50">
-            <div className="bg-blue-600 rounded-lg w-14 h-14 flex items-center justify-center mx-auto mb-4">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md border border-slate-300">
+          <CardHeader className="bg-slate-50 border-b border-slate-300">
+            <div className="bg-blue-600 w-14 h-14 flex items-center justify-center mx-auto mb-4 border border-blue-700">
               <Shield className="w-7 h-7 text-white" />
             </div>
-            <CardTitle className="text-2xl text-center">Admin Login</CardTitle>
-            <CardDescription className="text-center">
-              Access the admin dashboard
-            </CardDescription>
+            <CardTitle className="text-2xl text-center text-slate-900">Admin Login</CardTitle>
+            <CardDescription className="text-center text-slate-600">Access the admin dashboard</CardDescription>
           </CardHeader>
           <CardContent className="p-6">
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <Label htmlFor="email" className="text-slate-700 font-medium">
+                <Label htmlFor="email" className="text-slate-900 font-medium">
                   Email
                 </Label>
                 <Input
@@ -275,11 +265,11 @@ export default function AdminDashboard() {
                   onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
                   placeholder="you@gmail.com"
                   required
-                  className="mt-1 border-slate-300 h-10"
+                  className="mt-1 border border-slate-300 h-10"
                 />
               </div>
               <div>
-                <Label htmlFor="password" className="text-slate-700 font-medium">
+                <Label htmlFor="password" className="text-slate-900 font-medium">
                   Password
                 </Label>
                 <Input
@@ -289,13 +279,13 @@ export default function AdminDashboard() {
                   onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
                   placeholder="hello3456789"
                   required
-                  className="mt-1 border-slate-300 h-10"
+                  className="mt-1 border border-slate-300 h-10"
                 />
               </div>
-              <Button type="submit" disabled={isLoading} className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button type="submit" disabled={isLoading} className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                 {isLoading ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    <div className="h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
                     Logging in...
                   </>
                 ) : (
@@ -314,165 +304,175 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-white border-b border-slate-300 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center h-auto sm:h-16 py-3 sm:py-0 gap-3 sm:gap-0">
             <div className="flex items-center space-x-3">
               <Package className="h-8 w-8 text-blue-600" />
               <div>
-                <span className="text-xl font-bold text-slate-900">ShipTrack Pro</span>
-                <div className="text-xs text-slate-500">Admin Dashboard</div>
+                <span className="text-lg sm:text-xl font-bold text-slate-900">ShipTrack Pro</span>
+                <div className="text-xs text-slate-600">Admin Dashboard</div>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <span className="text-sm text-slate-600">Welcome, {localStorage.getItem("admin_name") || "Admin"}</span>
-              <Button variant="outline" className="border-slate-300 bg-transparent">
-                <Bell className="w-4 h-4 mr-2" />
-                Notifications
-              </Button>
-              <Button variant="outline" className="border-slate-300 bg-transparent">
-                <Settings className="w-4 h-4 mr-2" />
-                Settings
-              </Button>
-              <Button variant="outline" onClick={handleLogout} className="border-red-300 text-red-600 bg-transparent">
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
-              </Button>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+              <span className="text-xs sm:text-sm text-slate-600">
+                Welcome, {localStorage.getItem("admin_name") || "Admin"}
+              </span>
+              <div className="flex gap-2 w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  className="flex-1 sm:flex-none border border-slate-300 bg-white text-sm px-2 sm:px-3 py-2 sm:py-2 h-auto"
+                >
+                  <Bell className="w-4 h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Notifications</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleLogout}
+                  className="flex-1 sm:flex-none border border-red-300 text-red-600 bg-white text-sm px-2 sm:px-3 py-2 h-auto"
+                >
+                  <LogOut className="w-4 h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Logout</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Welcome back, Admin</h1>
-          <p className="text-slate-600">Manage shipments and monitor your logistics operations</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1 sm:mb-2">Welcome back, Admin</h1>
+          <p className="text-sm sm:text-base text-slate-600">Manage shipments and monitor your logistics operations</p>
         </div>
 
-        {/* Enhanced Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="border-slate-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
+          <Card className="border border-slate-300">
+            <CardContent className="p-3 sm:p-6">
+              <div className="flex flex-col items-center sm:items-start gap-2">
                 <div>
-                  <p className="text-sm font-medium text-slate-600">Total Shipments</p>
-                  <p className="text-3xl font-bold text-blue-600">{stats.total}</p>
+                  <p className="text-xs sm:text-sm font-medium text-slate-600">Total Shipments</p>
+                  <p className="text-xl sm:text-3xl font-bold text-blue-600">{stats.total}</p>
                   <p className="text-xs text-slate-500 mt-1">All time</p>
                 </div>
-                <div className="bg-blue-100 rounded-lg w-12 h-12 flex items-center justify-center">
-                  <Package className="h-6 w-6 text-blue-600" />
+                <div className="bg-blue-100 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-blue-200 ml-auto sm:ml-0">
+                  <Package className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
+          <Card className="border border-slate-300">
+            <CardContent className="p-3 sm:p-6">
+              <div className="flex flex-col items-center sm:items-start gap-2">
                 <div>
-                  <p className="text-sm font-medium text-slate-600">Pending</p>
-                  <p className="text-3xl font-bold text-yellow-600">{stats.pending}</p>
+                  <p className="text-xs sm:text-sm font-medium text-slate-600">Pending</p>
+                  <p className="text-xl sm:text-3xl font-bold text-blue-600">{stats.pending}</p>
                   <p className="text-xs text-slate-500 mt-1">Awaiting pickup</p>
                 </div>
-                <div className="bg-yellow-100 rounded-lg w-12 h-12 flex items-center justify-center">
-                  <Clock className="h-6 w-6 text-yellow-600" />
+                <div className="bg-blue-100 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-blue-200 ml-auto sm:ml-0">
+                  <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
+          <Card className="border border-slate-300">
+            <CardContent className="p-3 sm:p-6">
+              <div className="flex flex-col items-center sm:items-start gap-2">
                 <div>
-                  <p className="text-sm font-medium text-slate-600">In Transit</p>
-                  <p className="text-3xl font-bold text-purple-600">{stats.in_transit}</p>
+                  <p className="text-xs sm:text-sm font-medium text-slate-600">In Transit</p>
+                  <p className="text-xl sm:text-3xl font-bold text-blue-600">{stats.in_transit}</p>
                   <p className="text-xs text-slate-500 mt-1">On the way</p>
                 </div>
-                <div className="bg-purple-100 rounded-lg w-12 h-12 flex items-center justify-center">
-                  <TrendingUp className="h-6 w-6 text-purple-600" />
+                <div className="bg-blue-100 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-blue-200 ml-auto sm:ml-0">
+                  <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-slate-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
+          <Card className="border border-slate-300">
+            <CardContent className="p-3 sm:p-6">
+              <div className="flex flex-col items-center sm:items-start gap-2">
                 <div>
-                  <p className="text-sm font-medium text-slate-600">Delivered</p>
-                  <p className="text-3xl font-bold text-green-600">{stats.delivered}</p>
+                  <p className="text-xs sm:text-sm font-medium text-slate-600">Delivered</p>
+                  <p className="text-xl sm:text-3xl font-bold text-blue-600">{stats.delivered}</p>
                   <p className="text-xs text-slate-500 mt-1">Successfully completed</p>
                 </div>
-                <div className="bg-green-100 rounded-lg w-12 h-12 flex items-center justify-center">
-                  <Users className="h-6 w-6 text-green-600" />
+                <div className="bg-blue-100 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center border border-blue-200 ml-auto sm:ml-0">
+                  <Users className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Main Content */}
-        <Card className="border-slate-200">
-          <CardHeader className="bg-slate-50">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <Card className="border border-slate-300">
+          <CardHeader className="bg-slate-50 border-b border-slate-300 p-3 sm:p-6">
+            <div className="flex flex-col gap-3 sm:gap-0 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center space-x-3">
-                <div className="bg-blue-600 rounded-lg w-10 h-10 flex items-center justify-center">
-                  <BarChart3 className="w-5 h-5 text-white" />
+                <div className="bg-blue-600 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border border-blue-700">
+                  <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
                 <div>
-                  <CardTitle className="text-xl">Shipment Management</CardTitle>
-                  <CardDescription>Manage all shipments and their statuses</CardDescription>
+                  <CardTitle className="text-base sm:text-xl text-slate-900">Shipment Management</CardTitle>
+                  <CardDescription className="hidden sm:block text-sm">
+                    Manage all shipments and their statuses
+                  </CardDescription>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <div className="relative">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 gap-2">
+                <div className="relative flex-1 sm:flex-none w-full sm:w-64">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 h-4 w-4" />
                   <Input
-                    placeholder="Search shipments..."
+                    placeholder="Search..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 w-64 border-slate-300"
+                    className="pl-10 w-full border border-slate-300 text-sm h-10"
                   />
                 </div>
 
                 <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button className="bg-blue-600 hover:bg-blue-700">
+                    <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white text-sm px-3 py-2">
                       <Plus className="w-4 h-4 mr-2" />
-                      Create Shipment
+                      Create
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                  <DialogContent className="max-w-2xl sm:max-w-4xl max-h-[90vh] overflow-y-auto p-3 sm:p-6">
                     <DialogHeader>
-                      <DialogTitle className="text-2xl font-display">Create New Shipment</DialogTitle>
-                      <DialogDescription>
+                      <DialogTitle className="text-xl sm:text-2xl font-bold text-slate-900">
+                        Create New Shipment
+                      </DialogTitle>
+                      <DialogDescription className="text-slate-600">
                         Enter complete shipment details including receiver information
                       </DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleCreateShipment} className="space-y-6">
+                    <form onSubmit={handleCreateShipment} className="space-y-4 sm:space-y-6">
                       <Tabs defaultValue="sender" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3">
-                          <TabsTrigger value="sender" className="flex items-center space-x-2">
-                            <User className="w-4 h-4" />
-                            <span>Sender Info</span>
+                        <TabsList className="grid w-full grid-cols-3 text-xs sm:text-sm">
+                          <TabsTrigger value="sender" className="flex items-center space-x-1">
+                            <User className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <span className="hidden sm:inline">Sender Info</span>
+                            <span className="sm:hidden">Sender</span>
                           </TabsTrigger>
-                          <TabsTrigger value="receiver" className="flex items-center space-x-2">
-                            <Users className="w-4 h-4" />
-                            <span>Receiver Info</span>
+                          <TabsTrigger value="receiver" className="flex items-center space-x-1">
+                            <Users className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <span className="hidden sm:inline">Receiver Info</span>
+                            <span className="sm:hidden">Receiver</span>
                           </TabsTrigger>
-                          <TabsTrigger value="package" className="flex items-center space-x-2">
-                            <Package className="w-4 h-4" />
-                            <span>Package Details</span>
+                          <TabsTrigger value="package" className="flex items-center space-x-1">
+                            <Package className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <span className="hidden sm:inline">Package Details</span>
+                            <span className="sm:hidden">Package</span>
                           </TabsTrigger>
                         </TabsList>
 
                         <TabsContent value="sender" className="space-y-4">
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="client_name" className="text-slate-700 font-medium flex items-center">
-                                <User className="w-4 h-4 mr-2" />
+                              <Label htmlFor="client_name" className="text-slate-900 font-medium text-sm">
                                 Sender Name
                               </Label>
                               <Input
@@ -480,13 +480,12 @@ export default function AdminDashboard() {
                                 value={createForm.client_name}
                                 onChange={(e) => setCreateForm({ ...createForm, client_name: e.target.value })}
                                 required
-                                className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                className="mt-2 border border-slate-300 text-sm"
                                 placeholder="John Doe"
                               />
                             </div>
                             <div>
-                              <Label htmlFor="client_email" className="text-slate-700 font-medium flex items-center">
-                                <Mail className="w-4 h-4 mr-2" />
+                              <Label htmlFor="client_email" className="text-slate-900 font-medium text-sm">
                                 Sender Email
                               </Label>
                               <Input
@@ -495,15 +494,14 @@ export default function AdminDashboard() {
                                 value={createForm.client_email}
                                 onChange={(e) => setCreateForm({ ...createForm, client_email: e.target.value })}
                                 required
-                                className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                className="mt-2 border border-slate-300 text-sm"
                                 placeholder="john@example.com"
                               />
                             </div>
                           </div>
 
                           <div>
-                            <Label htmlFor="client_phone" className="text-slate-700 font-medium flex items-center">
-                              <Phone className="w-4 h-4 mr-2" />
+                            <Label htmlFor="client_phone" className="text-slate-900 font-medium text-sm">
                               Sender Phone
                             </Label>
                             <Input
@@ -511,14 +509,13 @@ export default function AdminDashboard() {
                               value={createForm.client_phone}
                               onChange={(e) => setCreateForm({ ...createForm, client_phone: e.target.value })}
                               required
-                              className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                              className="mt-2 border border-slate-300 text-sm"
                               placeholder="+1 (555) 123-4567"
                             />
                           </div>
 
                           <div>
-                            <Label htmlFor="pickup_address" className="text-slate-700 font-medium flex items-center">
-                              <MapPin className="w-4 h-4 mr-2" />
+                            <Label htmlFor="pickup_address" className="text-slate-900 font-medium text-sm">
                               Pickup Address
                             </Label>
                             <Textarea
@@ -526,7 +523,7 @@ export default function AdminDashboard() {
                               value={createForm.pickup_address}
                               onChange={(e) => setCreateForm({ ...createForm, pickup_address: e.target.value })}
                               required
-                              className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                              className="mt-2 border border-slate-300 text-sm"
                               placeholder="123 Main St, City, State, ZIP"
                               rows={3}
                             />
@@ -534,10 +531,9 @@ export default function AdminDashboard() {
                         </TabsContent>
 
                         <TabsContent value="receiver" className="space-y-4">
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="receiver_name" className="text-slate-700 font-medium flex items-center">
-                                <User className="w-4 h-4 mr-2" />
+                              <Label htmlFor="receiver_name" className="text-slate-900 font-medium text-sm">
                                 Receiver Name
                               </Label>
                               <Input
@@ -545,13 +541,12 @@ export default function AdminDashboard() {
                                 value={createForm.receiver_name}
                                 onChange={(e) => setCreateForm({ ...createForm, receiver_name: e.target.value })}
                                 required
-                                className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                className="mt-2 border border-slate-300 text-sm"
                                 placeholder="Jane Smith"
                               />
                             </div>
                             <div>
-                              <Label htmlFor="receiver_email" className="text-slate-700 font-medium flex items-center">
-                                <Mail className="w-4 h-4 mr-2" />
+                              <Label htmlFor="receiver_email" className="text-slate-900 font-medium text-sm">
                                 Receiver Email
                               </Label>
                               <Input
@@ -560,15 +555,14 @@ export default function AdminDashboard() {
                                 value={createForm.receiver_email}
                                 onChange={(e) => setCreateForm({ ...createForm, receiver_email: e.target.value })}
                                 required
-                                className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                className="mt-2 border border-slate-300 text-sm"
                                 placeholder="jane@example.com"
                               />
                             </div>
                           </div>
 
                           <div>
-                            <Label htmlFor="receiver_phone" className="text-slate-700 font-medium flex items-center">
-                              <Phone className="w-4 h-4 mr-2" />
+                            <Label htmlFor="receiver_phone" className="text-slate-900 font-medium text-sm">
                               Receiver Phone
                             </Label>
                             <Input
@@ -576,14 +570,13 @@ export default function AdminDashboard() {
                               value={createForm.receiver_phone}
                               onChange={(e) => setCreateForm({ ...createForm, receiver_phone: e.target.value })}
                               required
-                              className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                              className="mt-2 border border-slate-300 text-sm"
                               placeholder="+1 (555) 987-6543"
                             />
                           </div>
 
                           <div>
-                            <Label htmlFor="receiver_address" className="text-slate-700 font-medium flex items-center">
-                              <MapPin className="w-4 h-4 mr-2" />
+                            <Label htmlFor="receiver_address" className="text-slate-900 font-medium text-sm">
                               Receiver Address
                             </Label>
                             <Textarea
@@ -591,15 +584,14 @@ export default function AdminDashboard() {
                               value={createForm.receiver_address}
                               onChange={(e) => setCreateForm({ ...createForm, receiver_address: e.target.value })}
                               required
-                              className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                              className="mt-2 border border-slate-300 text-sm"
                               placeholder="456 Oak Ave, City, State, ZIP"
                               rows={3}
                             />
                           </div>
 
                           <div>
-                            <Label htmlFor="delivery_address" className="text-slate-700 font-medium flex items-center">
-                              <MapPin className="w-4 h-4 mr-2" />
+                            <Label htmlFor="delivery_address" className="text-slate-900 font-medium text-sm">
                               Delivery Address (if different)
                             </Label>
                             <Textarea
@@ -607,7 +599,7 @@ export default function AdminDashboard() {
                               value={createForm.delivery_address}
                               onChange={(e) => setCreateForm({ ...createForm, delivery_address: e.target.value })}
                               required
-                              className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                              className="mt-2 border border-slate-300 text-sm"
                               placeholder="Same as receiver address or specify different address"
                               rows={3}
                             />
@@ -615,9 +607,9 @@ export default function AdminDashboard() {
                         </TabsContent>
 
                         <TabsContent value="package" className="space-y-4">
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="package_name" className="text-slate-700 font-medium">
+                              <Label htmlFor="package_name" className="text-slate-900 font-medium text-sm">
                                 Package Name
                               </Label>
                               <Input
@@ -625,12 +617,12 @@ export default function AdminDashboard() {
                                 value={createForm.package_name}
                                 onChange={(e) => setCreateForm({ ...createForm, package_name: e.target.value })}
                                 required
-                                className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                className="mt-2 border border-slate-300 text-sm"
                                 placeholder="Electronics, Documents, etc."
                               />
                             </div>
                             <div>
-                              <Label htmlFor="package_weight" className="text-slate-700 font-medium">
+                              <Label htmlFor="package_weight" className="text-slate-900 font-medium text-sm">
                                 Weight (lbs)
                               </Label>
                               <Input
@@ -640,22 +632,22 @@ export default function AdminDashboard() {
                                 value={createForm.package_weight}
                                 onChange={(e) => setCreateForm({ ...createForm, package_weight: e.target.value })}
                                 required
-                                className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                className="mt-2 border border-slate-300 text-sm"
                                 placeholder="5.5"
                               />
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-2 gap-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="package_type" className="text-slate-700 font-medium">
+                              <Label htmlFor="package_type" className="text-slate-900 font-medium text-sm">
                                 Package Type
                               </Label>
                               <Select
                                 value={createForm.package_type}
                                 onValueChange={(value) => setCreateForm({ ...createForm, package_type: value })}
                               >
-                                <SelectTrigger className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl">
+                                <SelectTrigger className="mt-2 border border-slate-300 text-sm">
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -667,7 +659,7 @@ export default function AdminDashboard() {
                               </Select>
                             </div>
                             <div>
-                              <Label htmlFor="insurance_amount" className="text-slate-700 font-medium">
+                              <Label htmlFor="insurance_amount" className="text-slate-900 font-medium text-sm">
                                 Insurance Amount ($)
                               </Label>
                               <Input
@@ -676,21 +668,21 @@ export default function AdminDashboard() {
                                 step="0.01"
                                 value={createForm.insurance_amount}
                                 onChange={(e) => setCreateForm({ ...createForm, insurance_amount: e.target.value })}
-                                className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                className="mt-2 border border-slate-300 text-sm"
                                 placeholder="100.00"
                               />
                             </div>
                           </div>
 
                           <div>
-                            <Label htmlFor="special_instructions" className="text-slate-700 font-medium">
+                            <Label htmlFor="special_instructions" className="text-slate-900 font-medium text-sm">
                               Special Instructions
                             </Label>
                             <Textarea
                               id="special_instructions"
                               value={createForm.special_instructions}
                               onChange={(e) => setCreateForm({ ...createForm, special_instructions: e.target.value })}
-                              className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                              className="mt-2 border border-slate-300 text-sm"
                               placeholder="Handle with care, fragile items, etc."
                               rows={3}
                             />
@@ -700,7 +692,7 @@ export default function AdminDashboard() {
 
                       <Button
                         type="submit"
-                        className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg rounded-xl"
+                        className="w-full h-10 sm:h-12 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base"
                       >
                         <Plus className="w-4 h-4 mr-2" />
                         Create Complete Shipment
@@ -712,67 +704,65 @@ export default function AdminDashboard() {
             </div>
           </CardHeader>
 
-          <CardContent className="p-8">
+          <CardContent className="p-3 sm:p-8">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-xs sm:text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200">
-                    <th className="text-left p-4 font-semibold text-slate-700">Tracking Number</th>
-                    <th className="text-left p-4 font-semibold text-slate-700">Sender</th>
-                    <th className="text-left p-4 font-semibold text-slate-700">Receiver</th>
-                    <th className="text-left p-4 font-semibold text-slate-700">Package</th>
-                    <th className="text-left p-4 font-semibold text-slate-700">Status</th>
-                    <th className="text-left p-4 font-semibold text-slate-700">Created</th>
-                    <th className="text-left p-4 font-semibold text-slate-700">Actions</th>
+                  <tr className="border-b border-slate-300">
+                    <th className="text-left p-2 sm:p-4 font-semibold text-slate-900">Tracking #</th>
+                    <th className="text-left p-2 sm:p-4 font-semibold text-slate-900 hidden md:table-cell">Sender</th>
+                    <th className="text-left p-2 sm:p-4 font-semibold text-slate-900 hidden lg:table-cell">Receiver</th>
+                    <th className="text-left p-2 sm:p-4 font-semibold text-slate-900 hidden sm:table-cell">Package</th>
+                    <th className="text-left p-2 sm:p-4 font-semibold text-slate-900">Status</th>
+                    <th className="text-left p-2 sm:p-4 font-semibold text-slate-900 hidden md:table-cell">Created</th>
+                    <th className="text-left p-2 sm:p-4 font-semibold text-slate-900">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredShipments.map((shipment) => (
-                    <tr key={shipment.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                      <td className="p-4">
-                        <div className="font-mono text-sm bg-slate-100 px-2 py-1 rounded">
-                          {formatTrackingNumber(shipment.tracking_number)}
+                    <tr key={shipment.id} className="border-b border-slate-200 hover:bg-slate-50">
+                      <td className="p-2 sm:p-4">
+                        <div className="font-mono text-xs bg-slate-100 px-2 py-1 border border-slate-300">
+                          {formatTrackingNumber(shipment.tracking_number).substring(0, 8)}...
                         </div>
                       </td>
-                      <td className="p-4">
+                      <td className="p-2 sm:p-4 hidden md:table-cell">
                         <div>
-                          <div className="font-medium text-slate-800">{shipment.client_name}</div>
-                          <div className="text-sm text-slate-500">{shipment.client_email}</div>
+                          <div className="font-medium text-slate-900 text-xs">{shipment.client_name}</div>
+                          <div className="text-xs text-slate-500">{shipment.client_email}</div>
                         </div>
                       </td>
-                      <td className="p-4">
+                      <td className="p-2 sm:p-4 hidden lg:table-cell">
                         <div>
-                          <div className="font-medium text-slate-800">{shipment.receiver_name || "N/A"}</div>
-                          <div className="text-sm text-slate-500">{shipment.receiver_email || "N/A"}</div>
+                          <div className="font-medium text-slate-900 text-xs">{shipment.receiver_name || "N/A"}</div>
+                          <div className="text-xs text-slate-500">{shipment.receiver_email || "N/A"}</div>
                         </div>
                       </td>
-                      <td className="p-4">
-                        <div>
-                          <div className="font-medium text-slate-800">{shipment.package_name}</div>
-                          <div className="text-sm text-slate-500">
-                            {shipment.package_weight} lbs • {shipment.package_type}
-                          </div>
+                      <td className="p-2 sm:p-4 hidden sm:table-cell">
+                        <div className="text-xs">
+                          <div className="font-medium text-slate-900">{shipment.package_name}</div>
+                          <div className="text-slate-500">{shipment.package_weight} lbs</div>
                         </div>
                       </td>
-                      <td className="p-4">
-                        <Badge className={getStatusColor(shipment.current_status)}>
-                          {shipment.current_status.replace("_", " ").toUpperCase()}
+                      <td className="p-2 sm:p-4">
+                        <Badge className={`${getStatusColor(shipment.current_status)} text-xs`}>
+                          {shipment.current_status.replace("_", " ").substring(0, 7)}
                         </Badge>
                       </td>
-                      <td className="p-4">
-                        <div className="text-sm text-slate-500">
+                      <td className="p-2 sm:p-4 hidden md:table-cell">
+                        <div className="text-xs text-slate-500">
                           {new Date(shipment.created_at).toLocaleDateString()}
                         </div>
                       </td>
-                      <td className="p-4">
-                        <div className="flex items-center space-x-2">
+                      <td className="p-2 sm:p-4">
+                        <div className="flex items-center space-x-1">
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => window.open(`/track/${shipment.tracking_number}`, "_blank")}
-                            className="border-2 border-slate-200 hover:bg-slate-50"
+                            className="border border-slate-300 p-1 sm:p-2 text-xs"
                           >
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                           </Button>
                           <Dialog
                             open={isUpdateDialogOpen && selectedShipment?.id === shipment.id}
@@ -789,28 +779,30 @@ export default function AdminDashboard() {
                                   setSelectedShipment(shipment)
                                   setUpdateForm({ status: shipment.current_status, location: "", description: "" })
                                 }}
-                                className="border-2 border-blue-200 hover:bg-blue-50"
+                                className="border border-slate-300 p-1 sm:p-2 text-xs"
                               >
-                                <Edit className="w-4 h-4" />
+                                <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
                               </Button>
                             </DialogTrigger>
-                            <DialogContent>
+                            <DialogContent className="max-w-md sm:max-w-lg p-4 sm:p-6">
                               <DialogHeader>
-                                <DialogTitle className="text-xl font-display">Update Shipment Status</DialogTitle>
-                                <DialogDescription>
+                                <DialogTitle className="text-base sm:text-xl font-bold text-slate-900">
+                                  Update Shipment Status
+                                </DialogTitle>
+                                <DialogDescription className="text-slate-600 text-sm">
                                   Update the status for tracking number: {shipment.tracking_number}
                                 </DialogDescription>
                               </DialogHeader>
-                              <form onSubmit={handleUpdateStatus} className="space-y-6">
+                              <form onSubmit={handleUpdateStatus} className="space-y-4">
                                 <div>
-                                  <Label htmlFor="status" className="text-slate-700 font-medium">
+                                  <Label htmlFor="status" className="text-slate-900 font-medium text-sm">
                                     Status
                                   </Label>
                                   <Select
                                     value={updateForm.status}
                                     onValueChange={(value) => setUpdateForm({ ...updateForm, status: value })}
                                   >
-                                    <SelectTrigger className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl">
+                                    <SelectTrigger className="mt-2 border border-slate-300 text-sm">
                                       <SelectValue />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -823,7 +815,7 @@ export default function AdminDashboard() {
                                 </div>
 
                                 <div>
-                                  <Label htmlFor="location" className="text-slate-700 font-medium">
+                                  <Label htmlFor="location" className="text-slate-900 font-medium text-sm">
                                     Location
                                   </Label>
                                   <Input
@@ -831,12 +823,12 @@ export default function AdminDashboard() {
                                     value={updateForm.location}
                                     onChange={(e) => setUpdateForm({ ...updateForm, location: e.target.value })}
                                     placeholder="Current location"
-                                    className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                    className="mt-2 border border-slate-300 text-sm"
                                   />
                                 </div>
 
                                 <div>
-                                  <Label htmlFor="description" className="text-slate-700 font-medium">
+                                  <Label htmlFor="description" className="text-slate-900 font-medium text-sm">
                                     Description
                                   </Label>
                                   <Textarea
@@ -844,13 +836,13 @@ export default function AdminDashboard() {
                                     value={updateForm.description}
                                     onChange={(e) => setUpdateForm({ ...updateForm, description: e.target.value })}
                                     placeholder="Status update description"
-                                    className="mt-2 border-2 border-slate-200 focus:border-blue-500 rounded-xl"
+                                    className="mt-2 border border-slate-300 text-sm"
                                   />
                                 </div>
 
                                 <Button
                                   type="submit"
-                                  className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg rounded-xl"
+                                  className="w-full h-10 bg-blue-600 hover:bg-blue-700 text-white text-sm"
                                 >
                                   <Edit className="w-4 h-4 mr-2" />
                                   Update Status
@@ -866,10 +858,10 @@ export default function AdminDashboard() {
               </table>
 
               {filteredShipments.length === 0 && (
-                <div className="text-center py-12">
-                  <Package className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-                  <p className="text-slate-500 text-lg">No shipments found</p>
-                  <p className="text-slate-400 text-sm">Try adjusting your search criteria</p>
+                <div className="text-center py-8 sm:py-12">
+                  <Package className="w-12 h-12 sm:w-16 sm:h-16 text-slate-400 mx-auto mb-4" />
+                  <p className="text-slate-600 text-sm sm:text-lg">No shipments found</p>
+                  <p className="text-slate-400 text-xs sm:text-sm">Try adjusting your search criteria</p>
                 </div>
               )}
             </div>

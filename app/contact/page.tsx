@@ -41,7 +41,7 @@ export default function ContactPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <Badge className="mb-4 bg-blue-100 text-blue-700 border-blue-200">Get In Touch</Badge>
+          <Badge className="mb-4 bg-blue-50 text-blue-700 border-blue-200">Get In Touch</Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Contact Us</h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
             We're here to help with all your shipping needs. Get in touch with our expert team.
@@ -49,15 +49,15 @@ export default function ContactPage() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          <Card className="border-slate-200">
-            <CardHeader className="bg-slate-50">
+          <Card className="border-slate-200 shadow-sm">
+            <CardHeader>
               <div className="flex items-center space-x-3 mb-3">
                 <div className="bg-blue-600 rounded-lg w-10 h-10 flex items-center justify-center">
                   <Send className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <CardTitle className="text-xl">Send us a Message</CardTitle>
-                  <CardDescription>We'll get back to you within 24 hours</CardDescription>
+                  <CardTitle className="text-xl text-slate-900">Send us a Message</CardTitle>
+                  <CardDescription className="text-slate-500">We'll get back to you within 24 hours</CardDescription>
                 </div>
               </div>
             </CardHeader>
@@ -113,7 +113,7 @@ export default function ContactPage() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                   <Send className="w-4 h-4 mr-2" />
                   Send Message
                 </Button>
@@ -122,15 +122,17 @@ export default function ContactPage() {
           </Card>
 
           <div className="space-y-6">
-            <Card className="border-slate-200">
-              <CardHeader className="bg-slate-50">
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <div className="bg-green-600 rounded-lg w-10 h-10 flex items-center justify-center">
+                  <div className="bg-blue-600 rounded-lg w-10 h-10 flex items-center justify-center">
                     <MessageCircle className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Get in Touch</CardTitle>
-                    <CardDescription>Multiple ways to reach our support team</CardDescription>
+                    <CardTitle className="text-lg text-slate-900">Get in Touch</CardTitle>
+                    <CardDescription className="text-slate-500">
+                      Multiple ways to reach our support team
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
@@ -147,8 +149,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start space-x-3">
-                  <div className="bg-green-100 rounded-lg p-2">
-                    <Phone className="w-5 h-5 text-green-600" />
+                  <div className="bg-blue-100 rounded-lg p-2">
+                    <Phone className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-800">Phone Support</h3>
@@ -158,8 +160,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start space-x-3">
-                  <div className="bg-purple-100 rounded-lg p-2">
-                    <MapPin className="w-5 h-5 text-purple-600" />
+                  <div className="bg-blue-100 rounded-lg p-2">
+                    <MapPin className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-800">Office Address</h3>
@@ -172,8 +174,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start space-x-3">
-                  <div className="bg-orange-100 rounded-lg p-2">
-                    <Clock className="w-5 h-5 text-orange-600" />
+                  <div className="bg-blue-100 rounded-lg p-2">
+                    <Clock className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-800">Business Hours</h3>
@@ -187,23 +189,23 @@ export default function ContactPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200">
-              <CardHeader className="bg-red-50">
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <div className="bg-red-600 rounded-lg w-10 h-10 flex items-center justify-center">
+                  <div className="bg-blue-600 rounded-lg w-10 h-10 flex items-center justify-center">
                     <AlertCircle className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">Emergency Support</CardTitle>
-                    <CardDescription>For urgent shipping issues</CardDescription>
+                    <CardTitle className="text-lg text-slate-900">Emergency Support</CardTitle>
+                    <CardDescription className="text-slate-500">For urgent shipping issues</CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-6">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h3 className="font-semibold text-red-800 mb-1">24/7 Emergency Line</h3>
-                  <p className="text-red-700 font-bold text-lg">1-800-URGENT-SHIP</p>
-                  <p className="text-sm text-red-600 mt-2">For lost packages and delivery emergencies</p>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h3 className="font-semibold text-blue-800 mb-1">24/7 Emergency Line</h3>
+                  <p className="text-blue-700 font-bold text-lg">1-800-URGENT-SHIP</p>
+                  <p className="text-sm text-blue-600 mt-2">For lost packages and delivery emergencies</p>
                 </div>
               </CardContent>
             </Card>
