@@ -22,33 +22,29 @@
   "projects": [
     [
       "Rushed AI",
-      "Create web apps, websites and web components in minutes",
+      "AI web app builder\n🛠️ Next.js, Claude, NeonDB",
       "https://rushed-ai.vercel.app/",
-      "Next.js, Claude, NeonDB, Inngest AgentKit",
       "/rushed-ai.png",
       "https://github.com/brayanj4y/rushed"
     ],
     [
       "CodeAssist",
-      "a browser-based code editor that uses Gemini to assist you in real time!",
+      "Browser code editor + Gemini\n🛠️ Next.js, Gemini API, Monaco",
       "https://code-assist-lilac.vercel.app/",
-      "Typescript, Next.js, Gemini API, Monaco",
       "/codeassist.png",
       "https://github.com/brayanj4y/code-assist"
     ],
     [
       "Zenote",
-      "AI powered note taking app for both markdown and normal text with mind map",
+      "AI note app with mind maps\n🛠️ Next.js, Gemini API",
       "https://zenotes-two.vercel.app/",
-      "AI, Gemini API, Next.js, Note app",
       "/zenote.jpeg",
       "https://github.com/brayanj4y/zenotes"
     ],
     [
       "Whispr",
-      "A NGL alternative but better Anonymous messaging • Self-destructing secrets",
+      "Anonymous self-destruct messages\n🛠️ Next.js, Real-time messaging",
       "https://whispr-lime.vercel.app/",
-      "Self destruct message, Messaging, Secrets",
       "/whispr.jpeg",
       "https://github.com/brayanj4y/whispr"
     ]

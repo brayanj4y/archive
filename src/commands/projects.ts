@@ -1,8 +1,8 @@
 import command from '../../config.json' assert {type: 'json'};
 
-const createProject = () : string[] => {
+const createProject = (): string[] => {
   let string = "";
-  const projects : string[] = [];
+  const projects: string[] = [];
   const files = `${command.projects.length} File(s)`;
   const SPACE = "&nbsp;";
 
@@ -13,8 +13,21 @@ const createProject = () : string[] => {
     string += SPACE.repeat(2);
     string += link;
     string += SPACE.repeat(17 - ele[0].length);
-    string += ele[1];
+
+    // Split description by \n and handle line breaks
+    const descLines = ele[1].split('\n');
+    string += descLines[0];
     projects.push(string);
+
+    // Add remaining lines as separate entries
+    for (let i = 1; i < descLines.length; i++) {
+      if (descLines[i] === '') {
+        projects.push("<br>");
+      } else {
+        projects.push(SPACE.repeat(19) + descLines[i]);
+      }
+    }
+
     string = '';
   });
 

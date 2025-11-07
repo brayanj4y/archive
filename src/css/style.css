@@ -3,12 +3,12 @@
 :root {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 200;
-  --bg: #0C0623;
-  --border: #00FF41;
-  --text: #00FF41;
-  --prompt-default: #A5A7A7;
-  --prompt-1: #00FF41;
-  --prompt-2: #70FDFF;
+  --bg: #0a0e0a;
+  --border: #00ff41;
+  --text: #00ff41;
+  --prompt-default: #00ff41;
+  --prompt-1: #33ff66;
+  --prompt-2: #00cc33;
 }
 
 @keyframes typing {
@@ -76,7 +76,7 @@ pre {
   margin: 0;
   padding: 0;
   line-height: 20px !important;
-  color: #00FF41;
+  color: #00ff41;
   font-family: "ascii", monospace;
 }
 
@@ -88,13 +88,14 @@ input {
   resize: none;
   outline: none;
   font-size: 16px;
-  color: #00FF41;
+  color: #00ff41;
   caret-color: var(--prompt-default);
   width: 50%;
+  background-color: transparent;
 }
 
 a {
-  color: #00FF41;
+  color: #33ff66;
 }
 
 a:hover {
@@ -157,9 +158,9 @@ a:hover {
 
 .command {
   text-shadow:
-    0 0 7px #00FF41,
-    0 0 151px #00FF41;
-  color: #00FF41;
+    0 0 7px #00ff41,
+    0 0 151px #00ff41;
+  color: #00ff41;
 }
 
 .output {
@@ -167,7 +168,7 @@ a:hover {
 }
 
 .keys {
-  color: #00FF41;
+  color: #33ff66;
   font-weight: 400;
 }
 

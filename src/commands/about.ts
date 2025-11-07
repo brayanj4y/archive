@@ -2,6 +2,7 @@ import command from '../../config.json' assert {type: 'json'};
 
 const createAbout = (): string[] => {
   const about: string[] = [];
+
   const SPACE = "&nbsp;";
 
   const EMAIL = "Email";
@@ -12,12 +13,15 @@ const createAbout = (): string[] => {
   const email = `<i class='fa-solid fa-envelope'></i> ${EMAIL}`;
   const github = `<i class='fa-brands fa-github'></i> ${GITHUB}`;
   const linkedin = `<i class='fa-brands fa-linkedin'></i> ${LINKEDIN}`;
-  const xAccount = `<i class='fa-brands fa-x-twitter'></i> ${X}`; // make sure you have the X icon in your fontawesome version
+  const x = `<i class='fa-brands fa-x-twitter'></i> ${X}`;
+  let string = "";
 
   about.push("<br>");
 
-  command.aboutGreeting.split("\n").forEach(line => {
-    if (line.trim() === "") {
+  // Split greeting by \n and add each line
+  const greetingLines = command.aboutGreeting.split('\n');
+  greetingLines.forEach(line => {
+    if (line === '') {
       about.push("<br>");
     } else {
       about.push(line);
@@ -26,7 +30,6 @@ const createAbout = (): string[] => {
 
   about.push("<br>");
 
-  let string = "";
   string += SPACE.repeat(2);
   string += email;
   string += SPACE.repeat(17 - EMAIL.length);
@@ -44,18 +47,18 @@ const createAbout = (): string[] => {
   string += SPACE.repeat(2);
   string += linkedin;
   string += SPACE.repeat(17 - LINKEDIN.length);
-  string += `<a target='_blank' href='https://www.linkedin.com/in/${command.social.linkedin}'>linkedin/${command.social.linkedin}</a>`;
+  string += `<a target='_blank' href='https://linkedin.com/in/${command.social.linkedin}'>linkedin/${command.social.linkedin}</a>`;
   about.push(string);
 
   string = '';
   string += SPACE.repeat(2);
-  string += xAccount;
+  string += x;
   string += SPACE.repeat(17 - X.length);
   string += `<a target='_blank' href='https://x.com/${command.social.x}'>x/${command.social.x}</a>`;
   about.push(string);
 
   about.push("<br>");
-  return about;
-};
+  return about
+}
 
 export const ABOUT = createAbout();

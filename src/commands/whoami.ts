@@ -1,34 +1,34 @@
 const whoamiObj = {
-  "message": [
+  "message" : [
     [
-      "In this wild simulation,",
-      "I’m just vibin’, lowkey tryna figure out wtf is goin’ on —"
+      "In the kaleidoscope of existence,",
+      "I am but a reflection questioning the enigma - "
     ],
     [
-      "While the universe’s on DND,",
-      "I’m lost in my main character era,",
-      "asking the same deep ass question —"
+      "Amidst cosmic whispers,",
+      "I navigate the maze of self-discovery,",
+      "echoing the eternal refrain - "
     ],
     [
-      "Life’s playlist kinda hittin’,",
-      "I’m one beat away from realizing my purpose,",
-      "still wondering —"
+      "In the symphony of life,",
+      "I am a note inquiring its own melody,",
+      "harmonizing with the universal query - ",
     ],
     [
-      "As recycled stardust with anxiety,",
-      "I’m out here overthinking the cosmos,",
-      "like fr, who even am I —"
+      "As stardust contemplating its journey,",
+      "I ponder the cosmic query,",
+      "silently asking - ",
     ],
     [
-      "In this messy aesthetic called reality,",
-      "I’m just one pixel in the group chat of existence,",
-      "sending another late-night ‘what is life?’ text —"
+      "In the tapestry of reality,",
+      "I am the thread of self-inquiry,",
+      "weaving through the eternal question - "
     ],
   ],
 }
 
-export const createWhoami = (): string[] => {
-  const whoami: string[] = [];
+export const createWhoami = () : string[] => {
+  const whoami : string[] = [];  
   const r = Math.floor(Math.random() * whoamiObj.message.length);
   whoami.push("<br>");
 

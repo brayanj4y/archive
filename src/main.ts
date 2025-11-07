@@ -158,24 +158,24 @@ function commandHandler(input: string) {
 
         easterEggStyles();
         setTimeout(() => {
-          writeLines(["What made you think that was a good idea?", "<br>"]);
+          writeLines(["CRITICAL: /src obliterated.", "<br>"]);
         }, 200)
 
         setTimeout(() => {
-          writeLines(["Now everything is ruined.", "<br>"]);
+          writeLines(["System meltdown... nah, code is gone. ¯\\_(ツ)_/¯", "<br>"]);
         }, 1200)
 
       } else if (input === "rm -rf src" && bareMode) {
-        writeLines(["there's no more src folder.", "<br>"])
+        writeLines(["there's no more src folder dawg!", "<br>"])
       } else {
         if (bareMode) {
-          writeLines(["What else are you trying to delete?", "<br>"])
+          writeLines(["What else are you trying to delete lad?", "<br>"])
         } else {
           writeLines(["<br>", "Directory not found.", "type <span class='command'>'ls'</span> for a list of directories.", "<br>"]);
         }
       }
     } else {
-      writeLines(["Permission not granted.", "<br>"]);
+      writeLines(["Permission not granted, cry!!", "<br>"]);
     }
     return
   }
@@ -191,7 +191,7 @@ function commandHandler(input: string) {
       break;
     case 'banner':
       if (bareMode) {
-        writeLines(["brayanj4y v1.0.0", "<br>"])
+        writeLines(["Brayanj4y v1.0.0", "<br>"])
         break;
       }
       writeLines(BANNER);
@@ -212,7 +212,7 @@ function commandHandler(input: string) {
       break;
     case 'about':
       if (bareMode) {
-        writeLines(["Nothing to see here.", "<br>"])
+        writeLines(["Nothing to see here dawg.", "<br>"])
         break;
       }
       writeLines(ABOUT);
