@@ -19,6 +19,32 @@
     "x": "brayanj4y"
   },
   "aboutGreeting": "👋 HEY HEY HEY!\n\n[GOVT_NAME]: Silvain Brayan Souop\n[ALIAS]: Brayan Jay ✨\n\n📍 JFN-HITECH Douala\n☕ coffee >> sleep\n⚠️ deadlines = spiritual_warfare.exe\n\n🛠️ I build [web + mobile] apps\n→ sometimes they solve problems\n→ sometimes they just... exist 🤷\n\n💡 design && code = 🔥\n🤝 collabs.enabled = true\n if (project.includes('snacks' || 'memes')) { count_me_in(); }\n\n👨‍💻 Let's build something cool.",
+  "experience": [
+    {
+      "duration": "Oct 2023 – Present",
+      "role": "BTECH, Software Engineering",
+      "company": "IUGET University Douala",
+      "description": "Currently pursuing a Bachelor Degree in Software engineering\nwith a focus on modern web development,\nAI integration, and software engineering principles."
+    },
+    {
+      "duration": "Oct 2023 – June 2025",
+      "role": "HND, Software Engineering",
+      "company": "JFN-HITECH University Douala",
+      "description": "Obtained a Higher National Diploma\nwith a focus on modern web development,\nAI integration, and software engineering principles."
+    },
+    {
+      "duration": "July 2024 – Nov 2024",
+      "role": "Junior Software Engineer (Intern)",
+      "company": "Gracify Technology Cameroun",
+      "description": "Assisted in building and maintaining web applications.\nContributed to frontend development using modern frameworks\nand supported integration of AI-driven features."
+    },
+    {
+      "duration": "Dec 2024 – Jan 2025",
+      "role": "Junior Software Engineer (Intern)",
+      "company": "African Digital Strategies Network",
+      "description": "Worked on internal tools and prototypes.\nFocused on leveraging AI services\nand automation of attendance system to enhance digital strategies."
+    }
+  ],
   "projects": [
     [
       "Rushed AI",

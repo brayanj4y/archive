@@ -18,7 +18,6 @@ const createAbout = (): string[] => {
 
   about.push("<br>");
 
-  // Split greeting by \n and add each line
   const greetingLines = command.aboutGreeting.split('\n');
   greetingLines.forEach(line => {
     if (line === '') {
@@ -30,6 +29,7 @@ const createAbout = (): string[] => {
 
   about.push("<br>");
 
+  string = '';
   string += SPACE.repeat(2);
   string += email;
   string += SPACE.repeat(17 - EMAIL.length);
@@ -58,7 +58,27 @@ const createAbout = (): string[] => {
   about.push(string);
 
   about.push("<br>");
-  return about
+
+
+  // Experience Section with line breaks
+  if (command.experience && Array.isArray(command.experience)) {
+    about.push("🧠 EXPERIENCE");
+    about.push("<br>");
+    command.experience.forEach(exp => {
+      about.push(`🔹 ${exp.role}`);
+      about.push(`📍 ${exp.company}`);
+      about.push(`🕒 ${exp.duration}`);
+      exp.description.split('\n').forEach(line => {
+        about.push(`→ ${line}`);
+      });
+      about.push("<br>");
+      about.push("<br>");
+    });
+  }
+
+
+
+  return about;
 }
 
 export const ABOUT = createAbout();
