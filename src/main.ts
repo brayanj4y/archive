@@ -5,6 +5,7 @@ import { ABOUT } from "./commands/about"
 import { DEFAULT } from "./commands/default";
 import { PROJECTS } from "./commands/projects";
 import { createWhoami } from "./commands/whoami";
+import { inject } from '@vercel/analytics';
 
 //mutWriteLines gets deleted and reassigned
 let mutWriteLines = document.getElementById("write-lines");
@@ -402,3 +403,6 @@ const initEventListeners = () => {
 }
 
 initEventListeners();
+
+// Initialize Vercel Analytics
+inject();
