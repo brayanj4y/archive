@@ -19,32 +19,6 @@
     "x": "brayanj4y"
   },
   "aboutGreeting": "👋 HEY HEY HEY!\n\n[GOVT_NAME]: Silvain Brayan Souop\n[ALIAS]: Brayan Jay ✨\n\n📍 IUGET Douala\n☕ coffee >> sleep\n⚠️ deadlines = spiritual_warfare.exe\n\n🛠️ I build [web + mobile] apps\n→ sometimes they solve problems\n→ sometimes they just... exist 🤷\n\n💡 design && code = 🔥\n🤝 collabs.enabled = true\n if (project.includes('snacks' || 'memes')) { count_me_in(); }\n\n👨‍💻 Let's build something cool.",
-  "experience": [
-    {
-      "duration": "Nov 2025 – Present",
-      "role": "BTech, Software Engineering",
-      "company": "IUGET University, Douala",
-      "description": "Pursuing a Bachelor's Degree in Software Engineering,\nemphasizing scalable web systems, AI-driven applications,\nand advanced software design principles."
-    },
-    {
-      "duration": "Oct 2023 – June 2025",
-      "role": "HND, Software Engineering",
-      "company": "JFN-HiTech University, Douala",
-      "description": "Completed a Higher National Diploma in Software Engineering,\nfocused on full-stack web development, database systems,\nand applied machine learning fundamentals."
-    },
-    {
-      "duration": "July 2024 – Nov 2024",
-      "role": "Junior Software Engineer (Intern)",
-      "company": "Gracify Technology, Cameroon",
-      "description": "Developed and maintained responsive web applications.\nImplemented interactive UI components with modern frameworks\nand integrated AI-powered modules to enhance user experience."
-    },
-    {
-      "duration": "Dec 2024 – Jan 2025",
-      "role": "Junior Software Engineer (Intern)",
-      "company": "African Digital Strategies Network",
-      "description": "Built internal automation tools to streamline workflows.\nIntegrated AI APIs for attendance tracking,\nreducing manual work by over 8 hours per week."
-    }
-  ],
   "projects": [
     [
       "Rushed AI",

@@ -58,26 +58,6 @@ const createAbout = (): string[] => {
   about.push(string);
 
   about.push("<br>");
-
-
-  // Experience Section with line breaks
-  if (command.experience && Array.isArray(command.experience)) {
-    about.push("🧠 EXPERIENCE");
-    about.push("<br>");
-    command.experience.forEach(exp => {
-      about.push(`🔹 ${exp.role}`);
-      about.push(`📍 ${exp.company}`);
-      about.push(`🕒 ${exp.duration}`);
-      exp.description.split('\n').forEach(line => {
-        about.push(`→ ${line}`);
-      });
-      about.push("<br>");
-      about.push("<br>");
-    });
-  }
-
-
-
   return about;
 }
 

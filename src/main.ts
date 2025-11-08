@@ -4,7 +4,7 @@ import { BANNER } from "./commands/banner";
 import { ABOUT } from "./commands/about"
 import { DEFAULT } from "./commands/default";
 import { PROJECTS } from "./commands/projects";
-import { createWhoami } from "./commands/whoami";
+import { WHOAMI_QUESTIONS, formatWhoamiHints } from "./commands/whoami";
 import { inject } from '@vercel/analytics';
 
 //mutWriteLines gets deleted and reassigned
@@ -17,7 +17,7 @@ let isPasswordInput = false;
 let passwordCounter = 0;
 let bareMode = false;
 
-//WRITELINESCOPY is used to during the "clear" command
+
 const WRITELINESCOPY = mutWriteLines;
 const TERMINAL = document.getElementById("terminal");
 const USERINPUT = document.getElementById("user-input") as HTMLInputElement;
@@ -33,11 +33,13 @@ const COMMANDS = ["help", "about", "projects", "whoami", "download", "banner", "
 const HISTORY: string[] = [];
 const SUDO_PASSWORD = command.password;
 const FILE_LINK = command.fileLink;
+const WHOAMI_GAME = { active: false, level: 0, correctAnswers: 0 };
+const TOTAL_QUESTIONS = WHOAMI_QUESTIONS.length;
+
 
 const scrollToBottom = () => {
   const MAIN = document.getElementById("main");
   if (!MAIN) return
-
   MAIN.scrollTop = MAIN.scrollHeight;
 }
 
@@ -52,10 +54,13 @@ function userInputHandler(e: KeyboardEvent) {
       } else {
         passwordHandler();
       }
-
       scrollToBottom();
       break;
     case "Escape":
+      if (WHOAMI_GAME.active) {
+        writeLines(["Exiting Who Am I? mode...", "<br>"]);
+        WHOAMI_GAME.active = false;
+      }
       USERINPUT.value = "";
       break;
     case "ArrowUp":
@@ -78,6 +83,23 @@ function enterKey() {
   let newUserInput;
   userInput = USERINPUT.value;
 
+  if (WHOAMI_GAME.active) {
+    const userAnswer = userInput.trim().toLowerCase();
+    const currentQuestion = WHOAMI_QUESTIONS[WHOAMI_GAME.level];
+
+    if (userAnswer === currentQuestion.answer.toLowerCase()) {
+      WHOAMI_GAME.correctAnswers++;
+      writeLines([`✅ Correct! ${WHOAMI_GAME.correctAnswers}/${TOTAL_QUESTIONS}`, "<br>"]);
+    } else {
+      writeLines([`❌ Incorrect! The answer was: ${currentQuestion.answer}`, "<br>"]);
+    }
+
+    WHOAMI_GAME.level++;
+    setTimeout(() => displayWhoamiQuestion(WHOAMI_GAME.level), 500);
+    USERINPUT.value = "";
+    return;
+  }
+
   if (bareMode) {
     newUserInput = userInput;
   } else {
@@ -87,7 +109,7 @@ function enterKey() {
   HISTORY.push(userInput);
   historyIdx = HISTORY.length
 
-  //if clear then early return
+
   if (userInput === 'clear') {
     commandHandler(userInput.toLowerCase().trim());
     USERINPUT.value = resetInput;
@@ -114,9 +136,23 @@ function enterKey() {
   userInput = resetInput;
 }
 
+function displayWhoamiQuestion(level: number) {
+  if (level >= WHOAMI_QUESTIONS.length) {
+    writeLines([`🎉 Game over! You got ${WHOAMI_GAME.correctAnswers}/${WHOAMI_QUESTIONS.length} correct!`, "<br>"]);
+    WHOAMI_GAME.active = false;
+    WHOAMI_GAME.level = 0;
+    WHOAMI_GAME.correctAnswers = 0;
+    return;
+  }
+
+  const question = WHOAMI_QUESTIONS[level];
+
+  writeLines([`Level ${level + 1}/${TOTAL_QUESTIONS}`, "<br>"]);
+  writeLines(formatWhoamiHints(question));
+}
+
 function tabKey() {
   let currInput = USERINPUT.value;
-
   for (const ele of COMMANDS) {
     if (ele.startsWith(currInput)) {
       USERINPUT.value = ele;
@@ -149,31 +185,19 @@ function commandHandler(input: string) {
     if (isSudo) {
       if (input === "rm -rf src" && !bareMode) {
         bareMode = true;
-
         setTimeout(() => {
           if (!TERMINAL || !WRITELINESCOPY) return
           TERMINAL.innerHTML = "";
           TERMINAL.appendChild(WRITELINESCOPY);
           mutWriteLines = WRITELINESCOPY;
         });
-
         easterEggStyles();
-        setTimeout(() => {
-          writeLines(["CRITICAL: /src obliterated.", "<br>"]);
-        }, 200)
-
-        setTimeout(() => {
-          writeLines(["System meltdown... nah, code is gone. ¯\\_(ツ)_/¯", "<br>"]);
-        }, 1200)
-
+        setTimeout(() => writeLines(["CRITICAL: /src obliterated.", "<br>"]), 200)
+        setTimeout(() => writeLines(["System meltdown... nah, code is gone. ¯\\_(ツ)_/¯", "<br>"]), 1200)
       } else if (input === "rm -rf src" && bareMode) {
         writeLines(["there's no more src folder dawg!", "<br>"])
       } else {
-        if (bareMode) {
-          writeLines(["What else are you trying to delete lad?", "<br>"])
-        } else {
-          writeLines(["<br>", "Directory not found.", "type <span class='command'>'ls'</span> for a list of directories.", "<br>"]);
-        }
+        writeLines(bareMode ? ["What else are you trying to delete lad?", "<br>"] : ["<br>", "Directory not found.", "type <span class='command'>'ls'</span> for a list of directories.", "<br>"]);
       }
     } else {
       writeLines(["Permission not granted, cry!!", "<br>"]);
@@ -198,32 +222,28 @@ function commandHandler(input: string) {
       writeLines(BANNER);
       break;
     case 'help':
-      if (bareMode) {
-        writeLines(["maybe restarting your browser will fix this.", "<br>"])
-        break;
-      }
-      writeLines(HELP);
+      writeLines(bareMode ? ["maybe restarting your browser will fix this.", "<br>"] : HELP);
       break;
     case 'whoami':
       if (bareMode) {
         writeLines([`${command.username}`, "<br>"])
         break;
       }
-      writeLines(createWhoami());
+      WHOAMI_GAME.active = true;
+      WHOAMI_GAME.level = 0;
+      WHOAMI_GAME.correctAnswers = 0;
+      writeLines([
+        "🎮 Who Am I? game started! Type your answer and press Enter.",
+        "Press <span class='command'>[Esc]</span> to exit anytime.",
+        "<br>"
+      ]);
+      displayWhoamiQuestion(0);
       break;
     case 'about':
-      if (bareMode) {
-        writeLines(["Nothing to see here dawg.", "<br>"])
-        break;
-      }
-      writeLines(ABOUT);
+      writeLines(bareMode ? ["Nothing to see here dawg.", "<br>"] : ABOUT);
       break;
     case 'projects':
-      if (bareMode) {
-        writeLines(["I don't want you to break the other projects.", "<br>"])
-        break;
-      }
-      writeLines(PROJECTS);
+      writeLines(bareMode ? ["I don't want you to break the other projects.", "<br>"] : PROJECTS);
       break;
     case 'download':
       writeLines(["Downloading my resume...", "<br>"]);
@@ -236,71 +256,31 @@ function commandHandler(input: string) {
         link.remove();
       }, 500);
       break;
-
-    case 'linkedin':
-      //add stuff here
-      break;
-    case 'github':
-      //add stuff here
-      break;
-    case 'email':
-      //add stuff here
-      break;
+    case 'linkedin': break;
+    case 'github': break;
+    case 'email': break;
     case 'rm -rf':
-      if (bareMode) {
-        writeLines(["don't try again.", "<br>"])
-        break;
-      }
-
-      if (isSudo) {
-        writeLines(["Usage: <span class='command'>'rm -rf &lt;dir&gt;'</span>", "<br>"]);
-      } else {
-        writeLines(["Permission not granted.", "<br>"])
-      }
+      writeLines(bareMode ? ["don't try again.", "<br>"] : ["Usage: <span class='command'>'rm -rf &lt;dir&gt;'</span>", "<br>"]);
       break;
     case 'sudo':
-      if (bareMode) {
-        writeLines(["no.", "<br>"])
-        break;
-      }
       if (!PASSWORD) return
       isPasswordInput = true;
       USERINPUT.disabled = true;
-
       if (INPUT_HIDDEN) INPUT_HIDDEN.style.display = "none";
       PASSWORD.style.display = "block";
-      setTimeout(() => {
-        PASSWORD_INPUT.focus();
-      }, 100);
-
+      setTimeout(() => PASSWORD_INPUT.focus(), 100);
       break;
     case 'ls':
-      if (bareMode) {
-        writeLines(["", "<br>"])
-        break;
-      }
-
-      if (isSudo) {
-        writeLines(["src", "<br>"]);
-      } else {
-        writeLines(["Permission not granted.", "<br>"]);
-      }
+      writeLines(isSudo ? ["src", "<br>"] : ["Permission not granted.", "<br>"]);
       break;
     default:
-      if (bareMode) {
-        writeLines(["type 'help'", "<br>"])
-        break;
-      }
-
-      writeLines(DEFAULT);
+      writeLines(bareMode ? ["type 'help'", "<br>"] : DEFAULT);
       break;
   }
 }
 
 function writeLines(message: string[]) {
-  message.forEach((item, idx) => {
-    displayText(item, idx);
-  });
+  message.forEach((item, idx) => displayText(item, idx));
 }
 
 function displayText(item: string, idx: number) {
@@ -320,27 +300,20 @@ function revertPasswordChanges() {
   INPUT_HIDDEN.style.display = "block";
   PASSWORD.style.display = "none";
   isPasswordInput = false;
-
-  setTimeout(() => {
-    USERINPUT.focus();
-  }, 200)
+  setTimeout(() => USERINPUT.focus(), 200)
 }
 
 function passwordHandler() {
   if (passwordCounter === 2) {
-    if (!INPUT_HIDDEN || !mutWriteLines || !PASSWORD) return
-    writeLines(["<br>", "INCORRECT PASSWORD.", "PERMISSION NOT GRANTED.", "<br>"])
+    writeLines(["<br>", "INCORRECT PASSWORD.", "PERMISSION NOT GRANTED.", "<br>"]);
     revertPasswordChanges();
     passwordCounter = 0;
     return
   }
-
   if (PASSWORD_INPUT.value === SUDO_PASSWORD) {
-    if (!mutWriteLines || !mutWriteLines.parentNode) return
-    writeLines(["<br>", "PERMISSION GRANTED.", "Try <span class='command'>'rm -rf'</span>", "<br>"])
+    writeLines(["<br>", "PERMISSION GRANTED.", "Try <span class='command'>'rm -rf'</span>", "<br>"]);
     revertPasswordChanges();
     isSudo = true;
-    return
   } else {
     PASSWORD_INPUT.value = "";
     passwordCounter++;
@@ -354,61 +327,34 @@ function easterEggStyles() {
   const span = document.getElementsByTagName("span");
 
   if (!bars) return
-  bars.innerHTML = "";
   bars.remove()
-
   if (main) main.style.border = "none";
-
   body.style.backgroundColor = "black";
   body.style.fontFamily = "VT323, monospace";
   body.style.fontSize = "20px";
   body.style.color = "white";
-
-  for (let i = 0; i < span.length; i++) {
-    span[i].style.color = "white";
-  }
-
+  for (let i = 0; i < span.length; i++) span[i].style.color = "white";
   USERINPUT.style.backgroundColor = "black";
   USERINPUT.style.color = "white";
   USERINPUT.style.fontFamily = "VT323, monospace";
   USERINPUT.style.fontSize = "20px";
   if (PROMPT) PROMPT.style.color = "white";
-
 }
 
 const initEventListeners = () => {
-  if (HOST) {
-    HOST.innerText = command.hostname;
-  }
+  if (HOST) HOST.innerText = command.hostname;
+  if (USER) USER.innerText = command.username;
+  if (PRE_HOST) PRE_HOST.innerText = command.hostname;
+  if (PRE_USER) PRE_USER.innerText = command.username;
 
-  if (USER) {
-    USER.innerText = command.username;
-  }
-
-  if (PRE_HOST) {
-    PRE_HOST.innerText = command.hostname;
-  }
-
-  if (PRE_USER) {
-    PRE_USER.innerText = command.username;
-  }
-
-  window.addEventListener('load', () => {
-    writeLines(BANNER);
-  });
-
+  window.addEventListener('load', () => writeLines(BANNER));
   USERINPUT.addEventListener('keypress', userInputHandler);
   USERINPUT.addEventListener('keydown', userInputHandler);
   PASSWORD_INPUT.addEventListener('keypress', userInputHandler);
-
-  window.addEventListener('click', () => {
-    USERINPUT.focus();
-  });
+  window.addEventListener('click', () => USERINPUT.focus());
 
   console.log(`%cPassword: ${command.password}`, "color: red; font-size: 20px;");
 }
 
 initEventListeners();
-
-// Initialize Vercel Analytics
 inject();

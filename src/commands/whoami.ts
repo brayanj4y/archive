@@ -1,45 +1,57 @@
-const whoamiObj = {
-  "message": [
-    [
-      "In this wild simulation,",
-      "I’m just vibin’, lowkey tryna figure out wtf is goin’ on —"
-    ],
-    [
-      "While the universe’s on DND,",
-      "I’m lost in my main character era,",
-      "asking the same deep ass question —"
-    ],
-    [
-      "Life’s playlist kinda hittin’,",
-      "I’m one beat away from realizing my purpose,",
-      "still wondering —"
-    ],
-    [
-      "As recycled stardust with anxiety,",
-      "I’m out here overthinking the cosmos,",
-      "like fr, who even am I —"
-    ],
-    [
-      "In this messy aesthetic called reality,",
-      "I’m just one pixel in the group chat of existence,",
-      "sending another late-night ‘what is life?’ text —"
-    ],
-  ],
+// whoami.ts
+export interface WhoamiQuestion {
+  hints: string[];
+  answer: string;
 }
 
-export const createWhoami = (): string[] => {
-  const whoami: string[] = [];
-  const r = Math.floor(Math.random() * whoamiObj.message.length);
-  whoami.push("<br>");
+export const WHOAMI_QUESTIONS: WhoamiQuestion[] = [
+  {
+    hints: [
+      "I live in a castle,",
+      "wear a crown,",
+      "and rule my kingdom —"
+    ],
+    answer: "king"
+  },
+  {
+    hints: [
+      "I swing from buildings,",
+      "save the city,",
+      "and wear a mask —"
+    ],
+    answer: "spiderman"
+  },
+  {
+    hints: [
+      "I solve mysteries,",
+      "have a faithful sidekick,",
+      "and roam the night —"
+    ],
+    answer: "batman"
+  },
+  {
+    hints: [
+      "I’m green and smash things,",
+      "but have a soft side,",
+      "you better watch out —"
+    ],
+    answer: "hulk"
+  },
+  {
+    hints: [
+      "I travel through space,",
+      "have a trusty lightsaber,",
+      "and fight the dark side —"
+    ],
+    answer: "luke skywalker"
+  },
+];
 
-  whoamiObj.message[r].forEach((ele, idx) => {
-    if (idx === whoamiObj.message[r].length - 1) {
-      ele += "<span class='command'>who am I?</span>";
-    }
-    whoami.push(ele);
-  });
-
-  whoami.push("<br>");
-
-  return whoami
-}
+// helper to format hints for terminal
+export const formatWhoamiHints = (question: WhoamiQuestion): string[] => {
+  const hints = [...question.hints];
+  hints[hints.length - 1] += "<span class='command'> Who am I?</span>";
+  hints.unshift("<br>");
+  hints.push("<br>");
+  return hints;
+};
