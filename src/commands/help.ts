@@ -1,8 +1,8 @@
 const helpObj = {
   "commands": [
     [
-    "'about'",
-    "Who made this website?",
+      "'about'",
+      "Who made this website?",
     ],
     [
       "'projects'",
@@ -16,8 +16,8 @@ const helpObj = {
       "???"
     ],
     [
-      "'repo'",
-      "View the Github Repository."
+      "'download'",
+      "Download my resume"
     ],
     ["'banner'",
       "Display the banner."
@@ -29,8 +29,8 @@ const helpObj = {
   ],
 }
 
-const createHelp = () : string[] => {
-  const help : string[] = []
+const createHelp = (): string[] => {
+  const help: string[] = []
   help.push("<br>")
 
   helpObj.commands.forEach((ele) => {

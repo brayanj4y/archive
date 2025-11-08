@@ -29,10 +29,10 @@ const PRE_USER = document.getElementById("pre-user");
 const HOST = document.getElementById("host");
 const USER = document.getElementById("user");
 const PROMPT = document.getElementById("prompt");
-const COMMANDS = ["help", "about", "projects", "whoami", "repo", "banner", "clear"];
+const COMMANDS = ["help", "about", "projects", "whoami", "download", "banner", "clear"];
 const HISTORY: string[] = [];
 const SUDO_PASSWORD = command.password;
-const REPO_LINK = command.repoLink;
+const FILE_LINK = command.fileLink;
 
 const scrollToBottom = () => {
   const MAIN = document.getElementById("main");
@@ -225,12 +225,18 @@ function commandHandler(input: string) {
       }
       writeLines(PROJECTS);
       break;
-    case 'repo':
-      writeLines(["Redirecting to github.com...", "<br>"]);
+    case 'download':
+      writeLines(["Downloading my resume...", "<br>"]);
       setTimeout(() => {
-        window.open(REPO_LINK, '_blank');
+        const link = document.createElement('a');
+        link.href = FILE_LINK;
+        link.download = 'Souop Sylvain Brayan.CV.pdf';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
       }, 500);
       break;
+
     case 'linkedin':
       //add stuff here
       break;
