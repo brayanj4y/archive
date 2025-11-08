@@ -22,27 +22,27 @@
   "experience": [
     {
       "duration": "Nov 2025 – Present",
-      "role": "BTECH, Software Engineering",
-      "company": "IUGET University Douala",
-      "description": "Currently pursuing a Bachelor Degree in Software engineering\nwith a focus on modern web development,\nAI integration, and software engineering principles."
+      "role": "BTech, Software Engineering",
+      "company": "IUGET University, Douala",
+      "description": "Pursuing a Bachelor's Degree in Software Engineering,\nemphasizing scalable web systems, AI-driven applications,\nand advanced software design principles."
     },
     {
       "duration": "Oct 2023 – June 2025",
       "role": "HND, Software Engineering",
-      "company": "JFN-HITECH University Douala",
-      "description": "Obtained a Higher National Diploma\nwith a focus on modern web development,\nAI integration, and software engineering principles."
+      "company": "JFN-HiTech University, Douala",
+      "description": "Completed a Higher National Diploma in Software Engineering,\nfocused on full-stack web development, database systems,\nand applied machine learning fundamentals."
     },
     {
       "duration": "July 2024 – Nov 2024",
       "role": "Junior Software Engineer (Intern)",
-      "company": "Gracify Technology Cameroun",
-      "description": "Assisted in building and maintaining web applications.\nContributed to frontend development using modern frameworks\nand supported integration of AI-driven features."
+      "company": "Gracify Technology, Cameroon",
+      "description": "Developed and maintained responsive web applications.\nImplemented interactive UI components with modern frameworks\nand integrated AI-powered modules to enhance user experience."
     },
     {
       "duration": "Dec 2024 – Jan 2025",
       "role": "Junior Software Engineer (Intern)",
       "company": "African Digital Strategies Network",
-      "description": "Worked on internal tools and prototypes.\nFocused on leveraging AI services\nand automation of attendance system to reduce 8hrs/week of work."
+      "description": "Built internal automation tools to streamline workflows.\nIntegrated AI APIs for attendance tracking,\nreducing manual work by over 8 hours per week."
     }
   ],
   "projects": [
