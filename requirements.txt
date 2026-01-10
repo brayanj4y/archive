@@ -1,0 +1,18 @@
+# ULTRON Dependencies
+# All packages work offline after installation
+
+# Core
+opencv-python>=4.8.0
+numpy>=1.24.0
+PyYAML>=6.0
+
+# Face Recognition (ArcFace via InsightFace)
+insightface>=0.7.3
+onnxruntime>=1.15.0
+
+# Offline Text-to-Speech
+pyttsx3>=2.90
+
+# Offline Speech-to-Text
+vosk>=0.3.45
+sounddevice>=0.4.6

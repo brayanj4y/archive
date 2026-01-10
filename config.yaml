@@ -1,0 +1,18 @@
+# ULTRON Configuration
+
+# Face recognition settings
+face_match_threshold: 0.6  # Cosine similarity threshold (0.0-1.0, higher = stricter)
+registration_samples: 20   # Number of face captures per person during registration
+
+# Admin override settings
+admin_passphrase: "ultron override"  # Spoken passphrase to add new authorized user
+
+# Audio settings
+voice_volume: 1.0  # TTS volume (0.0-1.0)
+voice_rate: 150    # Words per minute for TTS
+
+# Camera settings
+camera_index: 0  # Webcam device index (0 = default camera)
+
+# Timeouts
+admin_code_timeout: 10  # Seconds to listen for admin code after threat detection
