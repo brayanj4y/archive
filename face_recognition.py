@@ -52,8 +52,7 @@ class FaceRecognizer:
         Get face embedding and bounding box from a full frame.
         
         Args:
-            frame: BGR image as numpy array
-            
+            frame: BGR image as numpy array   
         Returns:
             Tuple of (embedding, bbox) or (None, None) if no face
         """

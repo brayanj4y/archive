@@ -92,8 +92,7 @@ def create_tts(volume: float = 1.0, rate: int = 150) -> TextToSpeech:
     
     Args:
         volume: Voice volume (0.0 to 1.0)
-        rate: Words per minute
-        
+        rate: Words per minute   
     Returns:
         TextToSpeech instance
     """
