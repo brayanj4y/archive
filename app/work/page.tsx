@@ -73,7 +73,7 @@ export default function WorkPage() {
             <div className="space-y-6">
               <div className="relative h-[500px] rounded-xl overflow-hidden border border-border/40 shadow-xl">
                 <Image
-                  src="/placeholder.svg?height=1000&width=800"
+                  src="/screenshot.png"
                   alt="DevStudio Website Preview"
                   fill
                   className="object-cover"
@@ -82,7 +82,7 @@ export default function WorkPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-[200px] rounded-lg overflow-hidden border border-border/40">
                   <Image
-                    src="/placeholder.svg?height=400&width=300"
+                    src="/screenshot.png"
                     alt="DevStudio Mobile View"
                     fill
                     className="object-cover"
@@ -90,7 +90,7 @@ export default function WorkPage() {
                 </div>
                 <div className="relative h-[200px] rounded-lg overflow-hidden border border-border/40">
                   <Image
-                    src="/placeholder.svg?height=400&width=300"
+                    src="/screenshot.png"
                     alt="DevStudio Dark Mode"
                     fill
                     className="object-cover"
