@@ -71,7 +71,7 @@ export default function Work() {
           >
             <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent z-10" />
             <Image
-              src="/placeholder.svg?height=1000&width=800"
+              src="/screenshot.png"
               alt="DevStudio Website Preview"
               fill
               className="object-cover"
@@ -80,7 +80,7 @@ export default function Work() {
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-4">
               <div className="w-[120px] h-[240px] rounded-xl overflow-hidden border-4 border-background/80 shadow-lg">
                 <Image
-                  src="/placeholder.svg?height=480&width=240"
+                  src="/screenshot.png"
                   alt="Mobile Preview"
                   width={240}
                   height={480}
@@ -89,7 +89,7 @@ export default function Work() {
               </div>
               <div className="w-[120px] h-[240px] rounded-xl overflow-hidden border-4 border-background/80 shadow-lg">
                 <Image
-                  src="/placeholder.svg?height=480&width=240"
+                  src="/screenshot.png"
                   alt="Mobile Preview"
                   width={240}
                   height={480}

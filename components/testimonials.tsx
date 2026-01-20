@@ -24,28 +24,28 @@ const testimonials: Testimonial[] = [
             "These folks really came through! Their creativity and dedication brought our vision to life in ways we didn't imagine.",
         author: "Amina Nkem",
         role: "Founder, NaijaTech Hub",
-        image: "/placeholder-user.jpg",
+        image: "/screenshot.png",
     },
     {
         content:
             "Working with this team felt like family. They understood our goals and helped us build a strong online presence that speaks to our people.",
         author: "Kwame Mensah",
         role: "Digital Lead, Accra Creatives",
-        image: "/placeholder-user.jpg",
+        image: "/screenshot.png",
     },
     {
         content:
             "From start to finish, they were professional, patient, and full of ideas. Our project now stands out in the market thanks to their input.",
         author: "Zanele Dube",
         role: "CEO, Ubuntu Innovations",
-        image: "/placeholder-user.jpg",
+        image: "/screenshot.png",
     },
     {
         content:
             "They didn't just build a product—they built trust. Their work ethic and attention to detail made all the difference for our brand.",
         author: "Jean-Claude Mbappe",
         role: "Marketing Strategist, Douala Digital",
-        image: "/placeholder-user.jpg",
+        image: "/screenshot.png",
     },
 ]
 

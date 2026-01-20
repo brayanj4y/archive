@@ -40,7 +40,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="relative h-[400px] rounded-xl overflow-hidden border border-border/40 shadow-xl">
-            <Image src="/placeholder.svg?height=800&width=1200" alt="DevStudio Team" fill className="object-cover" />
+            <Image src="\098.PNG" alt="DevStudio Team" fill className="object-cover" />
           </div>
         </div>
 
