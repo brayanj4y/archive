@@ -11,14 +11,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!puppy) {
         return {
-            title: "Puppy Not Found | CH French Bulldogs",
+            title: "Puppy Not Found | Country Home French Bulldogs",
             description:
                 "The puppy you're looking for is not available. Browse our other available French Bulldog puppies for sale and adoption.",
         }
     }
 
     return {
-        title: `${puppy.name} - ${puppy.color} French Bulldog Puppy for Sale | CH French Bulldogs`,
+        title: `${puppy.name} - ${puppy.color} French Bulldog Puppy for Sale | Country Home French Bulldogs`,
         description: `Meet ${puppy.name}, a ${puppy.age} old ${puppy.color.toLowerCase()} French Bulldog ${puppy.gender.toLowerCase()} for sale. ${puppy.description} Champion bloodline, health guaranteed, vaccinated, and ready for adoption. ${puppy.priceDisplay}. Located in Dallas, Texas with nationwide delivery available.`,
         keywords: [
             `${puppy.color} French Bulldog for sale`,
@@ -37,11 +37,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             "buy French Bulldog puppy",
         ],
         openGraph: {
-            title: `${puppy.name} - ${puppy.color} French Bulldog Puppy for Sale | CH French Bulldogs`,
+            title: `${puppy.name} - ${puppy.color} French Bulldog Puppy for Sale | Country Home French Bulldogs`,
             description: `${puppy.age} old ${puppy.color.toLowerCase()} French Bulldog ${puppy.gender.toLowerCase()} for sale. ${puppy.description} Champion bloodline, health guaranteed. ${puppy.priceDisplay}`,
             type: "website",
             url: `https://ch-french-bulldogs.vercel.app/puppies/${puppy.id}`,
-            siteName: "CH French Bulldogs",
+            siteName: "Country Home French Bulldogs",
             images: [
                 {
                     url: puppy.image.startsWith("http") ? puppy.image : `https://ch-french-bulldogs.vercel.app${puppy.image}`,

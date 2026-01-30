@@ -191,7 +191,7 @@ export default function ContactPage() {
                       rel="noopener noreferrer"
                       className="text-sm hover:text-primary"
                     >
-                      CH French Bulldogs
+                      Country Home French Bulldogs
                     </a>
                     <p className="text-xs text-muted-foreground mt-1">Visit our page</p>
                   </div>

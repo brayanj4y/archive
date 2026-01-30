@@ -8,7 +8,7 @@ export function OrganizationSchema({ baseUrl }: OrganizationSchemaProps) {
     const schema = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        name: "CH French Bulldogs",
+        name: "Country Home French Bulldogs",
         url: baseUrl,
         logo: `${baseUrl}/logo-hori.png`,
         description:
@@ -46,7 +46,7 @@ export function ProductSchema({ puppy, baseUrl }: ProductSchemaProps) {
         image: puppy.images.map((img) => (img.startsWith("http") ? img : `${baseUrl}${img}`)),
         brand: {
             "@type": "Brand",
-            name: "CH French Bulldogs",
+            name: "Country Home French Bulldogs",
         },
         offers: {
             "@type": "Offer",
@@ -59,7 +59,7 @@ export function ProductSchema({ puppy, baseUrl }: ProductSchemaProps) {
             url: `${baseUrl}/puppies/${puppy.id}`,
             seller: {
                 "@type": "Organization",
-                name: "CH French Bulldogs",
+                name: "Country Home French Bulldogs",
             },
         },
         aggregateRating: {

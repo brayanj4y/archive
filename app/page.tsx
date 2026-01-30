@@ -292,7 +292,7 @@ export default function HomePage() {
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground mb-2">November 3, 2022</p>
                 <p className="mb-4 text-pretty">
-                  "I have three of the CH French bulldogs and couldn't be happier. They are all very healthy and have
+                  "I have three of the Country Home French Bulldogs and couldn't be happier. They are all very healthy and have
                   great temperaments. CH has been great at answering questions both before and after getting the puppies
                   on different occasions. If you are going to get a Frenchie definitely use these guys, my vet is very
                   impressed as well."
@@ -306,7 +306,7 @@ export default function HomePage() {
                 <p className="mb-4 text-pretty">
                   "Have to give a huge thank you to Idella for all her help and transparency through this entire
                   process! I received my beautiful little princess and couldn't be happier with her. She is super
-                  playful and energetic and we couldn't be happier. I would recommend CH French bulldogs to anyone!"
+                  playful and energetic and we couldn't be happier. I would recommend Country Home French Bulldogs to anyone!"
                 </p>
                 <p className="font-bold">— Jenny Ramirez</p>
               </CardContent>

@@ -67,7 +67,7 @@ export default function CheckoutPage() {
     if (!validateForm()) return
 
     const orderId = generateOrderId()
-    let message = `*New Order from CH French Bulldogs*\n\n`
+    let message = `*New Order from Country Home French Bulldogs*\n\n`
     message += `*Order ID:* ${orderId}\n\n`
     message += `*Customer Information:*\n`
     message += `Name: ${formData.firstName} ${formData.lastName}\n`

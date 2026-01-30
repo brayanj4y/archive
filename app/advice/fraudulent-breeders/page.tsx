@@ -170,7 +170,7 @@ export default function FraudulentBreedersPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Why Choose CH French Bulldogs</CardTitle>
+            <CardTitle>Why Choose Country Home French Bulldogs</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="mb-4">We're committed to transparency and ethical breeding practices:</p>

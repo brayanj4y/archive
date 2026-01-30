@@ -53,7 +53,7 @@ export function Footer() {
 
         {/* Legal Links */}
         <div className="flex flex-wrap justify-center items-center gap-2 text-xs text-muted-foreground">
-          <span>© 2025 CH French Bulldogs</span>
+          <span>© 2025 Country Home French Bulldogs</span>
           <span className="hidden sm:inline">•</span>
           <Link href="/privacy" className="hover:text-primary">Privacy Policy</Link>
           <span className="hidden sm:inline">•</span>
@@ -70,3 +70,4 @@ export function Footer() {
     </footer>
   )
 }
+
