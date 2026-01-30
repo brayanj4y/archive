@@ -17,7 +17,7 @@ export default function TermsOfServicePage() {
                         <section className="mb-8">
                             <h2 className="text-2xl font-semibold mb-4">Agreement to Terms</h2>
                             <p>
-                                By accessing and using the CH French Bulldogs website, you agree to be bound by these Terms of Service.
+                                By accessing and using the Country Home French Bulldogs website, you agree to be bound by these Terms of Service.
                                 If you do not agree to these terms, please do not use our website or services.
                             </p>
                         </section>
@@ -59,7 +59,7 @@ export default function TermsOfServicePage() {
                         <section className="mb-8">
                             <h2 className="text-2xl font-semibold mb-4">Limitation of Liability</h2>
                             <p>
-                                CH French Bulldogs shall not be liable for any indirect, incidental, special, consequential, or punitive
+                                Country Home French Bulldogs shall not be liable for any indirect, incidental, special, consequential, or punitive
                                 damages resulting from the use or inability to use our services.
                             </p>
                         </section>
@@ -89,3 +89,4 @@ export default function TermsOfServicePage() {
         </main>
     )
 }
+

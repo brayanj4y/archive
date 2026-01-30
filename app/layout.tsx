@@ -43,8 +43,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "CH French Bulldogs - Premium French Bulldog Puppies for Sale, Adoption & Rehoming",
-    template: "%s | CH French Bulldogs",
+    default: "Country Home French Bulldogs - Premium French Bulldog Puppies for Sale, Adoption & Rehoming",
+    template: "%s | Country Home French Bulldogs",
   },
   description:
     "Find your perfect French Bulldog companion. Premium French Bulldog puppies for sale, adoption, and rehoming. Champion bloodlines, health guarantees, and trusted breeders since 2008. Located in Dallas, Texas.",
@@ -68,8 +68,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://ch-french-bulldogs.vercel.app",
-    siteName: "CH French Bulldogs",
-    title: "CH French Bulldogs - Premium French Bulldog Puppies for Sale & Adoption",
+    siteName: "Country Home French Bulldogs",
+    title: "Country Home French Bulldogs - Premium French Bulldog Puppies for Sale & Adoption",
     description:
       "Find your perfect French Bulldog companion. Quality bloodlines, health guarantees, and trusted breeders since 2008.",
     images: [
@@ -77,13 +77,13 @@ export const metadata: Metadata = {
         url: "/logo-hori.png",
         width: 1200,
         height: 630,
-        alt: "CH French Bulldogs",
+        alt: "Country Home French Bulldogs",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CH French Bulldogs - Premium French Bulldog Puppies",
+    title: "Country Home French Bulldogs - Premium French Bulldog Puppies",
     description:
       "Find your perfect French Bulldog companion. Quality bloodlines, health guarantees, and trusted breeders since 2008.",
     images: ["/opengraph-image.png"],
@@ -128,3 +128,4 @@ export default function RootLayout({
     </html>
   )
 }
+

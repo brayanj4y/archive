@@ -82,7 +82,7 @@ export default function SalesPage() {
             <CardTitle>Buyer Responsibilities</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4">By purchasing a puppy from CH French Bulldogs, you agree to:</p>
+            <p className="mb-4">By purchasing a puppy from Country Home French Bulldogs, you agree to:</p>
             <ul className="space-y-2 text-sm">
               <li>• Provide proper nutrition, housing, and veterinary care</li>
               <li>• Have the puppy examined by a veterinarian within 72 hours of receipt</li>

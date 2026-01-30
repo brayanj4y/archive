@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
                         <section className="mb-8">
                             <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
                             <p>
-                                CH French Bulldogs ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy
+                                Country Home French Bulldogs ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy
                                 explains how we collect, use, and safeguard your information when you visit our website and make purchases.
                             </p>
                         </section>

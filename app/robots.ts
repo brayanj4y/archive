@@ -18,13 +18,15 @@ export default function robots(): MetadataRoute.Robots {
                     '/advice/how-to-purchase',
                     '/advice/fraudulent-breeders',
                     '/financing/',
-                    '/contact/'
-                ],
-                disallow: [
-                    '/policies/',
+                    '/contact/',
                     '/privacy/',
                     '/terms/',
                     '/refund/',
+                    '/policies/sales',
+                    '/policies/shipping',
+                    '/policies/warranty'
+                ],
+                disallow: [
                     '/cart/',
                     '/checkout/',
                     '/order-success/'

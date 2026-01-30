@@ -200,7 +200,7 @@ export default function HowToPurchasePage() {
             <CardTitle>What You'll Receive</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4">When you purchase a puppy from CH French Bulldogs, you receive:</p>
+            <p className="mb-4">When you purchase a puppy from Country Home French Bulldogs, you receive:</p>
             <ul className="space-y-2 text-sm">
               <li>• Health certificate from licensed veterinarian</li>
               <li>• Complete vaccination records</li>

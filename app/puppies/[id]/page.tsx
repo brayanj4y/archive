@@ -13,6 +13,26 @@ export async function generateStaticParams() {
   }))
 }
 
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const puppy = getPuppyById(Number.parseInt(params.id))
+
+  if (!puppy) {
+    return {
+      title: 'Puppy Not Found',
+    }
+  }
+
+  return {
+    title: `${puppy.name} - French Bulldog Puppy | Country Home French Bulldogs`,
+    description: `Meet ${puppy.name}, a beautiful ${puppy.color} ${puppy.gender} French Bulldog available at Country Home French Bulldogs. ${puppy.description}`,
+    openGraph: {
+      title: `${puppy.name} - Available French Bulldog`,
+      description: `Check out ${puppy.name}, our adorable French Bulldog puppy.`,
+      images: [puppy.image],
+    },
+  }
+}
+
 export const revalidate = 3600
 
 export default function PuppyDetailPage({ params }: { params: { id: string } }) {
