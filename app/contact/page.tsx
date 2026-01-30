@@ -66,7 +66,7 @@ export default function ContactPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have questions about our French Bulldog puppies? We're here to help! Reach out via phone, WhatsApp, or the
+            Have questions about our French Bulldog puppies? We're here            Reach out via WhatsApp, Facebook, or the
             form below.
           </p>
         </div>
@@ -167,38 +167,33 @@ export default function ContactPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <Phone className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-bold mb-1">Phone</h3>
-                    <a href="tel:+15035551234" className="text-sm hover:text-primary">
-                      (503) 555-1234
-                    </a>
-                    <p className="text-xs text-muted-foreground mt-1">Mon-Sat: 9am-7pm PST</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
                   <WhatsAppIcon className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1">WhatsApp</h3>
                     <a
-                      href="https://wa.me/15035551234"
+                      href="https://wa.me/12104604183"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm hover:text-primary"
                     >
-                      Message us on WhatsApp
+                      +1 (210) 460-4183
                     </a>
                     <p className="text-xs text-muted-foreground mt-1">Quick responses</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                  <Facebook className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                   <div>
-                    <h3 className="font-bold mb-1">Email</h3>
-                    <a href="mailto:info@chfrenchbulldogs.com" className="text-sm hover:text-primary">
-                      info@chfrenchbulldogs.com
+                    <h3 className="font-bold mb-1">Facebook</h3>
+                    <a
+                      href="https://www.facebook.com/share/176W7Li8Hr/?mibextid=wwXIfr"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm hover:text-primary"
+                    >
+                      CH French Bulldogs
                     </a>
-                    <p className="text-xs text-muted-foreground mt-1">We respond within 24 hours</p>
+                    <p className="text-xs text-muted-foreground mt-1">Visit our page</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -209,27 +204,6 @@ export default function ContactPage() {
                     <p className="text-xs text-muted-foreground mt-1">Visits by appointment only</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Follow Us</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex gap-4">
-                  <a href="#" className="flex items-center gap-2 hover:text-primary">
-                    <Facebook className="h-5 w-5" />
-                    <span className="text-sm">Facebook</span>
-                  </a>
-                  <a href="#" className="flex items-center gap-2 hover:text-primary">
-                    <Instagram className="h-5 w-5" />
-                    <span className="text-sm">Instagram</span>
-                  </a>
-                </div>
-                <p className="text-xs text-muted-foreground mt-4">
-                  Follow us for puppy updates, care tips, and adorable photos!
-                </p>
               </CardContent>
             </Card>
 

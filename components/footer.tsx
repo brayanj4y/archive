@@ -13,11 +13,13 @@ export function Footer() {
           <div>
             <h3 className="font-bold text-xl mb-4">Contact Us</h3>
             <div className="flex flex-col gap-2 text-sm">
-              <a href="tel:+15035551234" className="hover:text-primary">
-                (503) 555-1234
+              <a href="https://wa.me/12104604183" target="_blank" rel="noopener noreferrer" className="hover:text-primary flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                +1 (210) 460-4183 (WhatsApp)
               </a>
-              <a href="mailto:info@chfrenchbulldogs.com" className="hover:text-primary">
-                info@chfrenchbulldogs.com
+              <a href="https://www.facebook.com/share/176W7Li8Hr/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-primary flex items-center gap-2">
+                <Facebook className="h-4 w-4" />
+                Facebook
               </a>
             </div>
           </div>
@@ -48,15 +50,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Social Icons */}
-        <div className="flex justify-center gap-6 mb-8 pb-8 border-b border-border">
-          <a href="#" className="hover:text-primary transition-colors" aria-label="Facebook">
-            <Facebook className="h-6 w-6" />
-          </a>
-          <a href="#" className="hover:text-primary transition-colors" aria-label="Instagram">
-            <Instagram className="h-6 w-6" />
-          </a>
-        </div>
 
         {/* Legal Links */}
         <div className="flex flex-wrap justify-center items-center gap-2 text-xs text-muted-foreground">

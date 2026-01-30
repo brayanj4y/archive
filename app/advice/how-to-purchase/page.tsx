@@ -46,12 +46,12 @@ export default function HowToPurchasePage() {
                 <div>
                   <h3 className="font-bold text-lg mb-2">Contact Us</h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Once you've found a puppy you're interested in, reach out to us via phone, WhatsApp, or our contact
+                    Once you've found a puppy you're interested in, reach out to us via WhatsApp, Facebook, or our contact
                     form. We'll answer all your questions and provide additional information about the puppy.
                   </p>
                   <div className="flex gap-2">
                     <Button asChild variant="outline" size="sm">
-                      <a href="tel:+15035551234">Call Us</a>
+                      <a href="https://wa.me/12104604183" target="_blank" rel="noopener noreferrer">WhatsApp</a>
                     </Button>
                     <Button asChild variant="outline" size="sm">
                       <Link href="/contact">Contact Form</Link>

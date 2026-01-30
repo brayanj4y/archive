@@ -77,9 +77,9 @@ export default function TermsOfServicePage() {
                         <section>
                             <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
                             <p>
-                                For questions about these Terms of Service, please contact us at:{" "}
-                                <a href="mailto:info@chfrenchbulldogs.com" className="text-primary hover:underline">
-                                    info@chfrenchbulldogs.com
+                                For questions about these Terms of Service, please contact us via WhatsApp:{" "}
+                                <a href="https://wa.me/12104604183" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                    +1 (210) 460-4183
                                 </a>
                             </p>
                         </section>

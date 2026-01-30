@@ -72,9 +72,9 @@ export default function PrivacyPolicyPage() {
                         <section>
                             <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
                             <p>
-                                If you have questions about this Privacy Policy, please contact us at:{" "}
-                                <a href="mailto:info@chfrenchbulldogs.com" className="text-primary hover:underline">
-                                    info@chfrenchbulldogs.com
+                                If you have questions about this Privacy Policy, please contact us via WhatsApp:{" "}
+                                <a href="https://wa.me/12104604183" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                    +1 (210) 460-4183
                                 </a>
                             </p>
                         </section>

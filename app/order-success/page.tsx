@@ -86,37 +86,17 @@ function OrderSuccessContent() {
                         <p className="text-sm md:text-base text-muted-foreground mb-4">
                             If you have any questions about your order, feel free to reach out to us:
                         </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="flex justify-center">
                             <a
-                                href="tel:+15035551234"
-                                className="flex items-center gap-2 p-3 border rounded-lg hover:bg-accent transition-colors"
-                            >
-                                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                                <div className="text-left min-w-0">
-                                    <div className="text-xs text-muted-foreground">Call Us</div>
-                                    <div className="text-sm font-medium truncate">(503) 555-1234</div>
-                                </div>
-                            </a>
-                            <a
-                                href="mailto:info@chfrenchbulldogs.com"
-                                className="flex items-center gap-2 p-3 border rounded-lg hover:bg-accent transition-colors"
-                            >
-                                <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                                <div className="text-left min-w-0">
-                                    <div className="text-xs text-muted-foreground">Email Us</div>
-                                    <div className="text-sm font-medium">Send Email</div>
-                                </div>
-                            </a>
-                            <a
-                                href="https://wa.me/15035551234"
+                                href="https://wa.me/12104604183"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 p-3 border rounded-lg hover:bg-accent transition-colors"
+                                className="flex items-center gap-2 p-4 border rounded-lg hover:bg-accent transition-colors w-full sm:w-auto"
                             >
-                                <WhatsAppIcon className="h-5 w-5 text-primary flex-shrink-0" />
-                                <div className="text-left min-w-0">
-                                    <div className="text-xs text-muted-foreground">WhatsApp</div>
-                                    <div className="text-sm font-medium">Chat Now</div>
+                                <WhatsAppIcon className="h-6 w-6 text-primary flex-shrink-0" />
+                                <div className="text-left">
+                                    <div className="text-xs text-muted-foreground">Support via WhatsApp</div>
+                                    <div className="text-sm font-medium">+1 (210) 460-4183</div>
                                 </div>
                             </a>
                         </div>

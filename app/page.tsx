@@ -139,15 +139,14 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-              <a href="tel:+15035551234">
-                <Phone className="mr-2 h-5 w-5" />
-                Call Us
+              <a href="https://wa.me/12104604183" target="_blank" rel="noopener noreferrer">
+                <WhatsAppIcon className="mr-2 h-5 w-5" />
+                Message on WhatsApp
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href="https://wa.me/15035551234" target="_blank" rel="noopener noreferrer">
-                <WhatsAppIcon className="mr-2 h-5 w-5" />
-                Message on WhatsApp
+              <a href="https://www.facebook.com/share/176W7Li8Hr/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
+                Message on Facebook
               </a>
             </Button>
           </div>
