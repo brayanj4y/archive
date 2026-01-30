@@ -14,7 +14,9 @@ export default function robots(): MetadataRoute.Robots {
                 allow: [
                     '/',
                     '/puppies/',
-                    '/advice/',
+                    '/advice/the-bulldog',
+                    '/advice/how-to-purchase',
+                    '/advice/fraudulent-breeders',
                     '/financing/',
                     '/contact/'
                 ],
