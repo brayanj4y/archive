@@ -11,7 +11,6 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { sendOrderEmail } from "@/app/actions/send-order-email"
-import { Metadata } from "next"
 import Image from "next/image"
 
 export default function CheckoutPage() {
@@ -97,7 +96,7 @@ export default function CheckoutPage() {
       message += `\n*Special Instructions:*\n${formData.specialInstructions}\n`
     }
 
-    const whatsappUrl = `https://wa.me/237695950610?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/12104604183?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, "_blank")
 
     setCheckoutComplete(true)
