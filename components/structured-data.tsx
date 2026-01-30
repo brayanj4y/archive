@@ -21,11 +21,11 @@ export function OrganizationSchema({ baseUrl }: OrganizationSchemaProps) {
         },
         contactPoint: {
             "@type": "ContactPoint",
-            telephone: "+1-503-555-1234",
+            telephone: "+1-210-460-4183",
             contactType: "Customer Service",
         },
         sameAs: [
-            // Add social media links here if available
+            "https://www.facebook.com/share/176W7Li8Hr/?mibextid=wwXIfr",
         ],
     }
 
