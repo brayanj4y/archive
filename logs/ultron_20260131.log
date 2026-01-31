@@ -1,0 +1,57 @@
+[2026-01-31 01:09:45] Initializing ULTRON components...
+[2026-01-31 01:09:50] ULTRON initialized successfully.
+[2026-01-31 01:09:59] === REGISTRATION MODE ===
+[2026-01-31 01:10:06] Shutting down ULTRON...
+[2026-01-31 01:11:48] Initializing ULTRON components...
+[2026-01-31 01:11:48] ULTRON initialized successfully.
+[2026-01-31 01:12:11] === DUTY MODE ===
+[2026-01-31 01:12:11] No authorized faces registered. Cannot start duty mode.
+[2026-01-31 01:12:38] === REGISTRATION MODE ===
+[2026-01-31 01:12:54] Captured sample 1/20
+[2026-01-31 01:12:55] Captured sample 2/20
+[2026-01-31 01:12:55] Captured sample 3/20
+[2026-01-31 01:12:56] Captured sample 4/20
+[2026-01-31 01:12:56] Captured sample 5/20
+[2026-01-31 01:12:57] Captured sample 6/20
+[2026-01-31 01:12:57] Captured sample 7/20
+[2026-01-31 01:12:58] Captured sample 8/20
+[2026-01-31 01:12:59] Captured sample 9/20
+[2026-01-31 01:12:59] Captured sample 10/20
+[2026-01-31 01:13:00] Captured sample 11/20
+[2026-01-31 01:13:00] Captured sample 12/20
+[2026-01-31 01:13:01] Captured sample 13/20
+[2026-01-31 01:13:01] Captured sample 14/20
+[2026-01-31 01:13:02] Captured sample 15/20
+[2026-01-31 01:13:02] Captured sample 16/20
+[2026-01-31 01:13:03] Captured sample 17/20
+[2026-01-31 01:13:03] Captured sample 18/20
+[2026-01-31 01:13:04] Captured sample 19/20
+[2026-01-31 01:13:04] Captured sample 20/20
+[2026-01-31 01:13:05] User '1' registered successfully with 20 samples.
+[2026-01-31 01:13:12] === DUTY MODE ===
+[2026-01-31 01:13:12] Loaded 1 authorized user(s).
+[2026-01-31 01:13:37] THREAT DETECTED - Unrecognized individual
+[2026-01-31 01:13:37] Threat face saved to: C:\Users\user\Documents\Github\ultron\unauthorized_faces\threat_20260131_011337.jpg
+[2026-01-31 01:13:38] Speech recognition initialized.
+[2026-01-31 01:13:38] Listening for admin code (10s timeout)...
+[2026-01-31 01:13:49] No speech detected during admin code window.
+[2026-01-31 01:13:49] THREAT DETECTED - Unrecognized individual
+[2026-01-31 01:13:49] Threat face saved to: C:\Users\user\Documents\Github\ultron\unauthorized_faces\threat_20260131_011349.jpg
+[2026-01-31 01:13:50] Listening for admin code (10s timeout)...
+[2026-01-31 01:14:01] No speech detected during admin code window.
+[2026-01-31 01:14:01] THREAT DETECTED - Unrecognized individual
+[2026-01-31 01:14:01] Threat face saved to: C:\Users\user\Documents\Github\ultron\unauthorized_faces\threat_20260131_011401.jpg
+[2026-01-31 01:14:01] Listening for admin code (10s timeout)...
+[2026-01-31 01:14:12] No speech detected during admin code window.
+[2026-01-31 01:14:23] THREAT DETECTED - Unrecognized individual
+[2026-01-31 01:14:23] Threat face saved to: C:\Users\user\Documents\Github\ultron\unauthorized_faces\threat_20260131_011423.jpg
+[2026-01-31 01:14:24] Listening for admin code (10s timeout)...
+[2026-01-31 01:14:35] No speech detected during admin code window.
+[2026-01-31 01:14:38] THREAT DETECTED - Unrecognized individual
+[2026-01-31 01:14:38] Threat face saved to: C:\Users\user\Documents\Github\ultron\unauthorized_faces\threat_20260131_011438.jpg
+[2026-01-31 01:14:38] Listening for admin code (10s timeout)...
+[2026-01-31 01:14:49] No speech detected during admin code window.
+[2026-01-31 01:14:51] THREAT DETECTED - Unrecognized individual
+[2026-01-31 01:14:51] Threat face saved to: C:\Users\user\Documents\Github\ultron\unauthorized_faces\threat_20260131_011451.jpg
+[2026-01-31 01:14:51] Listening for admin code (10s timeout)...
+[2026-01-31 01:15:01] Shutting down ULTRON...

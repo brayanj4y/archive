@@ -5,10 +5,13 @@
 opencv-python>=4.8.0
 numpy>=1.24.0
 PyYAML>=6.0
+pathlib; python_version < "3.4"
 
 # Face Recognition (ArcFace via InsightFace)
 insightface>=0.7.3
 onnxruntime>=1.15.0
+scikit-learn  # Required by insightface for some operations
+scikit-image  # Required by insightface
 
 # Offline Text-to-Speech
 pyttsx3>=2.90
