@@ -19,6 +19,7 @@ from camera import Camera
 from face_recognition import FaceRecognizer, average_embeddings, find_best_match
 from tts import create_tts, MESSAGES
 from stt import create_stt
+from arduino_interface import create_arduino
 
 
 # Paths
@@ -82,6 +83,14 @@ class UltronSystem:
         
         # Initialize database
         database.init_db()
+        
+        # Initialize Arduino
+        try:
+            self.arduino = create_arduino(config.get("arduino_port", "COM3"))
+            log_event("Arduino interface initialized.")
+        except Exception as e:
+            log_event(f"WARNING: Arduino init failed: {e}")
+            self.arduino = None
         
         # Configuration values
         self.threshold = config.get("face_match_threshold", 0.6)
@@ -281,10 +290,50 @@ class UltronSystem:
                 if key == ord('q'):
                     log_event("Duty mode ended by user.")
                     break
+
+                # Check Arduino Keypad
+                # Only check if threat detected or just periodically to allow manual unlock?
+                # Let's allow manual unlock via code at any time
+                if self.arduino:
+                    keypad_input = self.arduino.check_keypad()
+                    if keypad_input:
+                        log_event(f"Keypad input: {keypad_input}")
+                        # Simple logic: If any key pressed, treat as part of code
+                        # Ideally, buffer keys until '#' is pressed
+                        # For now, let's keep it simple or implement a quick buffer check
+                        self._handle_keypad_input(keypad_input)
         
         finally:
             cv2.destroyAllWindows()
             self.camera.release()
+            if self.arduino:
+                self.arduino.lock_door() # Ensure locked on exit
+
+    def _handle_keypad_input(self, key):
+        """Handle input from Arduino keypad."""
+        # Simple buffer stored in instance
+        if not hasattr(self, '_keypad_buffer'):
+            self._keypad_buffer = ""
+        
+        if key == '#': # Enter
+            code = self._keypad_buffer
+            log_event(f"Checking keypad code: {code}")
+            if code == "1234": # Hardcoded for now, or use admin_passphrase logic
+                log_event("Keypad Access Granted")
+                self.tts.speak(MESSAGES["authorized"])
+                self.arduino.unlock_door()
+                time.sleep(3) # Keep open for 3 seconds
+                self.arduino.lock_door()
+            else:
+                log_event("Keypad Access Denied")
+                self.tts.speak(MESSAGES["admin_rejected"])
+            self._keypad_buffer = ""
+        elif key == '*': # Clear
+            self._keypad_buffer = ""
+            log_event("Keypad buffer cleared")
+        else:
+            self._keypad_buffer += key
+            # Beep or feedback could go here
     
     def _handle_threat(self, frame: np.ndarray, bbox: tuple, embedding: np.ndarray):
         """Handle a detected threat."""
@@ -308,7 +357,11 @@ class UltronSystem:
         log_event(f"Listening for admin code ({self.admin_code_timeout}s timeout)...")
         self.tts.speak(MESSAGES["listening"])
         
-        spoken = self.stt.listen_for_phrase(timeout=self.admin_code_timeout)
+        # Create grammar from admin passphrase + common variants
+        admin_words = self.admin_passphrase.lower().split()
+        grammar = admin_words + ["admin", "override", "code", "ultron", "access"]
+        
+        spoken = self.stt.listen_for_phrase(timeout=self.admin_code_timeout, grammar=grammar)
         
         if spoken:
             log_event(f"Heard: '{spoken}'")

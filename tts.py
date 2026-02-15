@@ -3,54 +3,55 @@ ULTRON Text-to-Speech Module
 Offline TTS using pyttsx3.
 """
 
-import pyttsx3
+import sys
+import subprocess
+from pathlib import Path
 import threading
 
 
 class TextToSpeech:
-    """Offline text-to-speech using pyttsx3."""
+    """Offline text-to-speech using subprocess to avoid event loop issues."""
     
     def __init__(self, volume: float = 1.0, rate: int = 150):
         """
-        Initialize TTS engine.
+        Initialize TTS engine configuration.
         
         Args:
             volume: Voice volume (0.0 to 1.0)
             rate: Words per minute
         """
-        self.engine = pyttsx3.init()
-        
-        # Set volume
-        self.engine.setProperty('volume', volume)
-        
-        # Set rate (slower = more authoritative)
-        self.engine.setProperty('rate', rate)
-        
-        # Try to set a deeper voice if available
-        voices = self.engine.getProperty('voices')
-        if voices:
-            # Prefer male voices for deeper tone
-            male_voices = [v for v in voices if 'male' in v.name.lower() or 'david' in v.name.lower()]
-            if male_voices:
-                self.engine.setProperty('voice', male_voices[0].id)
-            else:
-                # Use the first available voice
-                self.engine.setProperty('voice', voices[0].id)
-        
+        self.volume = volume
+        self.rate = rate
+        self.script_path = Path(__file__).parent / "tts_worker.py"
         self._lock = threading.Lock()
     
     def speak(self, text: str, block: bool = True):
         """
-        Speak the given text.
+        Speak the given text using a separate process.
         
         Args:
             text: Text to speak
             block: If True, wait for speech to complete
         """
-        with self._lock:
-            self.engine.say(text)
-            if block:
-                self.engine.runAndWait()
+        def _run_worker():
+            try:
+                subprocess.run(
+                    [sys.executable, str(self.script_path), text, 
+                     "--volume", str(self.volume), 
+                     "--rate", str(self.rate)],
+                    check=True,
+                    creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
+                )
+            except Exception as e:
+                print(f"Error running TTS worker: {e}")
+
+        if block:
+            with self._lock:
+                _run_worker()
+        else:
+            thread = threading.Thread(target=_run_worker)
+            thread.daemon = True
+            thread.start()
     
     def speak_async(self, text: str):
         """
@@ -59,14 +60,11 @@ class TextToSpeech:
         Args:
             text: Text to speak
         """
-        thread = threading.Thread(target=self.speak, args=(text, True))
-        thread.daemon = True
-        thread.start()
+        self.speak(text, block=False)
     
     def stop(self):
-        """Stop any ongoing speech."""
-        with self._lock:
-            self.engine.stop()
+        """Stop any ongoing speech (not fully supported in subprocess mode)."""
+        pass
 
 
 # Pre-defined voice messages for ULTRON

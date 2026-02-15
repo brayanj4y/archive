@@ -47,17 +47,24 @@ class SpeechToText:
             print(f"Audio status: {status}")
         self._audio_queue.put(bytes(indata))
     
-    def listen_for_phrase(self, timeout: float = 10.0) -> str:
+    def listen_for_phrase(self, timeout: float = 10.0, grammar: list = None) -> str:
         """
         Listen for spoken phrase.
         
         Args:
             timeout: Maximum time to listen in seconds
+            grammar: Optional list of allowed words/phrases (improves accuracy)
             
         Returns:
             Recognized text (lowercase), or empty string if nothing recognized
         """
-        recognizer = KaldiRecognizer(self.model, self.sample_rate)
+        if grammar:
+            # Format grammar as JSON string for Vosk
+            # e.g., '["word1", "word2", "[unk]"]'
+            grammar_json = json.dumps(grammar + ["[unk]"])
+            recognizer = KaldiRecognizer(self.model, self.sample_rate, grammar_json)
+        else:
+            recognizer = KaldiRecognizer(self.model, self.sample_rate)
         
         # Clear the queue
         while not self._audio_queue.empty():
