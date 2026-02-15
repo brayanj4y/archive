@@ -17,7 +17,7 @@ def speak_text(text, volume=1.0, rate=150, voice_id=None):
             except Exception:
                 pass # Fallback to default if voice_id fails
         else:
-             # Try to find a male voice as preferred in original code
+             # Try to find a male voice
             voices = engine.getProperty('voices')
             if voices:
                  male_voices = [v for v in voices if 'male' in v.name.lower() or 'david' in v.name.lower()]
