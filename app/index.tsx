@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function Index() {
     return (
         <View style={styles.container}>
-            <Text>Welcome to Unicard.link</Text>
+            <Text>Welcome to Passit</Text>
             <StatusBar style="auto" />
         </View>
     );
