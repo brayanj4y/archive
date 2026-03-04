@@ -198,21 +198,18 @@ export default function SetupMain() {
                     title: "Choose your path",
                     subtitle: "Pick a study major to get started.",
                     showBack: false,
-                    showProgress: true
                 };
             case 1:
                 return {
                     title: "Practice Year",
                     subtitle: "Choose a year to see available papers.",
                     showBack: true,
-                    showProgress: true
                 };
             case 2:
                 return {
                     title: "Choose a subject",
                     subtitle: "Pick a paper to begin practicing.",
                     showBack: true,
-                    showProgress: true
                 };
             default:
                 return {};
