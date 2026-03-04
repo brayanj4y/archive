@@ -76,10 +76,10 @@ export function Button3D({
 
 const styles = StyleSheet.create({
     shadow: {
-        borderRadius: 16,
+        borderRadius: 100,
     },
     button: {
-        borderRadius: 16,
+        borderRadius: 100,
         paddingVertical: 18,
         alignItems: 'center',
         marginBottom: SHADOW_HEIGHT,

@@ -4,7 +4,9 @@ import {
     Pressable,
     StyleSheet,
     ScrollView,
+    Animated,
 } from 'react-native';
+import { useRef } from 'react';
 import * as Haptics from 'expo-haptics';
 
 export interface SelectItem {
@@ -19,6 +21,8 @@ interface SelectListProps {
     onSelect: (id: string) => void;
 }
 
+const SHADOW_HEIGHT = 4;
+
 export function SelectList({ items, selected, onSelect }: SelectListProps) {
     const handleSelect = (id: string) => {
         Haptics.selectionAsync();
@@ -26,27 +30,60 @@ export function SelectList({ items, selected, onSelect }: SelectListProps) {
     };
 
     return (
-        <View style={styles.card}>
-            {items.map((item, index) => {
+        <View style={styles.container}>
+            {items.map((item) => {
                 const isSelected = selected === item.id;
-                const isLast = index === items.length - 1;
+                const translateY = useRef(new Animated.Value(0)).current;
+
+                const handlePressIn = () => {
+                    Animated.spring(translateY, {
+                        toValue: SHADOW_HEIGHT,
+                        useNativeDriver: true,
+                        speed: 40,
+                    }).start();
+                };
+
+                const handlePressOut = () => {
+                    Animated.spring(translateY, {
+                        toValue: 0,
+                        useNativeDriver: true,
+                        speed: 40,
+                    }).start();
+                };
+
                 return (
                     <Pressable
                         key={item.id}
+                        onPressIn={handlePressIn}
+                        onPressOut={handlePressOut}
                         onPress={() => handleSelect(item.id)}
-                        style={({ pressed }) => [
-                            styles.row,
-                            !isLast && styles.rowBorder,
-                            isSelected && styles.rowSelected,
-                            pressed && styles.rowPressed,
+                        style={[
+                            styles.shadow,
+                            { backgroundColor: isSelected ? '#46A302' : '#e5e5e5' }
                         ]}
                     >
-                        <View style={styles.emojiContainer}>
-                            <Text style={styles.emoji}>{item.emoji}</Text>
-                        </View>
-                        <Text style={[styles.label, isSelected && styles.labelSelected]}>
-                            {item.label}
-                        </Text>
+                        <Animated.View
+                            style={[
+                                styles.row,
+                                isSelected ? styles.rowSelected : styles.rowUnselected,
+                                { transform: [{ translateY }] }
+                            ]}
+                        >
+                            <View style={styles.leftContent}>
+                                <View style={styles.emojiContainer}>
+                                    <Text style={styles.emoji}>{item.emoji}</Text>
+                                </View>
+                                <Text style={styles.label}>
+                                    {item.label}
+                                </Text>
+                            </View>
+
+                            {isSelected && (
+                                <View style={styles.checkWrapper}>
+                                    <Text style={styles.checkIcon}>✓</Text>
+                                </View>
+                            )}
+                        </Animated.View>
                     </Pressable>
                 );
             })}
@@ -55,49 +92,61 @@ export function SelectList({ items, selected, onSelect }: SelectListProps) {
 }
 
 const styles = StyleSheet.create({
-    card: {
-        backgroundColor: '#ffffff',
-        borderRadius: 20,
-        borderWidth: 2,
-        borderColor: '#e5e5e5',
-        overflow: 'hidden',
+    container: {
+        gap: 16,
+        paddingBottom: 20,
+    },
+    shadow: {
+        borderRadius: 16,
+        backgroundColor: '#e5e5e5',
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 18,
+        justifyContent: 'space-between',
+        paddingVertical: 16,
         paddingHorizontal: 20,
         backgroundColor: '#ffffff',
+        borderRadius: 16,
+        borderWidth: 2,
+        marginBottom: SHADOW_HEIGHT,
     },
-    rowBorder: {
-        borderBottomWidth: 1.5,
-        borderBottomColor: '#e5e5e5',
+    rowUnselected: {
+        borderColor: '#e5e5e5',
     },
     rowSelected: {
-        backgroundColor: '#f0fff6',
+        borderColor: '#58CC02',
     },
     rowPressed: {
         backgroundColor: '#f5f5f5',
     },
+    leftContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+    },
     emojiContainer: {
-        width: 44,
-        height: 44,
-        borderRadius: 12,
-        backgroundColor: '#f5f5f5',
+        width: 40,
+        height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 16,
+        marginRight: 12,
     },
     emoji: {
-        fontSize: 22,
+        fontSize: 24,
     },
     label: {
         fontSize: 17,
-        fontWeight: '600',
-        color: '#1a1a1a',
+        fontWeight: '700',
+        color: '#4b4b4b',
         flex: 1,
     },
-    labelSelected: {
-        color: '#1DB954',
+    checkWrapper: {
+        marginLeft: 10,
+    },
+    checkIcon: {
+        fontSize: 18,
+        color: '#58CC02',
+        fontWeight: 'bold',
     },
 });
