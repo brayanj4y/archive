@@ -15,13 +15,6 @@ export default function Index() {
             <StatusBar style="dark" />
 
             <View style={styles.contentContainer}>
-                <View style={styles.bubbleWrapper}>
-                    <View style={styles.bubble}>
-                        <Text style={styles.bubbleText}>Hi there! I'm Jay!</Text>
-                    </View>
-                    <View style={styles.bubbleTail} />
-                </View>
-
                 {/* Mascot */}
                 <View style={styles.mascotContainer}>
                     <HeroSVG
@@ -42,7 +35,7 @@ export default function Index() {
             <View style={styles.buttonContainer}>
                 <Button3D
                     label="Get Started"
-                    onPress={() => router.push('/(onboarding)/step1')}
+                    onPress={() => router.push('/(onboarding)')}
                     color="#58CC02"
                     shadowColor="#46A302"
                 />
@@ -69,48 +62,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 24,
-    },
-    bubbleWrapper: {
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    bubble: {
-        backgroundColor: '#ffffff',
-        borderWidth: 2,
-        borderColor: '#e5e5e5',
-        borderRadius: 16,
-        paddingHorizontal: 24,
-        paddingVertical: 12,
-        ...Platform.select({
-            ios: {
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.05,
-                shadowRadius: 4,
-            },
-            android: {
-                elevation: 2,
-            },
-        }),
-    },
-    bubbleText: {
-        fontSize: 20,
-        fontWeight: '700',
-        color: '#4b4b4b',
-    },
-    bubbleTail: {
-        width: 0,
-        height: 0,
-        backgroundColor: 'transparent',
-        borderStyle: 'solid',
-        borderLeftWidth: 10,
-        borderRightWidth: 10,
-        borderBottomWidth: 10,
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: '#e5e5e5',
-        transform: [{ rotate: '180deg' }],
-        marginTop: -2,
     },
     mascotContainer: {
         marginVertical: 20,
