@@ -1,14 +1,14 @@
 import { ExpoConfig, ConfigContext } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
-  name: 'unicard',
-  slug: 'unicard',
+  name: 'passit',
+  slug: 'passit',
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',
   newArchEnabled: true,
-  scheme: 'unicard',
+  scheme: 'passit',
   splash: {
     image: './assets/splash-icon.png',
     resizeMode: 'contain',
@@ -16,14 +16,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'link.unicard.app',
+    bundleIdentifier: 'link.passit.app',
   },
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
-    package: 'link.unicard.app',
+    package: 'link.passit.app',
     edgeToEdgeEnabled: true,
     predictiveBackGestureEnabled: false,
   },

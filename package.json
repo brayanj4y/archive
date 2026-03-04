@@ -1,5 +1,5 @@
 {
-  "name": "unicard",
+  "name": "passit",
   "license": "0BSD",
   "version": "1.0.0",
   "main": "expo-router/entry",
@@ -20,6 +20,7 @@
     "expo": "~54.0.33",
     "expo-auth-session": "^7.0.10",
     "expo-constants": "^18.0.13",
+    "expo-haptics": "^55.0.8",
     "expo-linking": "^8.0.11",
     "expo-router": "^6.0.23",
     "expo-secure-store": "~15.0.8",
@@ -40,6 +41,7 @@
     "@types/react": "~19.1.0",
     "@types/react-native": "^0.73.0",
     "eas-cli": "^18.0.3",
+    "react-native-svg-transformer": "^1.5.3",
     "typescript": "~5.9.2"
   },
   "private": true
