@@ -2,8 +2,6 @@
 
 offline desktop app for school gate recognition, bursar fee control, student self-service, and arduino gate simulation.
 
----
-
 ## 0. features
 offline. no internet required for core use.
 desktop gui. no terminal menu flow.
@@ -156,7 +154,7 @@ these folders are created automatically at startup if missing:
 - `unauthorized_faces`
 
 ## 10. packaging
-see [PACKAGING.md](/c:/Users/user/Documents/Github/ultron/PACKAGING.md).
+see [PACKAGING.md](PACKAGING.md).
 
 quick build:
 ```powershell
@@ -180,5 +178,4 @@ no embedded rich live preview inside the tkinter gate tab yet.
 current recognition backend uses the repo's insightface module.
 real servo behavior still depends on actual board + wiring.
 
----
 license: mit. use at own risk.
