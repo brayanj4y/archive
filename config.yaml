@@ -27,10 +27,10 @@ admin_contact_phone: "+1234567890"
 
 # Bootstrap staff accounts
 bootstrap_admin_code: "admin"
-bootstrap_admin_password: "admin123"
+bootstrap_admin_password: ""
 bootstrap_admin_email: "admin@ultron-school.local"
 bootstrap_admin_phone: "+1234567890"
 bootstrap_bursar_code: "bursar"
-bootstrap_bursar_password: "bursar123"
+bootstrap_bursar_password: ""
 bootstrap_bursar_email: "bursar@ultron-school.local"
 bootstrap_bursar_phone: "+1234567899"

@@ -99,11 +99,29 @@ class UltronApp(tk.Tk):
         self.student_request_type_var = tk.StringVar(value="payment_notice")
         self.student_request_message_var = tk.StringVar()
         self.request_resolution_note_var = tk.StringVar()
+        self.request_filter_var = tk.StringVar(value="open")
+        self.request_selected_meta_var = tk.StringVar(value="Select a request to inspect.")
+        self.request_detail_message_var = tk.StringVar(value="No student request selected.")
+        self.request_detail_resolution_var = tk.StringVar(value="-")
+        self.password_change_current_var = tk.StringVar()
+        self.password_change_new_var = tk.StringVar()
+        self.password_change_confirm_var = tk.StringVar()
         self.student_portal_user = None
         self.student_photo_image = None
         self.record_photo_image = None
+        self.last_gate_decision_var = tk.StringVar(value="No gate event yet.")
+        self.last_gate_identity_var = tk.StringVar(value="-")
+        self.last_gate_confidence_display_var = tk.StringVar(value="-")
+        self.gate_state_var = tk.StringVar(value="closed")
+        self.gate_monitor_state_var = tk.StringVar(value="idle")
+        self.gate_last_student_var = tk.StringVar(value="-")
+        self.gate_last_alert_var = tk.StringVar(value="No gate events yet.")
+        self.gate_last_timestamp_var = tk.StringVar(value="-")
+        self.available_role_names = [row["name"] for row in database.list_roles()]
+        self.current_request_rows: dict[str, object] = {}
 
         self._build_shell()
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
         self.show_login()
 
     def _build_shell(self) -> None:
@@ -176,6 +194,24 @@ class UltronApp(tk.Tk):
         self.notebook.add(self.student_tab, text="Student Portal")
         self.notebook.add(self.admin_tab, text="Admin")
         self.notebook.add(self.logs_tab, text="Logs")
+        self.tab_titles = {
+            self.directory_tab: "Directory",
+            self.gate_tab: "Gate Monitor",
+            self.accountant_tab: "Accountant",
+            self.finance_tab: "Finance",
+            self.student_tab: "Student Portal",
+            self.admin_tab: "Admin",
+            self.logs_tab: "Logs",
+        }
+        self.role_tabs = {
+            self.directory_tab: {"accountant", "admin"},
+            self.gate_tab: {"accountant", "admin"},
+            self.accountant_tab: {"accountant", "admin"},
+            self.finance_tab: {"accountant", "admin"},
+            self.student_tab: {"accountant", "admin"},
+            self.admin_tab: {"admin"},
+            self.logs_tab: {"accountant", "admin"},
+        }
 
         self._build_directory_tab()
         self._build_gate_tab()
@@ -215,7 +251,8 @@ class UltronApp(tk.Tk):
             ttk.Label(form, text=label).grid(row=idx // 2, column=(idx % 2) * 2, sticky="w", pady=(0 if idx < 2 else 8, 0))
             ttk.Entry(form, textvariable=var, show="*" if label in {"PIN", "Staff password"} else "").grid(row=idx // 2, column=(idx % 2) * 2 + 1, sticky="ew", padx=(8, 16), pady=(0 if idx < 2 else 8, 0))
         ttk.Label(form, text="Role").grid(row=4, column=0, sticky="w", pady=(8, 0))
-        ttk.Combobox(form, textvariable=self.register_role_var, values=[row["name"] for row in database.list_roles()], state="readonly").grid(row=4, column=1, sticky="ew", padx=(8, 16), pady=(8, 0))
+        self.register_role_combo = ttk.Combobox(form, textvariable=self.register_role_var, values=self.available_role_names, state="readonly")
+        self.register_role_combo.grid(row=4, column=1, sticky="ew", padx=(8, 16), pady=(8, 0))
         ttk.Button(form, text="Create profile", command=self.create_user_from_form).grid(row=4, column=5, sticky="e", pady=(8, 0))
         ttk.Button(form, text="Capture student face", command=self.capture_selected_student_face).grid(row=4, column=4, sticky="e", pady=(8, 0), padx=(0, 8))
 
@@ -240,15 +277,35 @@ class UltronApp(tk.Tk):
             anchor="w",
         )
         self.gate_live_status_label.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(0, 12))
+        metrics = ttk.Frame(self.gate_tab)
+        metrics.grid(row=3, column=0, columnspan=2, sticky="ew", pady=(0, 12))
+        for idx in range(4):
+            metrics.columnconfigure(idx, weight=1)
+        gate_cards = [
+            ("monitor state", self.gate_monitor_state_var),
+            ("last decision", self.last_gate_decision_var),
+            ("last student", self.gate_last_student_var),
+            ("gate state", self.gate_state_var),
+            ("identity", self.last_gate_identity_var),
+            ("confidence", self.last_gate_confidence_display_var),
+            ("last alert", self.gate_last_alert_var),
+            ("last event time", self.gate_last_timestamp_var),
+        ]
+        for idx, (label, var) in enumerate(gate_cards):
+            row = (idx // 4) * 2
+            column = idx % 4
+            padx = (0, 8) if column < 3 else (0, 0)
+            ttk.Label(metrics, text=label, font=("Segoe UI", 9, "bold")).grid(row=row, column=column, sticky="w", pady=(0 if row == 0 else 10, 0))
+            ttk.Label(metrics, textvariable=var, relief="groove", padding=(10, 6)).grid(row=row + 1, column=column, sticky="ew", padx=padx)
         self.gate_student_tree = self._build_tree(
             self.gate_tab,
-            3,
+            4,
             ("code", "name", "state", "balance", "blocked"),
             (("code", "Code", 120), ("name", "Student", 220), ("state", "Fee State", 120), ("balance", "Balance", 100), ("blocked", "Blocked", 90)),
             column=0,
         )
         panel = ttk.LabelFrame(self.gate_tab, text="Decision Simulation", padding=16)
-        panel.grid(row=3, column=1, sticky="nsew", padx=(12, 0))
+        panel.grid(row=4, column=1, sticky="nsew", padx=(12, 0))
         panel.columnconfigure(1, weight=1)
         ttk.Label(panel, text="Identity status").grid(row=0, column=0, sticky="w")
         ttk.Combobox(panel, textvariable=self.gate_identity_var, values=["recognized", "low_confidence", "unknown"], state="readonly").grid(row=0, column=1, sticky="ew", padx=(8, 0))
@@ -315,15 +372,33 @@ class UltronApp(tk.Tk):
         requests_box = ttk.LabelFrame(self.accountant_tab, text="Student Requests", padding=16)
         requests_box.grid(row=3, column=0, columnspan=2, sticky="nsew", pady=(12, 0))
         requests_box.columnconfigure(0, weight=1)
+        requests_box.columnconfigure(1, weight=1)
         self.accountant_tab.rowconfigure(3, weight=1)
+        controls = ttk.Frame(requests_box)
+        controls.grid(row=0, column=0, columnspan=2, sticky="ew", pady=(0, 12))
+        controls.columnconfigure(1, weight=1)
+        ttk.Label(controls, text="Queue filter").grid(row=0, column=0, sticky="w")
+        ttk.Combobox(controls, textvariable=self.request_filter_var, values=["open", "resolved", "all"], state="readonly").grid(row=0, column=1, sticky="w", padx=(8, 0))
+        ttk.Button(controls, text="Refresh inbox", command=self.refresh_student_requests_admin).grid(row=0, column=2, sticky="e", padx=(12, 0))
         self.student_requests_admin_tree = self._build_tree(
             requests_box,
-            0,
-            ("student", "type", "status", "created", "message"),
-            (("student", "Student", 130), ("type", "Type", 150), ("status", "Status", 90), ("created", "Created", 170), ("message", "Message", 420)),
+            1,
+            ("student", "type", "status", "created"),
+            (("student", "Student", 130), ("type", "Type", 150), ("status", "Status", 90), ("created", "Created", 170)),
         )
+        self.student_requests_admin_tree.bind("<<TreeviewSelect>>", self.on_student_request_selected)
+
+        detail_box = ttk.LabelFrame(requests_box, text="Request Detail", padding=12)
+        detail_box.grid(row=1, column=1, sticky="nsew", padx=(12, 0))
+        detail_box.columnconfigure(0, weight=1)
+        ttk.Label(detail_box, textvariable=self.request_selected_meta_var, justify="left", anchor="nw").grid(row=0, column=0, sticky="ew")
+        ttk.Label(detail_box, text="message", font=("Segoe UI", 9, "bold")).grid(row=1, column=0, sticky="w", pady=(12, 0))
+        ttk.Label(detail_box, textvariable=self.request_detail_message_var, wraplength=420, justify="left", anchor="nw").grid(row=2, column=0, sticky="ew")
+        ttk.Label(detail_box, text="resolution history", font=("Segoe UI", 9, "bold")).grid(row=3, column=0, sticky="w", pady=(12, 0))
+        ttk.Label(detail_box, textvariable=self.request_detail_resolution_var, wraplength=420, justify="left", anchor="nw").grid(row=4, column=0, sticky="ew")
+
         resolve_row = ttk.Frame(requests_box)
-        resolve_row.grid(row=1, column=0, sticky="ew", pady=(12, 0))
+        resolve_row.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(12, 0))
         resolve_row.columnconfigure(1, weight=1)
         ttk.Label(resolve_row, text="Resolution note").grid(row=0, column=0, sticky="w")
         ttk.Entry(resolve_row, textvariable=self.request_resolution_note_var).grid(row=0, column=1, sticky="ew", padx=(8, 12))
@@ -475,6 +550,15 @@ class UltronApp(tk.Tk):
         self.login_password_var.set("")
         self.login_frame.grid_forget()
         self.app_frame.grid(row=0, column=0, sticky="nsew")
+        self._apply_role_permissions()
+        if bool(user["force_password_change"]):
+            if not self._prompt_password_change(force_required=True):
+                self.show_login()
+                return
+            refreshed_user = database.get_user_by_code(str(user["user_code"]))
+            if refreshed_user is not None:
+                self.current_user = refreshed_user
+                self.header_user_label.config(text=f"Signed in as {refreshed_user['full_name']} ({refreshed_user['role_name']})")
         self.notebook.select(self.gate_tab)
         self.refresh_all_views()
         self.status_var.set("Authenticated.")
@@ -540,6 +624,74 @@ class UltronApp(tk.Tk):
         if self.arduino:
             self.arduino.lock_door()
 
+    def _apply_role_permissions(self) -> None:
+        role_name = str(self.current_user["role_name"]) if self.current_user else None
+        for tab, allowed_roles in self.role_tabs.items():
+            state = "normal" if role_name in allowed_roles else "hidden"
+            self.notebook.tab(tab, state=state)
+        role_options = ["student"] if role_name == "accountant" else self.available_role_names
+        self.register_role_combo.configure(values=role_options)
+        if self.register_role_var.get() not in role_options:
+            self.register_role_var.set(role_options[0])
+
+    def _prompt_password_change(self, force_required: bool = False) -> bool:
+        if self.current_user is None:
+            return False
+        dialog = tk.Toplevel(self)
+        dialog.title("Change Password")
+        dialog.transient(self)
+        dialog.grab_set()
+        dialog.resizable(False, False)
+        dialog.protocol("WM_DELETE_WINDOW", (lambda: None) if force_required else dialog.destroy)
+
+        box = ttk.Frame(dialog, padding=20)
+        box.grid(row=0, column=0, sticky="nsew")
+        box.columnconfigure(1, weight=1)
+        message = (
+            "This bootstrap account must change its password before the desktop app can be used."
+            if force_required
+            else "Change the account password."
+        )
+        ttk.Label(box, text=message, wraplength=420, justify="left").grid(row=0, column=0, columnspan=2, sticky="w")
+        ttk.Label(box, text="Current password").grid(row=1, column=0, sticky="w", pady=(14, 0))
+        ttk.Entry(box, textvariable=self.password_change_current_var, show="*").grid(row=1, column=1, sticky="ew", padx=(12, 0), pady=(14, 0))
+        ttk.Label(box, text="New password").grid(row=2, column=0, sticky="w", pady=(10, 0))
+        ttk.Entry(box, textvariable=self.password_change_new_var, show="*").grid(row=2, column=1, sticky="ew", padx=(12, 0), pady=(10, 0))
+        ttk.Label(box, text="Confirm password").grid(row=3, column=0, sticky="w", pady=(10, 0))
+        ttk.Entry(box, textvariable=self.password_change_confirm_var, show="*").grid(row=3, column=1, sticky="ew", padx=(12, 0), pady=(10, 0))
+
+        result = {"changed": False}
+
+        def submit() -> None:
+            current_password = self.password_change_current_var.get()
+            new_password = self.password_change_new_var.get()
+            confirm_password = self.password_change_confirm_var.get()
+            if database.authenticate_staff(str(self.current_user["user_code"]), current_password) is None:
+                messagebox.showerror("Password change failed", "Current password is incorrect.", parent=dialog)
+                return
+            if len(new_password) < 8:
+                messagebox.showerror("Password change failed", "New password must be at least 8 characters.", parent=dialog)
+                return
+            if new_password != confirm_password:
+                messagebox.showerror("Password change failed", "New password confirmation does not match.", parent=dialog)
+                return
+            try:
+                database.set_user_password(int(self.current_user["id"]), new_password, actor_code=str(self.current_user["user_code"]), force_password_change=False)
+            except Exception as exc:
+                self._error("Password change failed", exc)
+                return
+            self.password_change_current_var.set("")
+            self.password_change_new_var.set("")
+            self.password_change_confirm_var.set("")
+            result["changed"] = True
+            dialog.destroy()
+
+        ttk.Button(box, text="Apply password change", command=submit).grid(row=4, column=1, sticky="e", pady=(16, 0))
+        if not force_required:
+            ttk.Button(box, text="Cancel", command=dialog.destroy).grid(row=4, column=0, sticky="w", pady=(16, 0))
+        dialog.wait_window()
+        return bool(result["changed"])
+
     def _speak_gate_message(self, result: dict) -> None:
         decision = str(result.get("decision") or "")
         if decision in {"recognized_allowed", "granted_with_fee_alert"}:
@@ -586,7 +738,11 @@ class UltronApp(tk.Tk):
                     embeddings.append(embedding)
                     if saved_photo is None and bbox:
                         x, y, w, h = bbox
-                        face_crop = frame[max(0, y): y + h, max(0, x): x + w]
+                        x1 = max(0, int(x))
+                        y1 = max(0, int(y))
+                        x2 = min(frame.shape[1], int(x + w))
+                        y2 = min(frame.shape[0], int(y + h))
+                        face_crop = frame[y1:y2, x1:x2]
                         photo_path = AUTHORIZED_FACES_DIR / f"{user_code}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.jpg"
                         cv2.imwrite(str(photo_path), face_crop if face_crop.size else frame)
                         saved_photo = str(photo_path)
@@ -761,6 +917,13 @@ class UltronApp(tk.Tk):
             self._open_gate()
         else:
             self._lock_gate()
+        self.last_gate_decision_var.set(str(result.get("decision") or "decision unavailable").replace("_", " "))
+        self.last_gate_identity_var.set(identity_status.replace("_", " "))
+        self.last_gate_confidence_display_var.set(f"{confidence:.2f}")
+        self.gate_state_var.set("open" if result.get("granted") else "closed")
+        self.gate_last_student_var.set(str(result.get("user_code") or matched_code or self.gate_fallback_var.get() or "-"))
+        self.gate_last_alert_var.set(str(result.get("message") or "No alert"))
+        self.gate_last_timestamp_var.set(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         self._speak_gate_message(result)
         return result
 
@@ -769,6 +932,7 @@ class UltronApp(tk.Tk):
             return
         self.gate_monitor_enabled = True
         self.notebook.select(self.gate_tab)
+        self.gate_monitor_state_var.set("starting")
         self.gate_live_status_label.config(text="Gate monitor starting...")
         self._gate_monitor_tick()
 
@@ -776,20 +940,25 @@ class UltronApp(tk.Tk):
         self.gate_monitor_enabled = False
         self._release_camera("gate_monitor")
         self._lock_gate()
+        self.gate_monitor_state_var.set("stopped")
+        self.gate_state_var.set("closed")
         self.gate_live_status_label.config(text=reason)
 
     def _gate_monitor_tick(self) -> None:
         if not self.gate_monitor_enabled:
             return
         if not self._acquire_camera("gate_monitor"):
+            self.gate_monitor_state_var.set("waiting for camera")
             self.gate_live_status_label.config(text="Gate monitor waiting for camera access...")
             self.after(self.gate_scan_interval_ms, self._gate_monitor_tick)
             return
         frame = self.camera.capture_frame()
         if frame is None:
+            self.gate_monitor_state_var.set("waiting for frame")
             self.gate_live_status_label.config(text="Gate monitor active. Waiting for camera frames...")
             self.after(self.gate_scan_interval_ms, self._gate_monitor_tick)
             return
+        self.gate_monitor_state_var.set("watching gate")
         identity_status, matched_code, confidence = self._recognize_from_frame(frame)
         signature = (identity_status, matched_code)
         now = time.monotonic()
@@ -805,6 +974,9 @@ class UltronApp(tk.Tk):
             self.refresh_gate()
         else:
             label = matched_code or identity_status.replace("_", " ")
+            self.last_gate_identity_var.set(identity_status.replace("_", " "))
+            self.last_gate_confidence_display_var.set(f"{confidence:.2f}")
+            self.gate_last_student_var.set(str(matched_code or "-"))
             self.gate_live_status_label.config(text=f"Gate monitor active. Watching {label} at confidence {confidence:.2f}.")
         self.after(self.gate_scan_interval_ms, self._gate_monitor_tick)
 
@@ -834,6 +1006,35 @@ class UltronApp(tk.Tk):
         self.request_resolution_note_var.set("")
         self.status_var.set("Student request resolved.")
         self.refresh_all_views()
+
+    def on_student_request_selected(self, _event=None) -> None:
+        selected = self.student_requests_admin_tree.selection()
+        if not selected:
+            self.request_selected_meta_var.set("Select a request to inspect.")
+            self.request_detail_message_var.set("No student request selected.")
+            self.request_detail_resolution_var.set("-")
+            return
+        row = self.current_request_rows.get(selected[0])
+        if row is None:
+            self.request_selected_meta_var.set("Request details unavailable.")
+            self.request_detail_message_var.set("No request details loaded.")
+            self.request_detail_resolution_var.set("-")
+            return
+        self.request_selected_meta_var.set(
+            f"student: {row['user_code']}\n"
+            f"type: {row['request_type']}\n"
+            f"status: {row['status']}\n"
+            f"created: {row['created_at']}"
+        )
+        self.request_detail_message_var.set(str(row["message"] or "-"))
+        resolved_by = row["resolved_by"] or "not resolved"
+        resolved_at = row["resolved_at"] or "-"
+        resolution_note = row["resolution_note"] or "No resolution note recorded."
+        self.request_detail_resolution_var.set(
+            f"resolved by: {resolved_by}\n"
+            f"resolved at: {resolved_at}\n"
+            f"note: {resolution_note}"
+        )
 
     def _selected_student_id(self) -> int | None:
         if self.student_tree.selection():
@@ -1009,6 +1210,7 @@ class UltronApp(tk.Tk):
         self.refresh_all_views()
 
     def refresh_all_views(self) -> None:
+        self._apply_role_permissions()
         self.refresh_directory()
         self.refresh_gate()
         self.refresh_students()
@@ -1034,6 +1236,8 @@ class UltronApp(tk.Tk):
         self.notification_tree.delete(*self.notification_tree.get_children())
         for row in database.list_notifications(limit=50):
             self.notification_tree.insert("", "end", iid=str(row["id"]), values=(row["user_code"], row["notification_type"], row["status"]))
+        if not self.gate_monitor_enabled and self.gate_monitor_state_var.get() == "idle":
+            self.gate_monitor_state_var.set("idle")
 
     def refresh_students(self) -> None:
         self.student_tree.delete(*self.student_tree.get_children())
@@ -1060,13 +1264,18 @@ class UltronApp(tk.Tk):
 
     def refresh_student_requests_admin(self) -> None:
         self.student_requests_admin_tree.delete(*self.student_requests_admin_tree.get_children())
-        for row in database.list_student_requests(limit=200):
+        self.current_request_rows = {}
+        status_filter = None if self.request_filter_var.get() == "all" else self.request_filter_var.get()
+        for row in database.list_student_requests(status=status_filter, limit=200):
+            row_id = str(row["id"])
+            self.current_request_rows[row_id] = row
             self.student_requests_admin_tree.insert(
                 "",
                 "end",
-                iid=str(row["id"]),
-                values=(row["user_code"], row["request_type"], row["status"], row["created_at"], row["message"]),
+                iid=row_id,
+                values=(row["user_code"], row["request_type"], row["status"], row["created_at"]),
             )
+        self.on_student_request_selected()
 
     def refresh_users(self) -> None:
         self.user_tree.delete(*self.user_tree.get_children())
@@ -1120,3 +1329,25 @@ class UltronApp(tk.Tk):
     def _error(self, title: str, exc: Exception) -> None:
         messagebox.showerror(title, str(exc), parent=self)
         self.status_var.set(f"{title}: {exc}")
+
+    def on_close(self) -> None:
+        try:
+            self.stop_gate_monitor(reason="Gate monitor stopped.")
+        except Exception:
+            pass
+        try:
+            if self.camera.is_opened():
+                self.camera.release()
+        except Exception:
+            pass
+        try:
+            self.tts.stop()
+        except Exception:
+            pass
+        try:
+            if self.arduino:
+                self.arduino.lock_door()
+                self.arduino.close()
+        except Exception:
+            pass
+        self.destroy()

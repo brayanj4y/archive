@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import os
+import secrets
 import sqlite3
+import sys
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
@@ -42,6 +44,9 @@ def get_connection() -> Iterator[sqlite3.Connection]:
     try:
         yield conn
         conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
     finally:
         conn.close()
 
@@ -190,6 +195,7 @@ def init_db() -> None:
             ("password_hash", "TEXT"),
             ("password_salt", "TEXT"),
             ("photo_path", "TEXT"),
+            ("force_password_change", "INTEGER NOT NULL DEFAULT 0"),
         ):
             _ensure_column(conn, "users", column, definition)
     refresh_access_states()
@@ -203,8 +209,14 @@ def get_role_id(role_name: str) -> int:
     return int(row["id"])
 
 
+def _get_role_id(conn: sqlite3.Connection, role_name: str) -> int:
+    row = conn.execute("SELECT id FROM roles WHERE name = ?", (role_name.lower(),)).fetchone()
+    if row is None:
+        raise ValueError(f"Unknown role: {role_name}")
+    return int(row["id"])
+
+
 def get_user_by_code(user_code: str) -> sqlite3.Row | None:
-    refresh_access_states()
     with get_connection() as conn:
         return conn.execute(
             "SELECT users.*, roles.name AS role_name FROM users JOIN roles ON roles.id = users.role_id WHERE users.user_code = ?",
@@ -213,7 +225,6 @@ def get_user_by_code(user_code: str) -> sqlite3.Row | None:
 
 
 def get_user_by_id(user_id: int) -> sqlite3.Row | None:
-    refresh_access_states()
     with get_connection() as conn:
         return conn.execute(
             "SELECT users.*, roles.name AS role_name FROM users JOIN roles ON roles.id = users.role_id WHERE users.id = ?",
@@ -255,6 +266,22 @@ def deserialize_face_encoding(blob: bytes | None) -> np.ndarray | None:
     return np.frombuffer(blob, dtype=np.float32)
 
 
+def _insert_log_event(
+    conn: sqlite3.Connection,
+    event_type: str,
+    outcome: str,
+    actor_code: str = SYSTEM_ACTOR,
+    actor_user_id: int | None = None,
+    subject_user_id: int | None = None,
+    details: str | None = None,
+    created_at: str | None = None,
+) -> None:
+    conn.execute(
+        "INSERT INTO access_logs (actor_user_id, actor_label, subject_user_id, event_type, outcome, details, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        (actor_user_id, actor_code, subject_user_id, event_type, outcome, details, created_at or utc_now()),
+    )
+
+
 def log_event(
     event_type: str,
     outcome: str,
@@ -264,10 +291,7 @@ def log_event(
     details: str | None = None,
 ) -> None:
     with get_connection() as conn:
-        conn.execute(
-            "INSERT INTO access_logs (actor_user_id, actor_label, subject_user_id, event_type, outcome, details, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (actor_user_id, actor_code, subject_user_id, event_type, outcome, details, utc_now()),
-        )
+        _insert_log_event(conn, event_type, outcome, actor_code, actor_user_id, subject_user_id, details)
 
 
 def create_user(
@@ -301,35 +325,36 @@ def create_user(
                 access_revoked, override_authorized, created_at, updated_at, email, phone, photo_path
             ) VALUES (?, ?, ?, 1, 1, 0, 0, ?, ?, ?, ?, ?)
             """,
-            (user_code, full_name, get_role_id(role_name), now, now, email, phone, photo_path),
+            (user_code, full_name, _get_role_id(conn, role_name), now, now, email, phone, photo_path),
         )
         user_id = int(cursor.lastrowid)
-
-    if role_name == "student":
-        set_student_finance_status(
-            user_id=user_id,
-            payment_state="unpaid",
-            balance_due=0.0,
-            due_date=None,
-            allowed_entry_days=0,
-            block_access=False,
-            verification_exempt_until=None,
-            actor_code=actor_code,
-            notes="Initial student finance profile.",
+        if role_name == "student":
+            _set_student_finance_status(
+                conn,
+                user_id=user_id,
+                payment_state="unpaid",
+                balance_due=0.0,
+                due_date=None,
+                allowed_entry_days=0,
+                block_access=False,
+                verification_exempt_until=None,
+                actor_user_id=actor["actor_user_id"],
+                notes="Initial student finance profile.",
+            )
+        if pin:
+            _upsert_pin(conn, user_id, pin, actor["actor_user_id"], active=True)
+        if password:
+            _set_user_password(conn, user_id, password, force_password_change=False)
+        _insert_log_event(
+            conn,
+            event_type="user_created",
+            outcome="success",
+            actor_code=actor["actor_label"],
+            actor_user_id=actor["actor_user_id"],
+            subject_user_id=user_id,
+            details=f"Created {role_name} profile for {full_name} ({user_code}).",
+            created_at=now,
         )
-    if pin:
-        upsert_pin(user_id, pin, actor_code=actor_code, active=True)
-    if password:
-        set_user_password(user_id, password, actor_code=actor_code)
-
-    log_event(
-        event_type="user_created",
-        outcome="success",
-        actor_code=actor["actor_label"],
-        actor_user_id=actor["actor_user_id"],
-        subject_user_id=user_id,
-        details=f"Created {role_name} profile for {full_name} ({user_code}).",
-    )
     return user_id
 
 
@@ -345,18 +370,27 @@ def list_users(role_name: str | None = None) -> list[sqlite3.Row]:
         return list(conn.execute(query, params).fetchall())
 
 
-def set_user_password(user_id: int, password: str, actor_code: str | None = None) -> None:
+def _set_user_password(
+    conn: sqlite3.Connection,
+    user_id: int,
+    password: str,
+    force_password_change: bool = False,
+) -> None:
     password = password.strip()
     if len(password) < 6:
         raise ValueError("Password must be at least 6 characters long.")
-    actor = resolve_actor(actor_code)
     salt = os.urandom(16)
     password_hash = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, 120000).hex()
+    conn.execute(
+        "UPDATE users SET password_hash = ?, password_salt = ?, force_password_change = ?, updated_at = ? WHERE id = ?",
+        (password_hash, salt.hex(), int(force_password_change), utc_now(), user_id),
+    )
+
+
+def set_user_password(user_id: int, password: str, actor_code: str | None = None, force_password_change: bool = False) -> None:
+    actor = resolve_actor(actor_code)
     with get_connection() as conn:
-        conn.execute(
-            "UPDATE users SET password_hash = ?, password_salt = ?, updated_at = ? WHERE id = ?",
-            (password_hash, salt.hex(), utc_now(), user_id),
-        )
+        _set_user_password(conn, user_id, password, force_password_change=force_password_change)
     log_event(
         event_type="staff_password_updated",
         outcome="success",
@@ -470,18 +504,21 @@ def ensure_staff_account(
     password: str,
     email: str | None = None,
     phone: str | None = None,
+    force_password_change: bool = False,
 ) -> int:
     existing = get_user_by_code(user_code)
     if existing is not None:
-        changed = False
         if email != existing["email"] or phone != existing["phone"]:
             set_user_contact(int(existing["id"]), email, phone, actor_code=SYSTEM_ACTOR)
-            changed = True
         if not existing["password_hash"]:
-            set_user_password(int(existing["id"]), password, actor_code=SYSTEM_ACTOR)
-            changed = True
+            set_user_password(
+                int(existing["id"]),
+                password,
+                actor_code=SYSTEM_ACTOR,
+                force_password_change=force_password_change,
+            )
         return int(existing["id"])
-    return create_user(
+    user_id = create_user(
         user_code=user_code,
         full_name=full_name,
         role_name=role_name,
@@ -490,20 +527,33 @@ def ensure_staff_account(
         password=password,
         actor_code=SYSTEM_ACTOR,
     )
+    if force_password_change:
+        set_user_password(user_id, password, actor_code=SYSTEM_ACTOR, force_password_change=True)
+    return user_id
 
 
 def bootstrap_staff_accounts(settings: dict[str, str]) -> None:
     admin_code = settings.get("bootstrap_admin_code", "admin")
-    admin_password = settings.get("bootstrap_admin_password", "admin123")
+    admin_password = settings.get("bootstrap_admin_password") or os.getenv("ULTRON_BOOTSTRAP_ADMIN_PASSWORD")
     admin_email = settings.get("bootstrap_admin_email") or settings.get("admin_contact_email")
     admin_phone = settings.get("bootstrap_admin_phone") or settings.get("admin_contact_phone")
     bursar_code = settings.get("bootstrap_bursar_code", "bursar")
-    bursar_password = settings.get("bootstrap_bursar_password", "bursar123")
+    bursar_password = settings.get("bootstrap_bursar_password") or os.getenv("ULTRON_BOOTSTRAP_BURSAR_PASSWORD")
     bursar_email = settings.get("bootstrap_bursar_email")
     bursar_phone = settings.get("bootstrap_bursar_phone")
+    admin_force_change = False
+    bursar_force_change = False
+    if not admin_password:
+        admin_password = secrets.token_urlsafe(12)
+        admin_force_change = True
+        print(f"Generated bootstrap admin password for {admin_code}: {admin_password}", file=sys.stderr)
+    if not bursar_password:
+        bursar_password = secrets.token_urlsafe(12)
+        bursar_force_change = True
+        print(f"Generated bootstrap bursar password for {bursar_code}: {bursar_password}", file=sys.stderr)
 
-    ensure_staff_account(admin_code, "System Admin", "admin", admin_password, admin_email, admin_phone)
-    ensure_staff_account(bursar_code, "School Bursar", "accountant", bursar_password, bursar_email, bursar_phone)
+    ensure_staff_account(admin_code, "System Admin", "admin", admin_password, admin_email, admin_phone, force_password_change=admin_force_change)
+    ensure_staff_account(bursar_code, "School Bursar", "accountant", bursar_password, bursar_email, bursar_phone, force_password_change=bursar_force_change)
 
 
 def list_students() -> list[sqlite3.Row]:
@@ -580,7 +630,7 @@ def create_notification(
                 """
                 SELECT id FROM notifications
                 WHERE user_id = ? AND notification_type = ? AND status = 'open'
-                  AND created_at >= datetime('now', ?)
+                  AND julianday(created_at) >= julianday('now', 'utc', ?)
                 ORDER BY created_at DESC LIMIT 1
                 """,
                 (user_id, notification_type, f"-{int(dedupe_window_minutes)} minutes"),
@@ -634,48 +684,22 @@ def set_student_finance_status(
     actor_code: str | None = None,
     notes: str | None = None,
 ) -> None:
-    payment_state = payment_state.strip().lower()
-    if payment_state not in FEE_STATES:
-        raise ValueError(f"Unsupported payment state: {payment_state}")
-    if balance_due < 0:
-        raise ValueError("Balance due cannot be negative.")
     user = get_user_by_id(user_id)
     if user is None or user["role_name"] != "student":
         raise ValueError("Finance status can only be updated for student accounts.")
-
     actor = resolve_actor(actor_code)
-    now = utc_now()
     with get_connection() as conn:
-        conn.execute(
-            """
-            INSERT INTO fee_status (
-                user_id, payment_state, due_date, last_payment_at, updated_by, updated_at, notes,
-                balance_due, allowed_entry_days, block_access, verification_exempt_until
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(user_id) DO UPDATE SET
-                payment_state = excluded.payment_state,
-                due_date = excluded.due_date,
-                updated_by = excluded.updated_by,
-                updated_at = excluded.updated_at,
-                notes = excluded.notes,
-                balance_due = excluded.balance_due,
-                allowed_entry_days = excluded.allowed_entry_days,
-                block_access = excluded.block_access,
-                verification_exempt_until = excluded.verification_exempt_until
-            """,
-            (
-                user_id,
-                payment_state,
-                normalize_optional_date(due_date),
-                now if payment_state == "full" else None,
-                actor["actor_user_id"],
-                now,
-                notes,
-                round(balance_due, 2),
-                max(allowed_entry_days, 0),
-                int(block_access),
-                normalize_optional_date(verification_exempt_until),
-            ),
+        _set_student_finance_status(
+            conn,
+            user_id=user_id,
+            payment_state=payment_state,
+            balance_due=balance_due,
+            due_date=due_date,
+            allowed_entry_days=allowed_entry_days,
+            block_access=block_access,
+            verification_exempt_until=verification_exempt_until,
+            actor_user_id=actor["actor_user_id"],
+            notes=notes,
         )
     refresh_access_states()
     log_event(
@@ -685,9 +709,60 @@ def set_student_finance_status(
         actor_user_id=actor["actor_user_id"],
         subject_user_id=user_id,
         details=(
-            f"payment_state={payment_state}, balance_due={round(balance_due, 2)}, "
+            f"payment_state={payment_state.strip().lower()}, balance_due={round(balance_due, 2)}, "
             f"due_date={normalize_optional_date(due_date) or 'none'}, "
             f"allowed_entry_days={max(allowed_entry_days, 0)}, block_access={int(block_access)}."
+        ),
+    )
+
+
+def _set_student_finance_status(
+    conn: sqlite3.Connection,
+    user_id: int,
+    payment_state: str,
+    balance_due: float,
+    due_date: str | None,
+    allowed_entry_days: int,
+    block_access: bool,
+    verification_exempt_until: str | None,
+    actor_user_id: int | None,
+    notes: str | None = None,
+) -> None:
+    payment_state = payment_state.strip().lower()
+    if payment_state not in FEE_STATES:
+        raise ValueError(f"Unsupported payment state: {payment_state}")
+    if balance_due < 0:
+        raise ValueError("Balance due cannot be negative.")
+    now = utc_now()
+    conn.execute(
+        """
+        INSERT INTO fee_status (
+            user_id, payment_state, due_date, last_payment_at, updated_by, updated_at, notes,
+            balance_due, allowed_entry_days, block_access, verification_exempt_until
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(user_id) DO UPDATE SET
+            payment_state = excluded.payment_state,
+            due_date = excluded.due_date,
+            updated_by = excluded.updated_by,
+            updated_at = excluded.updated_at,
+            notes = excluded.notes,
+            balance_due = excluded.balance_due,
+            allowed_entry_days = excluded.allowed_entry_days,
+            block_access = excluded.block_access,
+            verification_exempt_until = excluded.verification_exempt_until
+        """,
+        (
+            user_id,
+            payment_state,
+            normalize_optional_date(due_date),
+            now if payment_state == "full" else None,
+            actor_user_id,
+            now,
+            notes,
+            round(balance_due, 2),
+            max(allowed_entry_days, 0),
+            int(block_access),
+            normalize_optional_date(verification_exempt_until),
         ),
     )
 
@@ -766,19 +841,19 @@ def set_user_access(
 ) -> None:
     actor = resolve_actor(actor_code)
     with get_connection() as conn:
+        now = utc_now()
         conn.execute(
             "UPDATE users SET override_authorized = ?, is_authorized = ?, access_revoked = ?, updated_at = ? WHERE id = ?",
-            (int(override and authorized), int(authorized), int(not authorized), utc_now(), user_id),
+            (int(override and authorized), int(authorized), int(not authorized), now, user_id),
         )
         conn.execute("UPDATE fee_status SET block_access = ? WHERE user_id = ?", (int(not authorized), user_id))
-    if authorized:
-        with get_connection() as conn:
+        if authorized:
             conn.execute(
                 "UPDATE pin_store SET is_active = 1, revoked_at = NULL, updated_by = ? WHERE user_id = ?",
                 (actor["actor_user_id"], user_id),
             )
-    else:
-        revoke_pin(user_id, actor_code=actor_code)
+        else:
+            _revoke_pin(conn, user_id, actor["actor_user_id"])
     log_event(
         event_type="access_override" if override else "access_state_changed",
         outcome="success",
@@ -789,35 +864,45 @@ def set_user_access(
     )
 
 
-def upsert_pin(user_id: int, pin: str, actor_code: str | None = None, active: bool = True) -> None:
+def _upsert_pin(
+    conn: sqlite3.Connection,
+    user_id: int,
+    pin: str,
+    actor_user_id: int | None,
+    active: bool = True,
+) -> None:
     if not pin.isdigit() or len(pin) < 4:
         raise ValueError("PIN must contain only digits and be at least 4 digits long.")
-    actor = resolve_actor(actor_code)
     salt = os.urandom(16)
     pin_hash = hashlib.pbkdf2_hmac("sha256", pin.encode("utf-8"), salt, 120000).hex()
+    conn.execute(
+        """
+        INSERT INTO pin_store (user_id, pin_hash, pin_salt, is_active, issued_at, revoked_at, updated_by)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(user_id) DO UPDATE SET
+            pin_hash = excluded.pin_hash,
+            pin_salt = excluded.pin_salt,
+            is_active = excluded.is_active,
+            issued_at = excluded.issued_at,
+            revoked_at = excluded.revoked_at,
+            updated_by = excluded.updated_by
+        """,
+        (
+            user_id,
+            pin_hash,
+            salt.hex(),
+            int(active),
+            utc_now(),
+            None if active else utc_now(),
+            actor_user_id,
+        ),
+    )
+
+
+def upsert_pin(user_id: int, pin: str, actor_code: str | None = None, active: bool = True) -> None:
+    actor = resolve_actor(actor_code)
     with get_connection() as conn:
-        conn.execute(
-            """
-            INSERT INTO pin_store (user_id, pin_hash, pin_salt, is_active, issued_at, revoked_at, updated_by)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(user_id) DO UPDATE SET
-                pin_hash = excluded.pin_hash,
-                pin_salt = excluded.pin_salt,
-                is_active = excluded.is_active,
-                issued_at = excluded.issued_at,
-                revoked_at = excluded.revoked_at,
-                updated_by = excluded.updated_by
-            """,
-            (
-                user_id,
-                pin_hash,
-                salt.hex(),
-                int(active),
-                utc_now(),
-                None if active else utc_now(),
-                actor["actor_user_id"],
-            ),
-        )
+        _upsert_pin(conn, user_id, pin, actor["actor_user_id"], active=active)
     log_event(
         event_type="pin_updated",
         outcome="success",
@@ -832,13 +917,17 @@ def reset_pin(user_id: int, new_pin: str, actor_code: str | None = None) -> None
     upsert_pin(user_id, new_pin.strip(), actor_code=actor_code, active=True)
 
 
+def _revoke_pin(conn: sqlite3.Connection, user_id: int, actor_user_id: int | None) -> None:
+    conn.execute(
+        "UPDATE pin_store SET is_active = 0, revoked_at = ?, updated_by = ? WHERE user_id = ?",
+        (utc_now(), actor_user_id, user_id),
+    )
+
+
 def revoke_pin(user_id: int, actor_code: str | None = None) -> None:
     actor = resolve_actor(actor_code)
     with get_connection() as conn:
-        conn.execute(
-            "UPDATE pin_store SET is_active = 0, revoked_at = ?, updated_by = ? WHERE user_id = ?",
-            (utc_now(), actor["actor_user_id"], user_id),
-        )
+        _revoke_pin(conn, user_id, actor["actor_user_id"])
     log_event(
         event_type="pin_revoked",
         outcome="success",
@@ -1075,7 +1164,10 @@ def create_student_request(
     message = message.strip()
     if not message:
         raise ValueError("Request message is required.")
-    actor = resolve_actor(actor_code or get_user_by_id(user_id)["user_code"])
+    user = get_user_by_id(user_id)
+    if user is None:
+        raise ValueError("Student request user not found.")
+    actor = resolve_actor(actor_code or user["user_code"])
     with get_connection() as conn:
         cursor = conn.execute(
             """
@@ -1163,7 +1255,7 @@ def recalculate_student_balance(user_id: int, actor_code: str | None = None) -> 
         return
     with get_connection() as conn:
         outstanding = conn.execute(
-            "SELECT COALESCE(SUM(balance_amount), 0) AS total FROM invoices WHERE user_id = ?",
+            "SELECT COALESCE(SUM(balance_amount), 0) AS total, COALESCE(SUM(total_amount), 0) AS original_total FROM invoices WHERE user_id = ?",
             (user_id,),
         ).fetchone()
         current = conn.execute(
@@ -1174,7 +1266,13 @@ def recalculate_student_balance(user_id: int, actor_code: str | None = None) -> 
             (user_id,),
         ).fetchone()
     total = round(float(outstanding["total"] or 0), 2)
-    payment_state = "full" if total <= 0 else ("partial" if current and current["payment_state"] == "partial" else "unpaid")
+    original_total = round(float(outstanding["original_total"] or 0), 2)
+    if total <= 0:
+        payment_state = "full"
+    elif original_total > 0:
+        payment_state = "partial" if 0 < total < original_total else "unpaid"
+    else:
+        payment_state = current["payment_state"] if current else "unpaid"
     set_student_finance_status(
         user_id=user_id,
         payment_state=payment_state,

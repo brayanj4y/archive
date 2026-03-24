@@ -81,6 +81,17 @@ def preprocess_face_frame(frame: np.ndarray) -> np.ndarray:
     """
     if frame is None or frame.size == 0:
         return frame
+    if frame.ndim == 2:
+        frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
+    elif frame.ndim == 3:
+        if frame.shape[2] == 1:
+            frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
+        elif frame.shape[2] == 4:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
+        elif frame.shape[2] != 3:
+            raise ValueError(f"Unsupported frame channel count: {frame.shape[2]}")
+    else:
+        raise ValueError(f"Unsupported frame shape: {frame.shape}")
     ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
     ycrcb[:, :, 0] = cv2.equalizeHist(ycrcb[:, :, 0])
     return cv2.cvtColor(ycrcb, cv2.COLOR_YCrCb2BGR)

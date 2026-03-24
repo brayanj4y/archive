@@ -12,7 +12,6 @@ $argsList = @(
     "--add-data", "tts_worker.py;."
     "--add-data", "authorized_faces;authorized_faces"
     "--add-data", "unauthorized_faces;unauthorized_faces"
-    "--add-data", "logs;logs"
     "--hidden-import", "pyttsx3.drivers"
     "--hidden-import", "pyttsx3.drivers.sapi5"
     "main.py"
