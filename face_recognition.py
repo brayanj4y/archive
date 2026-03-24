@@ -37,8 +37,8 @@ class FaceRecognizer:
         if face_image is None or face_image.size == 0:
             return None
         
-        # InsightFace expects BGR images
-        faces = self.app.get(face_image)
+        processed = preprocess_face_frame(face_image)
+        faces = self.app.get(processed)
         
         if not faces:
             return None
@@ -59,7 +59,8 @@ class FaceRecognizer:
         if frame is None or frame.size == 0:
             return None, None
         
-        faces = self.app.get(frame)
+        processed = preprocess_face_frame(frame)
+        faces = self.app.get(processed)
         
         if not faces:
             return None, None
@@ -72,6 +73,28 @@ class FaceRecognizer:
         bbox = (x1, y1, x2 - x1, y2 - y1)
         
         return largest_face.embedding, bbox
+
+
+def preprocess_face_frame(frame: np.ndarray) -> np.ndarray:
+    """
+    Apply histogram equalization on luminance to improve robustness across lighting conditions.
+    """
+    if frame is None or frame.size == 0:
+        return frame
+    if frame.ndim == 2:
+        frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
+    elif frame.ndim == 3:
+        if frame.shape[2] == 1:
+            frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR)
+        elif frame.shape[2] == 4:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
+        elif frame.shape[2] != 3:
+            raise ValueError(f"Unsupported frame channel count: {frame.shape[2]}")
+    else:
+        raise ValueError(f"Unsupported frame shape: {frame.shape}")
+    ycrcb = cv2.cvtColor(frame, cv2.COLOR_BGR2YCrCb)
+    ycrcb[:, :, 0] = cv2.equalizeHist(ycrcb[:, :, 0])
+    return cv2.cvtColor(ycrcb, cv2.COLOR_YCrCb2BGR)
 
 
 def compare_embeddings(embedding1: np.ndarray, embedding2: np.ndarray) -> float:
