@@ -34,3 +34,8 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+PRODUCT_ROADMAP.md
+# clerk configuration (can include secrets)
+/.clerk/
