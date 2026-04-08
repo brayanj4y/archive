@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSignIn } from "@clerk/nextjs";
 import { getClerkErrorMessage } from "@/components/auth/utils";
@@ -142,17 +141,6 @@ export function SignInForm() {
         >
           Send magic link
         </Button>
-        <p className="text-xs leading-5 text-muted-foreground">
-          By continuing, you acknowledge our{" "}
-          <Link className="underline underline-offset-4" href="#">
-            Terms
-          </Link>{" "}
-          and{" "}
-          <Link className="underline underline-offset-4" href="#">
-            Privacy Policy
-          </Link>
-          .
-        </p>
         <div id="clerk-captcha" />
       </Form>
     </div>
