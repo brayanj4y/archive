@@ -111,18 +111,18 @@ export function AppShell({ children, title }: AppShellProps) {
             <Image
               alt="Ultron"
               className="block dark:hidden"
-              height={44}
+              height={50}
               priority
               src="/logo-light.png"
-              width={44}
+              width={50}
             />
             <Image
               alt="Ultron"
               className="hidden dark:block"
-              height={44}
+              height={50}
               priority
               src="/logo-dark.png"
-              width={44}
+              width={50}
             />
           </Link>
         </SidebarHeader>
