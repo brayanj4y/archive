@@ -130,7 +130,7 @@ export function SettingsView() {
       <section className="space-y-3">
         <div className="text-sm font-medium">Profile</div>
         <div className="flex items-center gap-4">
-          <Avatar className="size-16 border">
+          <Avatar className="border">
             <AvatarImage src={user.imageUrl} />
             <AvatarFallback>{getInitials(firstName, lastName)}</AvatarFallback>
           </Avatar>

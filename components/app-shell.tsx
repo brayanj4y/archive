@@ -12,6 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {
+  ClipboardListIcon,
   HomeIcon,
   CircleHelpIcon,
   CreditCardIcon,
@@ -49,13 +50,19 @@ import {
   DOCS_URL,
   HOME_URL,
   SETTINGS_URL,
+  TASKS_URL,
 } from "@/lib/routes";
 
-const PRIMARY_ITEMS = [
+const WORKSPACE_ITEMS = [
   {
     href: HOME_URL,
     icon: HomeIcon,
     label: "Home",
+  },
+  {
+    href: TASKS_URL,
+    icon: ClipboardListIcon,
+    label: "Tasks",
   },
   {
     href: BILLING_URL,
@@ -64,12 +71,15 @@ const PRIMARY_ITEMS = [
   },
 ] as const;
 
-const SETTINGS_ITEMS = [
+const ACCOUNT_ITEMS = [
   {
     href: SETTINGS_URL,
     icon: SettingsIcon,
     label: "Settings",
   },
+] as const;
+
+const SUPPORT_ITEMS = [
   {
     href: DOCS_URL,
     icon: CircleHelpIcon,
@@ -104,7 +114,7 @@ export function AppShell({ children, title }: AppShellProps) {
             <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {PRIMARY_ITEMS.map((item) => (
+                {WORKSPACE_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       isActive={pathname === item.href}
@@ -120,11 +130,29 @@ export function AppShell({ children, title }: AppShellProps) {
             </SidebarGroupContent>
           </SidebarGroup>
           <SidebarGroup>
-            <SidebarGroupLabel>Settings</SidebarGroupLabel>
+            <SidebarGroupLabel>Account</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 <ProfileDrawer />
-                {SETTINGS_ITEMS.map((item) => (
+                {ACCOUNT_ITEMS.map((item) => (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      isActive={pathname === item.href}
+                      render={<Link href={item.href} />}
+                    >
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>Support</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {SUPPORT_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       isActive={pathname === item.href}

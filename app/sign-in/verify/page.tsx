@@ -1,6 +1,8 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useSignIn } from "@clerk/nextjs";
 import {
   Card,
@@ -9,10 +11,37 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ONBOARDING_URL, SIGN_IN_URL } from "@/lib/routes";
 
 export default function VerifySignInPage() {
+  const router = useRouter();
   const { signIn } = useSignIn();
   const verification = signIn?.emailLink.verification;
+  const [statusMessage, setStatusMessage] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    async function finalizeVerification() {
+      if (!signIn || verification?.status !== "verified") {
+        return;
+      }
+
+      setStatusMessage("Finalizing sign-in...");
+
+      try {
+        const { error } = await signIn.finalize();
+
+        if (error) {
+          throw error;
+        }
+
+        router.replace(ONBOARDING_URL);
+      } catch {
+        setStatusMessage("Verification completed. Return to sign in and try again.");
+      }
+    }
+
+    void finalizeVerification();
+  }, [router, signIn, verification?.status]);
 
   return (
     <main className="flex min-h-svh items-center justify-center bg-background px-4 py-10">
@@ -27,9 +56,10 @@ export default function VerifySignInPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-muted-foreground">
+          {statusMessage ? <p>{statusMessage}</p> : null}
           {!verification ? <p>Loading verification state...</p> : null}
           {verification?.status === "verified" ? (
-            <p>Verification complete. You can return to the original tab.</p>
+            <p>Verification complete.</p>
           ) : null}
           {verification?.status === "expired" ? (
             <p>The sign-in link expired. Request a new one and try again.</p>
@@ -45,7 +75,7 @@ export default function VerifySignInPage() {
           ) : null}
           <Link
             className="inline-flex font-medium text-foreground underline underline-offset-4"
-            href="/sign-in"
+            href={SIGN_IN_URL}
           >
             Back to sign in
           </Link>

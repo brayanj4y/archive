@@ -16,28 +16,31 @@ export function SocialAuthButtons({
   loadingProvider = null,
   onSelect,
 }: SocialAuthButtonsProps) {
+  const isGoogleLoading = loadingProvider === "google";
+  const isGitHubLoading = loadingProvider === "github";
+
   return (
     <div className="space-y-3">
       <Button
         className="w-full justify-center"
         disabled={disabled}
-        loading={loadingProvider === "google"}
+        loading={isGoogleLoading}
         onClick={() => onSelect("google")}
         type="button"
         variant="outline"
       >
-        <GoogleIcon />
+        {!isGoogleLoading ? <GoogleIcon /> : null}
         Continue with Google
       </Button>
       <Button
         className="w-full justify-center"
         disabled={disabled}
-        loading={loadingProvider === "github"}
+        loading={isGitHubLoading}
         onClick={() => onSelect("github")}
         type="button"
         variant="outline"
       >
-        <GitHubMark />
+        {!isGitHubLoading ? <GitHubMark /> : null}
         Continue with GitHub
       </Button>
       <Separator />
