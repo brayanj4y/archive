@@ -9,7 +9,6 @@ import { ONBOARDING_URL, SSO_CALLBACK_URL } from "@/lib/routes";
 import { SocialAuthButtons } from "@/components/auth/social-auth-buttons";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -25,7 +24,6 @@ export function SignUpForm() {
   const [oauthProvider, setOAuthProvider] = React.useState<
     "google" | "github" | null
   >(null);
-  const [acceptedTerms, setAcceptedTerms] = React.useState(false);
 
   const isLoaded = fetchStatus !== "fetching";
   const isBusy = isSendingLink || isWaitingForLink || isStartingOAuth;
@@ -36,11 +34,6 @@ export function SignUpForm() {
     event.preventDefault();
 
     if (!isLoaded) {
-      return;
-    }
-
-    if (!acceptedTerms) {
-      setErrorMessage("You must accept the terms to continue.");
       return;
     }
 
@@ -106,11 +99,6 @@ export function SignUpForm() {
       return;
     }
 
-    if (!acceptedTerms) {
-      setErrorMessage("You must accept the terms to continue.");
-      return;
-    }
-
     setErrorMessage("");
     setIsStartingOAuth(true);
     setOAuthProvider(provider);
@@ -136,7 +124,7 @@ export function SignUpForm() {
   return (
     <div className="space-y-4">
       <SocialAuthButtons
-        disabled={!isLoaded || isBusy || !acceptedTerms}
+        disabled={!isLoaded || isBusy}
         loadingProvider={oauthProvider}
         onSelect={handleOAuth}
       />
@@ -163,29 +151,23 @@ export function SignUpForm() {
         ) : null}
         <Button
           className="w-full"
-          disabled={!isLoaded || isBusy || !acceptedTerms}
+          disabled={!isLoaded || isBusy}
           loading={isSendingLink}
           type="submit"
         >
           Continue with magic link
         </Button>
-        <label className="flex items-start gap-2 text-xs leading-5 text-muted-foreground">
-          <Checkbox
-            checked={acceptedTerms}
-            onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
-          />
-          <span>
-            I agree to the{" "}
-            <Link className="underline underline-offset-4" href="#">
-              Terms
-            </Link>{" "}
-            and{" "}
-            <Link className="underline underline-offset-4" href="#">
-              Privacy Policy
-            </Link>
-            .
-          </span>
-        </label>
+        <p className="text-xs leading-5 text-muted-foreground">
+          By signing up, you agree to our{" "}
+          <Link className="underline underline-offset-4" href="#">
+            Terms of Service
+          </Link>{" "}
+          and{" "}
+          <Link className="underline underline-offset-4" href="#">
+            Privacy Policy
+          </Link>
+          .
+        </p>
         <div id="clerk-captcha" />
       </Form>
     </div>
