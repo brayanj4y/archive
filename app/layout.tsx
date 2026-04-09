@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { CHOOSE_ORGANIZATION_TASK_URL } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 const interHeading = Inter({subsets:['latin'],variable:'--font-heading'});
@@ -23,7 +24,11 @@ export default function RootLayout({
       className={cn("antialiased", "font-mono", inter.variable, interHeading.variable, geistMono.variable)}
     >
       <body>
-        <ClerkProvider>
+        <ClerkProvider
+          taskUrls={{
+            "choose-organization": CHOOSE_ORGANIZATION_TASK_URL,
+          }}
+        >
           <ThemeProvider>{children}</ThemeProvider>
         </ClerkProvider>
       </body>

@@ -3,7 +3,7 @@ import "server-only";
 import { auth, currentUser } from "@clerk/nextjs/server";
 
 export async function getViewerState() {
-  const { orgId, userId } = await auth();
+  const { orgId, userId } = await auth({ treatPendingAsSignedOut: false });
 
   if (!userId) {
     return {
@@ -26,7 +26,7 @@ export async function getViewerState() {
   return {
     heardAboutUs,
     isAuthenticated: true,
-    needsOnboarding: !onboardingComplete || !orgId,
+    needsOnboarding: !onboardingComplete,
     onboardingComplete,
     orgId,
     userId,
