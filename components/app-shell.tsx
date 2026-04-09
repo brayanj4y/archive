@@ -43,6 +43,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   BILLING_URL,
@@ -103,7 +104,7 @@ export function AppShell({ children, title }: AppShellProps) {
 
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar variant="inset">
         <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
           <Link className="font-heading text-sm font-semibold tracking-wide" href={HOME_URL}>
             Ultron
@@ -169,30 +170,31 @@ export function AppShell({ children, title }: AppShellProps) {
         </SidebarContent>
       </Sidebar>
       <SidebarInset>
-        <div className="flex min-h-svh flex-col">
-          <main className="flex flex-1 flex-col gap-4 p-4 sm:p-6">
-            <div className="flex items-start justify-between gap-4">
-              {showBreadcrumb ? (
-                <Breadcrumb>
-                  <BreadcrumbList>
-                    <BreadcrumbItem>
-                      <BreadcrumbLink render={<Link href={HOME_URL} />}>
-                        Home
-                      </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator> / </BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                      <BreadcrumbPage>{title}</BreadcrumbPage>
-                    </BreadcrumbItem>
-                  </BreadcrumbList>
-                </Breadcrumb>
-              ) : (
-                <div />
-              )}
-              <ThemeModeSelect />
-            </div>
-            {children}
-          </main>
+        <header className="flex h-16 shrink-0 items-center gap-2">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            {showBreadcrumb ? (
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem className="hidden md:block">
+                    <BreadcrumbLink render={<Link href={HOME_URL} />}>
+                      Home
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>{title}</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            ) : null}
+          </div>
+          <div className="ml-auto px-4">
+            <ThemeModeSelect />
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 sm:p-6 sm:pt-0">
+          {children}
         </div>
       </SidebarInset>
     </SidebarProvider>
