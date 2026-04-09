@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 type AuthShellProps = {
@@ -17,6 +18,24 @@ export function AuthShell({
   return (
     <main className="flex min-h-svh items-center justify-center px-4 py-10">
       <div className="w-full max-w-80 space-y-4">
+        <Link className="inline-flex items-center" href="/">
+          <Image
+            alt="Ultron"
+            className="block dark:hidden"
+            height={20}
+            priority
+            src="/logo-light.png"
+            width={80}
+          />
+          <Image
+            alt="Ultron"
+            className="hidden dark:block"
+            height={20}
+            priority
+            src="/logo-dark.png"
+            width={80}
+          />
+        </Link>
         {children}
         <p className="text-sm text-muted-foreground">
           {footerPrompt}{" "}

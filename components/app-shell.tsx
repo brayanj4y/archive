@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -105,12 +106,27 @@ export function AppShell({ children, title }: AppShellProps) {
   return (
     <SidebarProvider>
       <Sidebar variant="inset">
-        <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
-          <Link className="font-heading text-sm font-semibold tracking-wide" href={HOME_URL}>
-            Ultron
+        <SidebarHeader className="px-2 pt-1 pb-0">
+          <Link className="inline-flex items-center" href={HOME_URL}>
+            <Image
+              alt="Ultron"
+              className="block dark:hidden"
+              height={44}
+              priority
+              src="/logo-light.png"
+              width={44}
+            />
+            <Image
+              alt="Ultron"
+              className="hidden dark:block"
+              height={44}
+              priority
+              src="/logo-dark.png"
+              width={44}
+            />
           </Link>
         </SidebarHeader>
-        <SidebarContent className="px-2 py-3">
+        <SidebarContent className="px-2 pt-1 pb-3">
           <SidebarGroup>
             <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarGroupContent>
