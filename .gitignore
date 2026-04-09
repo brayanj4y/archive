@@ -39,3 +39,10 @@ next-env.d.ts
 PRODUCT_ROADMAP.md
 # clerk configuration (can include secrets)
 /.clerk/
+/.agents
+/skills
+skills-lock.json
+AGENTS.md
+CLAUDE.md
+convex/_generated/ai/ai-files.state.json
+convex/_generated/ai/guidelines.md
