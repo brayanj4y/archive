@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { AppShell } from "@/components/app-shell";
+import { SettingsView } from "@/components/settings-view";
 import { getViewerState } from "@/lib/auth";
 import { ONBOARDING_URL, SIGN_IN_URL } from "@/lib/routes";
 

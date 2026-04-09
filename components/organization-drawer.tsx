@@ -30,7 +30,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Building2Icon } from "lucide-react";
+import { ArrowUpRightIcon, Building2Icon } from "lucide-react";
 
 export function OrganizationDrawer() {
   const router = useRouter();
@@ -179,6 +179,7 @@ export function OrganizationDrawer() {
         >
           <Building2Icon />
           <span>Organization</span>
+          <ArrowUpRightIcon className="ms-auto size-4 opacity-64" />
         </DrawerTrigger>
         <DrawerPopup position="right" variant="inset">
           <DrawerHeader>

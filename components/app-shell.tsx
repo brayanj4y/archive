@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useClerk } from "@clerk/nextjs";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,15 +15,14 @@ import {
   HomeIcon,
   CircleHelpIcon,
   CreditCardIcon,
-  LogOutIcon,
   MonitorIcon,
   MoonStarIcon,
   SettingsIcon,
   SunIcon,
 } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import { OrganizationDrawer } from "@/components/organization-drawer";
+import { ProfileDrawer } from "@/components/profile-drawer";
 import {
   Select,
   SelectItem,
@@ -35,7 +33,6 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -52,7 +49,6 @@ import {
   DOCS_URL,
   HOME_URL,
   SETTINGS_URL,
-  SIGN_IN_URL,
 } from "@/lib/routes";
 
 const PRIMARY_ITEMS = [
@@ -66,14 +62,14 @@ const PRIMARY_ITEMS = [
     icon: CreditCardIcon,
     label: "Billing",
   },
+] as const;
+
+const SETTINGS_ITEMS = [
   {
     href: SETTINGS_URL,
     icon: SettingsIcon,
     label: "Settings",
   },
-] as const;
-
-const SUPPORT_ITEMS = [
   {
     href: DOCS_URL,
     icon: CircleHelpIcon,
@@ -93,7 +89,6 @@ type AppShellProps = {
 
 export function AppShell({ children, title }: AppShellProps) {
   const pathname = usePathname();
-  const { signOut } = useClerk();
   const showBreadcrumb = pathname !== HOME_URL;
 
   return (
@@ -109,7 +104,6 @@ export function AppShell({ children, title }: AppShellProps) {
             <SidebarGroupLabel>Workspace</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                <OrganizationDrawer />
                 {PRIMARY_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
@@ -121,14 +115,16 @@ export function AppShell({ children, title }: AppShellProps) {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
+                <OrganizationDrawer />
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
           <SidebarGroup>
-            <SidebarGroupLabel>Support</SidebarGroupLabel>
+            <SidebarGroupLabel>Settings</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {SUPPORT_ITEMS.map((item) => (
+                <ProfileDrawer />
+                {SETTINGS_ITEMS.map((item) => (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton
                       isActive={pathname === item.href}
@@ -143,36 +139,30 @@ export function AppShell({ children, title }: AppShellProps) {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter className="border-t border-sidebar-border p-3">
-          <ThemeModeSelect />
-          <Button
-            className="w-full justify-start"
-            onClick={() => signOut({ redirectUrl: SIGN_IN_URL })}
-            variant="outline"
-          >
-            <LogOutIcon />
-            <span>Sign out</span>
-          </Button>
-        </SidebarFooter>
       </Sidebar>
       <SidebarInset>
         <div className="flex min-h-svh flex-col">
           <main className="flex flex-1 flex-col gap-4 p-4 sm:p-6">
-            {showBreadcrumb ? (
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem>
-                    <BreadcrumbLink render={<Link href={HOME_URL} />}>
-                      Home
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator> / </BreadcrumbSeparator>
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>{title}</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            ) : null}
+            <div className="flex items-start justify-between gap-4">
+              {showBreadcrumb ? (
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem>
+                      <BreadcrumbLink render={<Link href={HOME_URL} />}>
+                        Home
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator> / </BreadcrumbSeparator>
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>{title}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              ) : (
+                <div />
+              )}
+              <ThemeModeSelect />
+            </div>
             {children}
           </main>
         </div>
@@ -200,7 +190,7 @@ function ThemeModeSelect() {
       }}
       value={value}
     >
-      <SelectTrigger aria-label="Theme mode" className="w-full" size="sm">
+      <SelectTrigger aria-label="Theme mode" className="w-36" size="sm">
         <span className="flex min-w-0 flex-1 items-center gap-2">
           <ThemeModeIcon theme={value} />
           <SelectValue />
