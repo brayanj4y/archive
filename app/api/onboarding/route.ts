@@ -15,18 +15,11 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as RequestPayload | null;
   const heardAboutUs = body?.heardAboutUs?.trim();
 
-  if (!heardAboutUs) {
-    return NextResponse.json(
-      { error: "Please tell us how you heard about Ultron." },
-      { status: 400 },
-    );
-  }
-
   const client = await clerkClient();
   await client.users.updateUserMetadata(userId, {
     unsafeMetadata: {
-      heardAboutUs,
       onboardingComplete: true,
+      ...(heardAboutUs ? { heardAboutUs } : {}),
     },
   });
 

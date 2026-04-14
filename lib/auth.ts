@@ -1,9 +1,9 @@
 import "server-only";
 
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 
 export async function getViewerState() {
-  const { orgId, userId } = await auth({ treatPendingAsSignedOut: false });
+  const { orgId, userId } = await auth();
 
   if (!userId) {
     return {
@@ -16,18 +16,11 @@ export async function getViewerState() {
     };
   }
 
-  const user = await currentUser();
-  const onboardingComplete = user?.unsafeMetadata?.onboardingComplete === true;
-  const heardAboutUs =
-    typeof user?.unsafeMetadata?.heardAboutUs === "string"
-      ? user.unsafeMetadata.heardAboutUs
-      : null;
-
   return {
-    heardAboutUs,
+    heardAboutUs: null,
     isAuthenticated: true,
-    needsOnboarding: !onboardingComplete,
-    onboardingComplete,
+    needsOnboarding: false,
+    onboardingComplete: true,
     orgId,
     userId,
   };
