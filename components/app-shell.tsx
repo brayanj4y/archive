@@ -13,7 +13,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {
-  ClipboardListIcon,
+  RouteIcon,
   HomeIcon,
   CircleHelpIcon,
   CreditCardIcon,
@@ -63,7 +63,7 @@ const WORKSPACE_ITEMS = [
   },
   {
     href: TASKS_URL,
-    icon: ClipboardListIcon,
+    icon: RouteIcon,
     label: "Tasks",
   },
   {
