@@ -1,0 +1,75 @@
+{
+  "ascii": [
+    "██████╗ ██████╗  █████╗ ██╗   ██╗ █████╗ ███╗   ██╗     ██╗██╗  ██╗██╗   ██╗",
+    "██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║     ██║██║  ██║╚██╗ ██╔╝",
+    "██████╔╝██████╔╝███████║ ╚████╔╝ ███████║██╔██╗ ██║     ██║███████║ ╚████╔╝ ",
+    "██╔══██╗██╔══██╗██╔══██║  ╚██╔╝  ██╔══██║██║╚██╗██║██   ██║╚════██║  ╚██╔╝  ",
+    "██████╔╝██║  ██║██║  ██║   ██║   ██║  ██║██║ ╚████║╚█████╔╝     ██║   ██║   ",
+    "╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚════╝      ╚═╝   ╚═╝   "
+  ],
+  "title": "brayanj4y",
+  "username": "visitor",
+  "hostname": "brayanj4y",
+  "password": "050823",
+  "fileLink": "/Souop Sylvain Brayan.CV.pdf",
+  "social": {
+    "email": "souopsylvain@gmail.com",
+    "github": "brayanj4y",
+    "linkedin": "brayan-j4y",
+    "x": "brayanj4y"
+  },
+  "aboutGreeting": "👋 HEY HEY HEY!\n\n[GOVT_NAME]: Silvain Brayan Souop\n[ALIAS]: Brayan Jay ✨\n\n📍 IUGET Douala\n☕ coffee >> sleep\n⚠️ deadlines = spiritual_warfare.exe\n\n🛠️ I build [web + mobile] apps\n→ sometimes they solve problems\n→ sometimes they just... exist 🤷\n\n💡 design && code = 🔥\n🤝 collabs.enabled = true\n if (project.includes('snacks' || 'memes')) { count_me_in(); }\n\n👨‍💻 Let's build something cool.",
+  "projects": [
+    [
+      "Rushed AI",
+      "AI web app builder\n🛠️ Next.js, Claude, NeonDB",
+      "https://rushed-ai.vercel.app/",
+      "/rushed-ai.png",
+      "https://github.com/brayanj4y/rushed"
+    ],
+    [
+      "CodeAssist",
+      "Browser code editor + Gemini\n🛠️ Next.js, Gemini API, Monaco",
+      "https://code-assist-lilac.vercel.app/",
+      "/codeassist.png",
+      "https://github.com/brayanj4y/code-assist"
+    ],
+    [
+      "Zenote",
+      "AI note app with mind maps\n🛠️ Next.js, Gemini API",
+      "https://zenotes-two.vercel.app/",
+      "/zenote.jpeg",
+      "https://github.com/brayanj4y/zenotes"
+    ],
+    [
+      "Whispr",
+      "Anonymous self-destruct messages\n🛠️ Next.js, Real-time messaging",
+      "https://whispr-lime.vercel.app/",
+      "/whispr.jpeg",
+      "https://github.com/brayanj4y/whispr"
+    ]
+  ],
+  "colors": {
+    "background": "#000000",
+    "foreground": "#00FF66",
+    "banner": "#00FF7F",
+    "border": {
+      "visible": true,
+      "color": "#00FF7F"
+    },
+    "prompt": {
+      "default": "#00FF7F",
+      "user": "#00FF7F",
+      "host": "#00FF7F",
+      "input": "#00FF66"
+    },
+    "link": {
+      "text": "#00FF66",
+      "highlightColor": "#00FF7F",
+      "highlightText": "#000000"
+    },
+    "commands": {
+      "textColor": "#00FF7F"
+    }
+  }
+}
