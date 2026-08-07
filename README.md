@@ -6,22 +6,41 @@ these repositories have been consolidated into a single monorepo to preserve the
 
 ## portfolios
 
-| droject | description |
-|---------|-------------|
-| brayanj4y-folio | minimalistic personal portfolio |
-| brayanj4y-terminal | terminal-inspired portfolio |
+| project            | description                              |
+| ------------------ | ---------------------------------------- |
+| brayanj4y-folio    | personal portfolio website.              |
+| brayanj4y-terminal | terminal-inspired interactive portfolio. |
 
 ## projects
 
-| project | description |
-|---------|-------------|
-| ultron-ai | ... |
-| background-agents | ... |
-| passit | ... |
-| ... | ... |
+| project                                   | description                                             |
+| ----------------------------------------- | ------------------------------------------------------- |
+| ultron-ai                                 | ai assistant application and experiments.               |
+| startup-page-main                         | startup landing page.                                   |
+| background-agents                         | autonomous background agent platform prototype.         |
+| passit                                    | password management application.                        |
+| walkstack-mobile                          | mobile application for walkstack.                       |
+| zenotes                                   | note-taking application.                                |
+| ch-french-bulldogs                        | website for a french bulldogs breeder.                  |
+| shipment-tracking                         | shipment and package tracking application.              |
+| whispr                                    | anonymous messages.                                     |
+| campusly                                  | campus-focused platform for students.                   |
+| nana-folio                                | mom personal portfolio website.                         |
+| code-assist                               | my first try at ai-assisted coding tools.               |
+| exam-generator                            | ai-powered exam generation tool.                        |
+| gitlease                                  | git-based release note generator.                       |
+| the-class-year                            | school yearbook or experiment.                          |
+| face-recognition-attendance-system-main   | face recognition attendance system.                     |
+| dataset-generator                         | dataset generation utility.                             |
+| samu-douala-web-emergency-system-frontend | frontend for the samu douala emergency response system. |
 
 ## notes
 
-- active projects have been moved to separate repositories.
-- this repository is maintained for historical reference.
-- each project retains its original git history through `git subtree`.
+* active projects have been moved to separate repositories.
+* this repository is maintained for historical reference.
+* each imported project preserves its original git history using `git subtree`.
+* projects are kept in their original state unless otherwise noted.
+
+## license
+
+unless stated otherwise within an individual project, the contents of this repository are licensed under the mit license. projects that originally included their own license continue to use that license.
