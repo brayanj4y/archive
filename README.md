@@ -15,14 +15,8 @@ these repositories have been consolidated into a single monorepo to preserve the
 
 | project                                   | description                                             |
 | ----------------------------------------- | ------------------------------------------------------- |
-| ultron-ai                                 | ai assistant application and experiments.               |
 | startup-page-main                         | startup landing page.                                   |
-| background-agents                         | autonomous background agent platform prototype.         |
-| passit                                    | password management application.                        |
-| walkstack-mobile                          | mobile application for walkstack.                       |
 | zenotes                                   | note-taking application.                                |
-| ch-french-bulldogs                        | website for a french bulldogs breeder.                  |
-| shipment-tracking                         | shipment and package tracking application.              |
 | whispr                                    | anonymous messages.                                     |
 | campusly                                  | campus-focused platform for students.                   |
 | nana-folio                                | mom personal portfolio website.                         |
